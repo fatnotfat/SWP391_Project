@@ -148,7 +148,7 @@ public class OrdersDAO implements Serializable {
 
     public List<OrdersDTO> getOrdersByCusId(int cusId) throws NamingException {
         List<OrdersDTO> list = new ArrayList<>();
-        String sql = "select * from Orders where CustomerID = ?";
+        String sql = "select TOP 1 * from Orders where CustomerID = ? order by OrdersID desc";
         try (Connection conn = DBHelper.makeConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, cusId);
