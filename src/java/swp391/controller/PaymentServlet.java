@@ -8,6 +8,7 @@ package swp391.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import swp391.customer.CustomerDTO;
 import swp391.orders.OrdersDAO;
 import swp391.orders.OrdersDTO;
 import swp391.ordersdetail.OrdersDetailDAO;
+import swp391.ordersdetail.OrdersDetailDTO;
 import swp391.utils.MyApplicationConstants;
 
 /**
@@ -86,7 +88,6 @@ public class PaymentServlet extends HttpServlet {
 
                         for (Integer ordersId : ordersID) {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
-
                         }
                     } else if (defaultOrNewShippingInfo != null && defaultOrNewShippingInfo.equals("1")) {
                         // Người dùng đã thêm thông tin giao hàng mới
@@ -101,7 +102,6 @@ public class PaymentServlet extends HttpServlet {
 
                         for (Integer ordersId : ordersID) {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
-
                         }
                     } else {
                         // người dùng là guest (chưa có tài khoản)
@@ -116,7 +116,6 @@ public class PaymentServlet extends HttpServlet {
 
                         for (Integer ordersId : ordersID) {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
-
                         }
                     }
                     CustomerDTO user = (CustomerDTO) session.getAttribute("USER");
@@ -126,6 +125,8 @@ public class PaymentServlet extends HttpServlet {
                         session.setAttribute("USER_SHIPPINGINFO", customerOrders);
                         OrdersDTO shippingInfor = ordersDAO.getShippingInFoByCusID(user.getCustomerID());
                         request.setAttribute("SHIPPING_INFO_FOR_CHECKOUT", shippingInfor);
+                        List<OrdersDetailDTO> list = ordersDetailDAO.getOrdersDetailListLastest();
+                        request.setAttribute("orders_checkout_detail", list);
                     }
                     url = siteMaps.getProperty(
                             MyApplicationConstants.PaymentServlet.CHECKOUT_PAGE);

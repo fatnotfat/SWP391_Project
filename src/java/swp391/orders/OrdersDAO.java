@@ -128,6 +128,26 @@ public class OrdersDAO implements Serializable {
         return customerDetails;
     }
 
+    
+    //Lay orders id moi nhat tuc la cai vua moi add vo
+      
+    public int getOrdersIdLastes() throws NamingException{
+        int ordersIdLastest = 0;
+        String sql = "select top 1 OrdersID from Orders order by OrdersID desc;";
+        try (Connection conn = DBHelper.makeConnection();
+                Statement s  = conn.createStatement()) {
+            
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                ordersIdLastest = rs.getInt("OrdersID");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ordersIdLastest;
+    }
+    
 //    public void showOrdersID()
 //            throws SQLException, NamingException {
 //        Connection con = null;

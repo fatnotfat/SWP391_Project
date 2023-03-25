@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import javax.naming.NamingException;
 import swp391.cart.CartObject;
+import swp391.orders.OrdersDAO;
 import swp391.utils.DBHelper;
 
 /**
@@ -22,7 +23,6 @@ import swp391.utils.DBHelper;
  * @author Chau Nhat Truong
  */
 public class OrdersDetailDAO implements Serializable {
-
 
     public boolean addToOrdersDetail(CartObject cart, float discount, int ordersID)
             throws SQLException, NamingException {
@@ -69,7 +69,7 @@ public class OrdersDetailDAO implements Serializable {
                 }
             }
         } finally {
-            if(rs != null){
+            if (rs != null) {
                 rs.close();
             }
             if (stm1 != null) {
@@ -85,8 +85,43 @@ public class OrdersDetailDAO implements Serializable {
         return result;
     }
 
-
     private List<OrdersDetailDTO> ordersDetailList;
+
+    //getOrderDetailByOrderHeaderID -> select
+    public List<OrdersDetailDTO> getOrdersDetailListLastest() {
+        List<OrdersDetailDTO> list = new ArrayList<>();
+        String sql = "SELECT [OrdersDtID]\n"
+                + "      ,[ProductID]\n"
+                + "      ,[OrdersID]\n"
+                + "      ,[Quantity]\n"
+                + "      ,[Discount]\n"
+                + "      ,[Price]\n"
+                + "      ,[Total]\n"
+                + "      ,[Status]\n"
+                + "  FROM [dbo].[OrdersDetail] where OrdersID = ? ";
+        try {
+            Connection con = DBHelper.makeConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            OrdersDAO aO = new OrdersDAO();
+            int OrdersId = aO.getOrdersIdLastes();
+            ps.setInt(1, OrdersId);
+            ResultSet rs = ps.executeQuery();
+           
+            while (rs.next()) {
+                 OrdersDetailDTO dTO = new OrdersDetailDTO();
+                dTO.setOrdersDetailID(rs.getInt("OrdersDtID"));
+                dTO.setProductID(rs.getInt("ProductID"));
+                dTO.setQuantity(rs.getInt("Quantity"));
+                dTO.setDiscount(rs.getFloat("Discount"));
+                dTO.setPrice(rs.getFloat("Price"));
+                dTO.setTotal(rs.getFloat("Total"));
+                list.add(dTO);
+            }
+        } catch (SQLException | NamingException ex) {
+            ex.getMessage();
+        }
+        return list;
+    }
 
     public List<OrdersDetailDTO> getOrdersDetailList() {
         return ordersDetailList;

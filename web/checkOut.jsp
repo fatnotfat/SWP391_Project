@@ -51,14 +51,86 @@
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
                                 <ul class="menu-link-category-tab">
                                     <div class="container">
-                                        <c:set var="categoryList" value="${sessionScope.CATEGORY}"/>
-                                        <c:forEach var="category" items="${categoryList}">
-                                            <li class="menu-link-category-tab-title">
-                                                <a href="SearchByFilterServlet?txtProductCateID=${category.cateID}" class="menu-link menu-link-bracelet"
-                                                   >${fn:toUpperCase(category.name)}</a
-                                                >
-                                            </li>
-                                        </c:forEach>
+                                        <li class="menu-link-category-tab-title">
+                                            <a href="SearchByFilterServlet?txtProductCateID=1" class="menu-link menu-link-bracelet"
+                                               >BRACELET</a
+                                            >
+                                            <ul class="menu-link-category-tab-list">
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-bracelet">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-bracelet">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-bracelet">
+                                                        3
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-link-category-tab-title">
+                                            <a href="SearchByFilterServlet?txtProductCateID=2" class="menu-link menu-link-ring"> RING </a>
+                                            <ul class="menu-link-category-tab-list">
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-ring"> 1 </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-ring"> 2 </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-ring"> 3 </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-link-category-tab-title">
+                                            <a href="SearchByFilterServlet?txtProductCateID=3" class="menu-link menu-link-necklace">
+                                                NECKLACE
+                                            </a>
+                                            <ul class="menu-link-category-tab-list">
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-necklace">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-necklace">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-necklace">
+                                                        3
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-link-category-tab-title">
+                                            <a href="SearchByFilterServlet?txtProductCateID=4" class="menu-link menu-link-earring">
+                                                EARRINGS
+                                            </a>
+                                            <ul class="menu-link-category-tab-list">
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-earring">
+                                                        1
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-earring">
+                                                        2
+                                                    </a>
+                                                </li>
+                                                <li class="menu-link-category-tab-list-item">
+                                                    <a href="#!" class="menu-link menu-link-earring">
+                                                        3
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </div>
                                 </ul>
                             </li>
@@ -218,8 +290,8 @@
                                                 <p  id="total-price-header"
                                                     class="menu-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
-                                                    ${price}đ      
+                                                <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                ${price}đ      
                                                 </p>
                                             </div>
                                             <div class="menu-icon-tab-cart-content-function-method">
@@ -455,14 +527,11 @@
                                 ORDER
                                 <img srcset="images/Overview-line.png 2x" alt="" />
                             </div>
+
                             <div class="overview-right-latest-order-table">
                                 <div class="overview-right-latest-order-table-title">
                                     <ul class="overview-right-latest-order-table-title-list">
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Order Id
-                                        </li>
+                                        
                                         <li
                                             class="overview-right-latest-order-table-title-list-item"
                                             >
@@ -471,62 +540,46 @@
                                         <li
                                             class="overview-right-latest-order-table-title-list-item"
                                             >
-                                            Booking date
+                                            Quantity
                                         </li>
                                         <li
                                             class="overview-right-latest-order-table-title-list-item"
                                             >
-                                            Into money
+                                            Price
                                         </li>
                                         <li
                                             class="overview-right-latest-order-table-title-list-item"
                                             >
-                                            Status
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Transport
+                                            Total
                                         </li>
                                     </ul>
                                     <hr />
-                                    <ul class="overview-right-latest-order-table-desc-list">
-                                        <li
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            000000
-                                        </li>
-                                        <li
-                                            style="
-                                            width: calc(16.6% - 5.5px);
-                                            overflow: hidden;
-                                            text-overflow: ellipsis;
-                                            "
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            ABCDEFGHZIJKdádasd
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            mm/dd/yyyyy
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            000,000 vnđ
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            Finished
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-desc-list-item"
-                                            >
-                                            Delivered
-                                        </li>
-                                    </ul>
+
+
+                                    <c:forEach var="ordersDetail" items="${orders_checkout_detail}">
+                                        <ul class="overview-right-latest-order-table-desc-list">
+                                            <li
+                                                class="overview-right-latest-order-table-desc-list-item"
+                                                >
+                                                ${ordersDetail.productName}
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-desc-list-item"
+                                                >
+                                                ${ordersDetail.quantity}
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-desc-list-item"
+                                                >
+                                                ${ordersDetail.price}
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-desc-list-item"
+                                                >
+                                                ${ordersDetail.total}
+                                            </li>
+                                        </ul>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

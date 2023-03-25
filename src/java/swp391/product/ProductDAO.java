@@ -33,7 +33,25 @@ public class ProductDAO implements Serializable {
     public List<ProductDTO> getListProductByFilter() {
         return listProductByFilter;
     }
-
+    
+    public String getProductNameByProductId(int productId){
+        String productName = null;
+        String sql = "Select name from Product where productid = ?";
+        try{
+            Connection con = DBHelper.makeConnection();
+            
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setInt(1,productId );
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                productName = rs.getString("name");
+            }
+            con.close();
+        }catch(SQLException | NamingException e){
+            e.getMessage();
+        }
+        return productName;
+    }
     public int searchProduct(String searchValue)
             throws NamingException, SQLException {
         Connection con = null;

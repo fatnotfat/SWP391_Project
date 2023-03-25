@@ -6,6 +6,7 @@
 package swp391.ordersdetail;
 
 import java.io.Serializable;
+import swp391.product.ProductDAO;
 
 /**
  *
@@ -18,16 +19,21 @@ public class OrdersDetailDTO implements Serializable {
     private int quantity;
     private float discount;
     private float price;
-    private int paymentID;
-    private int shippingID;
+//    private int paymentID;
+//    private int shippingID;
     private float total;
 
 
-
+    
     public OrdersDetailDTO() {
     }
 
-
+    public String getProductName(){
+        String productName = null;
+        ProductDAO pAO = new ProductDAO();
+        productName = pAO.getProductNameByProductId(this.productID);
+        return productName;
+    }
     
     
 
@@ -36,8 +42,8 @@ public class OrdersDetailDTO implements Serializable {
         this.quantity = quantity;
         this.discount = discount;
         this.price = price;
-        this.paymentID = paymentID;
-        this.shippingID = shippingID;
+//        this.paymentID = paymentID;
+//        this.shippingID = shippingID;
         this.total = total;
     }
 
@@ -130,30 +136,30 @@ public class OrdersDetailDTO implements Serializable {
     /**
      * @return the paymentID
      */
-    public int getPaymentID() {
-        return paymentID;
-    }
-
-    /**
-     * @param paymentID the paymentID to set
-     */
-    public void setPaymentID(int paymentID) {
-        this.paymentID = paymentID;
-    }
-
-    /**
-     * @return the shippingID
-     */
-    public int getShippingID() {
-        return shippingID;
-    }
-
-    /**
-     * @param shippingID the shippingID to set
-     */
-    public void setShippingID(int shippingID) {
-        this.shippingID = shippingID;
-    }
+//    public int getPaymentID() {
+//        return paymentID;
+//    }
+//
+//    /**
+//     * @param paymentID the paymentID to set
+//     */
+//    public void setPaymentID(int paymentID) {
+//        this.paymentID = paymentID;
+//    }
+//
+//    /**
+//     * @return the shippingID
+//     */
+//    public int getShippingID() {
+//        return shippingID;
+//    }
+//
+//    /**
+//     * @param shippingID the shippingID to set
+//     */
+//    public void setShippingID(int shippingID) {
+//        this.shippingID = shippingID;
+//    }
 
     /**
      * @return the total
