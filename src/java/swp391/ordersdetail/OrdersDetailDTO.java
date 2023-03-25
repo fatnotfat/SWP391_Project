@@ -36,7 +36,7 @@ public class OrdersDetailDTO implements Serializable {
     }
     
     
-
+    
     public OrdersDetailDTO(int productID, int quantity, float discount, float price, int paymentID, int shippingID, float total) {
         this.productID = productID;
         this.quantity = quantity;

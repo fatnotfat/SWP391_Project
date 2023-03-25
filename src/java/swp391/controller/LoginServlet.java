@@ -100,6 +100,9 @@ public class LoginServlet extends HttpServlet {
                     List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
                     session.setAttribute("USER_SHIPPINGINFO", customerOrders);
 
+                    List<OrdersDTO> listOrders = ordersDAO.getOrdersByCusId(result.getCustomerID());
+                    session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
+
                     if (url2 == null) {
                         url = siteMaps.getProperty(
                                 MyApplicationConstants.LoginServlet.MAIN_PAGE);
@@ -142,6 +145,8 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
                         List<CategoryDTO> categoryList = categoryDao.getListCategory();
                         session.setAttribute("CATEGORY", categoryList);
+                        
+
                         if (checkLogged != null) {
                             email = URLEncoder.encode(email, "UTF-8");
                             Cookie cookie = new Cookie(email, password);

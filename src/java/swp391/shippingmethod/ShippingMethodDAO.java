@@ -7,10 +7,12 @@ package swp391.shippingmethod;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.naming.NamingException;
 import swp391.utils.DBHelper;
 
 /**
@@ -19,6 +21,24 @@ import swp391.utils.DBHelper;
  */
 public class ShippingMethodDAO implements Serializable {
 
+    
+    public String getShippingNameByShippingId(int shippingId){
+        String shippingName = null;
+        try{
+            Connection con = DBHelper.makeConnection();
+            String sql = "select NameOfMethod from ShippingMethod where ShippingID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, shippingId);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                shippingName = rs.getString("NameOfMethod");
+            }
+            con.close();
+        }catch(SQLException | NamingException ex){
+            ex.getMessage();
+        }
+        return shippingName;
+    }
     public ShippingMethodDTO getListShippingMethod(){
         ShippingMethodDTO shippingInfo = null;
         Connection conn = null;

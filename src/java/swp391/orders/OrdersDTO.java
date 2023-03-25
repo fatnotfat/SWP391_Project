@@ -7,6 +7,8 @@ package swp391.orders;
 
 import java.io.Serializable;
 import java.sql.Date;
+import swp391.ordersdetail.OrdersDetailDAO;
+import swp391.shippingmethod.ShippingMethodDAO;
 
 /**
  *
@@ -23,7 +25,29 @@ public class OrdersDTO implements Serializable {
     private String cusPhone;
     private String cusAddress;
 
+
+    public OrdersDTO(int ordersID, int customerID, int shippingID, Date dateOrders, int status, String cusName) {
+        this.ordersID = ordersID;
+        this.customerID = customerID;
+        this.shippingID = shippingID;
+        this.dateOrders = dateOrders;
+        this.status = status;
+        this.cusName = cusName;
+    }
+            
+    public String getNameOfMethod(){
+        ShippingMethodDAO shippingMethodDAO = new ShippingMethodDAO();
+        String nameOfMethod = shippingMethodDAO.getShippingNameByShippingId(this.shippingID);
+        return nameOfMethod;
+    }
     public OrdersDTO() {
+    }
+    
+    public float getTotal(){
+        float total = 0;
+        OrdersDetailDAO dAO = new OrdersDetailDAO();
+        total = total + dAO.getTotalCartByOrdersId(this.ordersID);
+        return total;
     }
     
     public OrdersDTO(int ordersID, String cusName, String cusPhone, String cusAddress) {

@@ -23,7 +23,6 @@ import swp391.utils.DBHelper;
  */
 public class OrdersDAO implements Serializable {
 
-
     public List<Integer> addToOrders(int customerID, int paymentID, int shippingID, int Status, String cusName, String cusPhone, String cusAddress)
             throws SQLException, NamingException {
         Connection con = null;
@@ -71,7 +70,6 @@ public class OrdersDAO implements Serializable {
         }
         return generatedKeys;
     }
-
 
     private List<OrdersDTO> ordersList;
 
@@ -128,15 +126,13 @@ public class OrdersDAO implements Serializable {
         return customerDetails;
     }
 
-    
     //Lay orders id moi nhat tuc la cai vua moi add vo
-      
-    public int getOrdersIdLastes() throws NamingException{
+    public int getOrdersIdLastes() throws NamingException {
         int ordersIdLastest = 0;
         String sql = "select top 1 OrdersID from Orders order by OrdersID desc;";
         try (Connection conn = DBHelper.makeConnection();
-                Statement s  = conn.createStatement()) {
-            
+                Statement s = conn.createStatement()) {
+
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
                 ordersIdLastest = rs.getInt("OrdersID");
@@ -147,7 +143,44 @@ public class OrdersDAO implements Serializable {
         }
         return ordersIdLastest;
     }
-    
+
+   
+
+    public List<OrdersDTO> getOrdersByCusId(int cusId) throws NamingException {
+        List<OrdersDTO> list = new ArrayList<>();
+        String sql = "select * from Orders where CustomerID = ?";
+        try (Connection conn = DBHelper.makeConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cusId);
+            ResultSet rs = pstmt.executeQuery();
+            /*
+            public OrdersDTO(int ordersID, int customerID, int shippingID, Date dateOrders, int status, String cusName) {
+        this.ordersID = ordersID;
+        this.customerID = customerID;
+        this.shippingID = shippingID;
+        this.dateOrders = dateOrders;
+        this.status = status;
+        this.cusName = cusName;
+    }
+             */
+            while (rs.next()) {
+                int orderID = rs.getInt("OrdersID");
+
+                int customerID = rs.getInt("CustomerID");
+                int shippingID = rs.getInt("ShippingID");
+                Date DateOrders = rs.getDate("DateOrders");
+                int status = rs.getInt("Status");
+                String cusName = rs.getString("CusName");
+
+                OrdersDTO orders = new OrdersDTO(orderID, customerID, shippingID, DateOrders, status, cusName);
+                list.add(orders);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
 //    public void showOrdersID()
 //            throws SQLException, NamingException {
 //        Connection con = null;

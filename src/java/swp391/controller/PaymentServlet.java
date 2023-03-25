@@ -98,7 +98,7 @@ public class PaymentServlet extends HttpServlet {
                         String city = (String) session.getAttribute("txtCityDataName");
                         String district = (String) session.getAttribute("txtDistrictDataName");
                         String ward = (String) session.getAttribute("txtWardDataName");
-                        List<Integer> ordersID = ordersDAO.addToOrders(customerID, paymentID, shippingID, status, firstName + " " + lastName, customerPhone, customerAddress+", " + city + ", " + district + ", " + ward);
+                        List<Integer> ordersID = ordersDAO.addToOrders(customerID, paymentID, shippingID, status, firstName + " " + lastName, customerPhone, customerAddress + ", " + city + ", " + district + ", " + ward);
 
                         for (Integer ordersId : ordersID) {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
@@ -112,7 +112,7 @@ public class PaymentServlet extends HttpServlet {
                         String city = (String) session.getAttribute("txtCityDataName");
                         String district = (String) session.getAttribute("txtDistrictDataName");
                         String ward = (String) session.getAttribute("txtWardDataName");
-                        List<Integer> ordersID = ordersDAO.addToOrders(customerID, paymentID, shippingID, status, firstName + " " + lastName, customerPhone, customerAddress+", " + city + ", " + district + ", " + ward);
+                        List<Integer> ordersID = ordersDAO.addToOrders(customerID, paymentID, shippingID, status, firstName + " " + lastName, customerPhone, customerAddress + ", " + city + ", " + district + ", " + ward);
 
                         for (Integer ordersId : ordersID) {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
@@ -120,7 +120,8 @@ public class PaymentServlet extends HttpServlet {
                     }
                     CustomerDTO user = (CustomerDTO) session.getAttribute("USER");
                     if (user != null) {
-
+                        List<OrdersDTO> listOrders = ordersDAO.getOrdersByCusId(user.getCustomerID());
+                        session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
                         List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(user.getCustomerID());
                         session.setAttribute("USER_SHIPPINGINFO", customerOrders);
                         OrdersDTO shippingInfor = ordersDAO.getShippingInFoByCusID(user.getCustomerID());

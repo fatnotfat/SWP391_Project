@@ -438,20 +438,31 @@
                                 <div class="overview-right-latest-order-table">
                                     <div class="overview-right-latest-order-table-title">
                                         <ul class="overview-right-latest-order-table-title-list">
-                                            <li class="overview-right-latest-order-table-title-list-item">Code</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Booking date</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Into money</li>
+                                            <li class="overview-right-latest-order-table-title-list-item">No</li>
+                                            <li class="overview-right-latest-order-table-title-list-item">Date Order</li>
+                                            <li class="overview-right-latest-order-table-title-list-item">Total</li>
                                             <li class="overview-right-latest-order-table-title-list-item">Status</li>
                                             <li class="overview-right-latest-order-table-title-list-item">Transport</li>
                                         </ul>
                                         <img srcset="images/Overview-line.png 2x" alt="">
-                                        <ul class="overview-right-latest-order-table-desc-list">
-                                            <li class="overview-right-latest-order-table-desc-list-item">000000</li>
-                                            <li class="overview-right-latest-order-table-desc-list-item">mm/dd/yyyyy</li>
-                                            <li class="overview-right-latest-order-table-desc-list-item">000,000 vnđ</li>
-                                            <li class="overview-right-latest-order-table-desc-list-item">Finished</li>
-                                            <li class="overview-right-latest-order-table-desc-list-item">Delivered</li>
-                                        </ul>
+                                        <!-- private int ordersID;
+    private int customerID;
+    private int shippingID;
+    private Date dateOrders;
+    private int status;
+    private String cusName;
+    private String cusPhone;
+    private String cusAddress; -->
+                                        <c:forEach var="orders" items="${ORDERS_LIST_OF_USER}" varStatus="loop">
+                                            <ul class="overview-right-latest-order-table-desc-list">
+                                                <li class="overview-right-latest-order-table-desc-list-item">${loop.count}</li>
+                                                <li class="overview-right-latest-order-table-desc-list-item"><fmt:formatDate value="${orders.dateOrders}" pattern="dd/MM/yyy"/></li>
+                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.total}</li>
+                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.status == 1 ? "Success" : "Pending"}</li>
+                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.nameOfMethod}</li>
+                                            </ul>
+                                        </c:forEach>
+
                                     </div>
                                 </div>
                             </div>

@@ -86,7 +86,28 @@ public class OrdersDetailDAO implements Serializable {
     }
 
     private List<OrdersDetailDTO> ordersDetailList;
-
+    
+    public float totalInOrderDetail(int ordersId){
+        float total = 0;
+        
+        String sql = "select Total from OrdersDetail where OrdersID = ?";
+        try {
+            Connection con = DBHelper.makeConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, ordersId);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                total += rs.getFloat("Total");
+            }
+            con.close();
+        } catch (SQLException | NamingException ex) {
+            ex.getMessage();
+        }
+        return total;
+    }
+    
     //getOrderDetailByOrderHeaderID -> select
     public List<OrdersDetailDTO> getOrdersDetailListLastest() {
         List<OrdersDetailDTO> list = new ArrayList<>();
@@ -106,9 +127,9 @@ public class OrdersDetailDAO implements Serializable {
             int OrdersId = aO.getOrdersIdLastes();
             ps.setInt(1, OrdersId);
             ResultSet rs = ps.executeQuery();
-           
+
             while (rs.next()) {
-                 OrdersDetailDTO dTO = new OrdersDetailDTO();
+                OrdersDetailDTO dTO = new OrdersDetailDTO();
                 dTO.setOrdersDetailID(rs.getInt("OrdersDtID"));
                 dTO.setProductID(rs.getInt("ProductID"));
                 dTO.setQuantity(rs.getInt("Quantity"));
@@ -121,6 +142,23 @@ public class OrdersDetailDAO implements Serializable {
             ex.getMessage();
         }
         return list;
+    }
+
+    public float getTotalCartByOrdersId(int ordersId){
+        float total = 0;
+        String sql = "select Total from OrdersDetail where OrdersID = ?";
+        try (Connection conn = DBHelper.makeConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, ordersId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                total += rs.getFloat("Total");
+            }
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return total;
     }
 
     public List<OrdersDetailDTO> getOrdersDetailList() {
