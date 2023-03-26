@@ -36,9 +36,9 @@ public class CustomerDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 //Create SQL String
-                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin "
+                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role "
                         + "From Customer "
-                        + "Where email = ? And Password = ? And TypeOfLogin = 1";
+                        + "Where email = ? And Password = ?";
 
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
@@ -55,7 +55,8 @@ public class CustomerDAO implements Serializable {
                     boolean sex = rs.getBoolean("Sex");
                     Date dob = rs.getDate("DateOfBirth");
                     int typeOfLogin = rs.getInt("TypeOfLogin");
-                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin);
+                    boolean role = rs.getBoolean("Role");
+                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role);
                 }
             }//end con is available
         } finally {
@@ -71,60 +72,6 @@ public class CustomerDAO implements Serializable {
         }
         return result;
     }
-    
-    
-    
-    
-    
-     public CustomerDTO checkLoginAdminOrUser(String email, String password)
-            throws SQLException, NamingException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        CustomerDTO result = null;
-        try {
-            //connect DB
-            con = DBHelper.makeConnection();
-            if (con != null) {
-                //Create SQL String
-                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin "
-                        + "From Customer "
-                        + "Where email = ? And Password = ? And TypeOfLogin = 0";
-
-                stm = con.prepareStatement(sql);
-                stm.setString(1, email);
-                stm.setString(2, password);
-                //ExecuteQuery
-                rs = stm.executeQuery();
-                //Process result
-                while (rs.next()) {
-                    String name = rs.getString("Name");
-                    int id = rs.getInt("CustomerID");
-                    String phone = rs.getString("Phone");
-                    String address = rs.getString("Address");
-                    int rankID = rs.getInt("RankID");
-                    boolean sex = rs.getBoolean("Sex");
-                    Date dob = rs.getDate("DateOfBirth");
-                    int typeOfLogin = rs.getInt("TypeOfLogin");
-                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin);
-                }
-            }//end con is available
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-        return result;
-    }
-    
-    
-    
 
     private List<CustomerDTO> accountList;
 
@@ -236,7 +183,7 @@ public class CustomerDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 //2. Create SQL String
-                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin "
+                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role "
                         + "From Customer "
                         + "Where Email = ? AND TypeOfLogin = 1";
                 //3. Create statement
@@ -254,7 +201,8 @@ public class CustomerDAO implements Serializable {
                     boolean sex = rs.getBoolean("Sex");
                     Date dob = rs.getDate("DateOfBirth");
                     int typeOfLogin = rs.getInt("TypeOfLogin");
-                    dto = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin);
+                    boolean role = rs.getBoolean("Role");
+                    dto = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role);
                 }
             }//end con is available
         } finally {
