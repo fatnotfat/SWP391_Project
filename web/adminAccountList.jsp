@@ -51,12 +51,12 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #333">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminOrdersRevenueController">
                     <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+<!--                        <i class="fas fa-laugh-wink"></i>-->
                     </div>
                     <div class="sidebar-brand-text mx-3">PDTK <sup>Store</sup></div>
                 </a>
@@ -407,7 +407,7 @@
 
                         <!-- BrandID: <input id="brand" name="brand" type="text" class="brand-create">
                         <span class="form__message"></span> -->
-                        Roll: <select name="cboRole" id="role" class="selection__roll">
+                        Role: <select name="txtRole" id="role" class="selection__roll">
                             <option value="">Admin</option>
                             <option value="">User</option>
 

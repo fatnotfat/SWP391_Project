@@ -47,14 +47,15 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #333">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminOrdersRevenueController">
-                    <!--                    <div class="sidebar-brand-icon rotate-n-15">
-                                            <i class="fas fa-laugh-wink"></i>
+                                        <div class="sidebar-brand-icon rotate-n-15 ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 30px; color: #fff ">
+                                            <path d="M168.5 72L256 165l87.5-93h-175zM383.9 99.1L311.5 176h129L383.9 99.1zm50 124.9H256 78.1L256 420.3 433.9 224zM71.5 176h129L128.1 99.1 71.5 176zm434.3 40.1l-232 256c-4.6 5-11 7.9-17.8 7.9s-13.2-2.9-17.8-7.9l-232-256c-7.7-8.5-8.3-21.2-1.5-30.4l112-152c4.5-6.1 11.7-9.8 19.3-9.8H376c7.6 0 14.8 3.6 19.3 9.8l112 152c6.8 9.2 6.1 21.9-1.5 30.4z"/></svg>
                                         </div>
-                                        <div class="sidebar-brand-text mx-3">PDTK <sup>Dashboard</sup></div>-->
+                                        <div class="sidebar-brand-text mx-3">PDTK <sup>Dashboard</sup></div>
 
 
                 </a>
@@ -360,14 +361,14 @@
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                         <h6 class="m-0 font-weight-bold text-primary" style="width: 100%">Thống kê doanh thu trong năm</h6>
-                                        <jsp:include page="index.html"/>
+                                        <%--<jsp:include page="index.html"/>--%>
 
 
 
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
-                                        <jsp:include page="chart.jsp"/>
+                                        <%--<jsp:include page="chart.jsp"/>--%>
 
                                     </div>
                                 </div>
