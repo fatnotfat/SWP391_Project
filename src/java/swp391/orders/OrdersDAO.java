@@ -77,15 +77,18 @@ public class OrdersDAO implements Serializable {
         return ordersList;
     }
 
-    public List<OrdersDTO> getCustomerShippingInFoByCusID(int customerId) throws NamingException {
+    public List<OrdersDTO> getCustomerShippingInFoByCusID(int customerId) throws NamingException, SQLException {
         List<OrdersDTO> customerDetails = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        Connection conn = null;
         String sql = "SELECT MIN(o.OrdersID) AS OrdersID, o.CusName, o.CusPhone, o.CusAddress\n"
                 + "FROM Orders o\n"
                 + "INNER JOIN Customer c ON c.CustomerID = o.CustomerID\n"
                 + "WHERE c.CustomerID = ? AND o.CusName IS NOT NULL\n"
                 + "GROUP BY o.CusName, o.CusPhone, o.CusAddress";
-        try (Connection conn = DBHelper.makeConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            conn = DBHelper.makeConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, customerId);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -96,22 +99,31 @@ public class OrdersDAO implements Serializable {
                 OrdersDTO ordersDetail = new OrdersDTO(ordersDtID, cusName, cusPhone, cusAddress);
                 customerDetails.add(ordersDetail);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customerDetails;
     }
 
-    public OrdersDTO getShippingInFoByCusID(int customerId) throws NamingException {
+    public OrdersDTO getShippingInFoByCusID(int customerId) throws NamingException, SQLException {
         OrdersDTO customerDetails = null;
+        PreparedStatement pstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
         String sql = "SELECT TOP 1 OrdersID, CusName, CusPhone, CusAddress, DateOrders\n"
                 + "FROM Orders\n"
                 + "WHERE CustomerID = ? AND CusName IS NOT NULL AND CusPhone IS NOT NULL AND CusAddress IS NOT NULL\n"
                 + "ORDER BY OrdersID DESC";
-        try (Connection conn = DBHelper.makeConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            conn = DBHelper.makeConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, customerId);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 int ordersDtID = rs.getInt("OrdersID");
                 String cusName = rs.getString("CusName");
@@ -120,52 +132,57 @@ public class OrdersDAO implements Serializable {
                 Date dateOders = rs.getDate("DateOrders");
                 customerDetails = new OrdersDTO(ordersDtID, dateOders, cusName, cusPhone, cusAddress);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return customerDetails;
     }
 
     //Lay orders id moi nhat tuc la cai vua moi add vo
-    public int getOrdersIdLastes() throws NamingException {
+    public int getOrdersIdLastes() throws NamingException, SQLException {
         int ordersIdLastest = 0;
+        Connection conn = null;
+        ResultSet rs = null;
         String sql = "select top 1 OrdersID from Orders order by OrdersID desc;";
-        try (Connection conn = DBHelper.makeConnection();
-                Statement s = conn.createStatement()) {
-
-            ResultSet rs = s.executeQuery(sql);
+        try {
+            conn = DBHelper.makeConnection();
+            Statement s = conn.createStatement();
+            rs = s.executeQuery(sql);
             while (rs.next()) {
                 ordersIdLastest = rs.getInt("OrdersID");
             }
-            rs.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return ordersIdLastest;
     }
 
-   
-
-    public List<OrdersDTO> getOrdersByCusId(int cusId) throws NamingException {
+    public List<OrdersDTO> getOrdersByCusId(int cusId) throws NamingException, SQLException {
         List<OrdersDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         String sql = "select TOP 1 * from Orders where CustomerID = ? order by OrdersID desc";
-        try (Connection conn = DBHelper.makeConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            conn = DBHelper.makeConnection();
+            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, cusId);
-            ResultSet rs = pstmt.executeQuery();
-            /*
-            public OrdersDTO(int ordersID, int customerID, int shippingID, Date dateOrders, int status, String cusName) {
-        this.ordersID = ordersID;
-        this.customerID = customerID;
-        this.shippingID = shippingID;
-        this.dateOrders = dateOrders;
-        this.status = status;
-        this.cusName = cusName;
-    }
-             */
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 int orderID = rs.getInt("OrdersID");
-
                 int customerID = rs.getInt("CustomerID");
                 int shippingID = rs.getInt("ShippingID");
                 Date DateOrders = rs.getDate("DateOrders");
@@ -175,31 +192,21 @@ public class OrdersDAO implements Serializable {
                 OrdersDTO orders = new OrdersDTO(orderID, customerID, shippingID, DateOrders, status, cusName);
                 list.add(orders);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return list;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      public boolean addToOrders(int customerID, int key)
+
+    public boolean addToOrders(int customerID, int key)
             throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -453,8 +460,7 @@ public class OrdersDAO implements Serializable {
             }
         }
     }
-    
-    
+
     public void showOrdersRevenueByYearSearch(int yearRevenue)
             throws SQLException, NamingException {
         Connection con = null;
@@ -493,9 +499,6 @@ public class OrdersDAO implements Serializable {
             }
         }
     }
-    
-    
-    
 
     public void showTotalOrdersByMonth()
             throws SQLException, NamingException {
@@ -505,11 +508,11 @@ public class OrdersDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = " SELECT MONTH(DateOrders) AS month, YEAR(DateOrders) AS year, COUNT(*) AS totalOrders " +
-                                " FROM Orders " +
-                                " WHERE YEAR(DateOrders) = YEAR(GETDATE())  AND MONTH(DateOrders) = MONTH(GETDATE())" +
-                                " GROUP BY MONTH(DateOrders), YEAR(DateOrders)" +
-                                " ORDER BY MONTH(DateOrders), YEAR(DateOrders) ";
+                String sql = " SELECT MONTH(DateOrders) AS month, YEAR(DateOrders) AS year, COUNT(*) AS totalOrders "
+                        + " FROM Orders "
+                        + " WHERE YEAR(DateOrders) = YEAR(GETDATE())  AND MONTH(DateOrders) = MONTH(GETDATE())"
+                        + " GROUP BY MONTH(DateOrders), YEAR(DateOrders)"
+                        + " ORDER BY MONTH(DateOrders), YEAR(DateOrders) ";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -614,9 +617,7 @@ public class OrdersDAO implements Serializable {
             }
         }
     }
-    
-    
-    
+
     public void showTotalOrdersByYearSearch(int yearOrder)
             throws SQLException, NamingException {
         Connection con = null;
@@ -655,11 +656,6 @@ public class OrdersDAO implements Serializable {
             }
         }
     }
-    
-
-    
-    
-    
 
 //    public void showOrdersID()
 //            throws SQLException, NamingException {
