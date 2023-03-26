@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -134,6 +135,14 @@ public class CustomerDTO implements Serializable {
         this.role = role;
     }
     
+       public CustomerDTO(String name, String email, String phone, String address, boolean role, boolean status) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.role = role;
+        this.status = status;
+    }
     
     
     

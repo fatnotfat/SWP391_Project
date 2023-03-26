@@ -61,6 +61,7 @@ public class AdminNewAccountServlet extends HttpServlet {
         String email = request.getParameter("txtEmail");
         String txtRole = request.getParameter("cboRole");
         boolean role = Boolean.parseBoolean(txtRole);
+        boolean status = true;
         boolean errorFound = false;
         AdminCreateError errors = new AdminCreateError();
         
@@ -74,7 +75,7 @@ public class AdminNewAccountServlet extends HttpServlet {
                 request.setAttribute("EMAIL_EXISTED", errors);
             } else {
                 boolean result = dao.adminCreateAccount(
-                        name, password, email, phone, role);
+                        name, password, email, phone, role, status);
                 if (result) {
                     url = siteMaps.getProperty(
                             MyApplicationConstants.AdminNewAccountServlet.ADMINACCOUNTLIST_PAGE);

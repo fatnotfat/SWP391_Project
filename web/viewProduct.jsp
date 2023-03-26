@@ -461,9 +461,7 @@
                                 <div class="product__item-img">
                                     <img src="assets/image/331131002_877885213442462_5128773086041927233_n.png" alt="">
                                     <div class="product__item-img-group-2">
-                                        <img src="assets/image/slide1.jpg" alt="">
-                                        <img src="assets/image/slide3.jpg" alt="">
-                                        <img src="assets/image/silde2.jpg" alt="">
+                                       
                                         <img src="assets/image/4.Vòng tay bạc nam, nữ HeliSilver Chain Helios Gle x Lotus Helios Original S925 (5).jpg" alt="">
 
                                     </div>
@@ -667,10 +665,12 @@
                                                             <img src="assets/image/6.Vòng tay bạc nam, nữ HeliSilver Cuban Twinkle 2 hàng đá S950 (2).jpg" class="img-top" alt="Card Front">
                                                         </div>
                                                     </div>
-                                                    <div class="more__item-name">${dto.name}</div>
+                                                    <div class="more__item-content">
+                                                          <div class="more__item-name">${dto.name}</div>
                                                     <div class="more__item-price">
                                                         <fmt:formatNumber var="priceRelatedProduct" value="${dto.price}" pattern="#,###" />
                                                         Price:<span>${priceRelatedProduct}đ</span>
+                                                    </div>
                                                     </div>
                                                     <form class="more__item-info" action="viewProductController">
                                                         <input type="hidden" name="txtProductID" value="${dto.id}" />

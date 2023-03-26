@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -682,7 +683,43 @@ public class CustomerDAO implements Serializable {
         return result;
     }
 
+public boolean adminCreateAccount(String name, String password, String email,
+            String phone, boolean role, boolean status)
+            throws SQLException, NamingException, ParseException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into Customer("
+                        + "Name, Password, Email, Phone, Role, TypeOfLogin, Status"
+                        + ") "
+                        + "Values(?, ?, ?, ?, ?, 0, ?"
+                        + ")";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, password);
+                stm.setString(3, email);
+                stm.setString(4, phone);
+                stm.setBoolean(5, role);
+                 stm.setBoolean(6, true);
 
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 
     public boolean checkTypeOfLogin(String email, String password)
             throws SQLException, NamingException {
