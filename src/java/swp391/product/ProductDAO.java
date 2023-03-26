@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.naming.NamingException;
 import swp391.utils.DBHelper;
@@ -374,4 +374,230 @@ public class ProductDAO implements Serializable {
         }
         return list;
     }
+    
+    
+    
+    
+     private List<ProductDTO> itemsList;
+
+    public List<ProductDTO> getItemsList() {
+        return itemsList;
+    }
+
+    public void searchByFilter(float priceFrom, float priceTo, int size)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select Name, Description, Quantity, Price, Size "
+                        + "From Product "
+                        + "Where ";
+
+                if (priceFrom >= 0) {
+                    sql += " Price >= ?";
+                }
+                if (priceTo != 0) {
+                    sql += " And Price <= ?";
+                }
+                if (size != 0) {
+                    sql += " And Size = ?";
+                }
+                stm = con.prepareStatement(sql);
+                stm.setFloat(1, priceFrom);
+                stm.setFloat(2, priceTo);
+                stm.setInt(3, size);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("Name");
+                    String description = rs.getString("Description");
+                    int quantity = rs.getInt("Quantity");
+                    float price = rs.getFloat("Price");
+                    size = rs.getInt("Size");
+                   
+                    ProductDTO dto = new ProductDTO(
+                            name, description, price, quantity, size);
+                    if (this.itemsList == null) {
+                        this.itemsList = new ArrayList<>();
+                    }
+                    this.itemsList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public void showProduct()
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT p.ProductID, p.Name, p.Description, p.Quantity, p.Price, p.Status, p.Avatar , p.Avatar2 , ps.Size "
+                        + "FROM Product p " 
+                        + "INNER JOIN ProductSize ps ON p.SizeID = ps.SizeID ";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int productID = rs.getInt("ProductID");
+                    String name = rs.getString("Name");
+                    String description = rs.getString("Description");
+                    int quantity = rs.getInt("Quantity");
+                    float price = rs.getInt("Price");
+                    int size = rs.getInt("Size");
+                    boolean status = rs.getBoolean("Status");
+                    String image1 = rs.getString("Avatar");
+                   String image2 = rs.getString("Avatar2");
+
+                    ProductDTO dto = new ProductDTO(productID, name, description, quantity, price, status, size, image1, image2);
+                    if (this.itemsList == null) {
+                        this.itemsList = new ArrayList<>();
+                    }
+                    this.itemsList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+  
+
+    public boolean createProduct(ProductDTO dto)
+            throws SQLException, NamingException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        long milis = System.currentTimeMillis();
+        Date date = new Date(milis);
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into Product("
+                        + "Name, Description, Quantity, Price, Status , SizeID, "
+                        + "CreateTime, CateID, BrandID , Avatar, Avatar2"
+                        + ") "
+                        + "Values(? , ? , ? , ? , ? , ? , ?, ? , ?  , ? , ? "
+                        + ")";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, dto.getName());
+                stm.setString(2, dto.getDescription());
+                stm.setInt(3, dto.getQuantity());
+                stm.setDouble(4, dto.getPrice());
+                stm.setBoolean(5, true);
+                stm.setInt(6, dto.getSize());
+                stm.setDate(7, date);
+                stm.setInt(8, dto.getCateID());
+                stm.setInt(9, dto.getBrandID());
+                stm.setString(10, dto.getImage1());
+                stm.setString(11, dto.getImage2());
+
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean updateProduct(int productID, String name, String description, int quantity,
+            float price)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "Update Product "
+                    + "Set Name = ?, Description = ?, Quantity = ?, Price = ? "
+                    + "Where ProductID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, name);
+            stm.setString(2, description);
+            stm.setInt(3, quantity);
+            stm.setFloat(4, price);
+            stm.setInt(5, productID);
+            int effectedRows = stm.executeUpdate();
+            if (effectedRows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean deleteProduct(int productID)
+            throws SQLException, NamingException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //1. connect DB
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Update Product "
+                        + "Set Status = 0 "
+                        + "Where ProductID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

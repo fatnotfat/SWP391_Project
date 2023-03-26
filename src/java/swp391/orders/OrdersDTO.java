@@ -24,7 +24,14 @@ public class OrdersDTO implements Serializable {
     private String cusName;
     private String cusPhone;
     private String cusAddress;
-
+    private int ordersDtID;
+    private float revenue;
+    private int month;
+    private int year;
+    private int totalOrders;
+    
+    
+    
 
     public OrdersDTO(int ordersID, int customerID, int shippingID, Date dateOrders, int status, String cusName) {
         this.ordersID = ordersID;
@@ -84,6 +91,59 @@ public class OrdersDTO implements Serializable {
         this.cusPhone = cusPhone;
         this.cusAddress = cusAddress;
     }
+    
+    
+    
+    
+    
+    public OrdersDTO(int ordersID, int customerID, Date dateOrders, int ordersDtID, float revenue, int month, int year, int totalOrders) {
+        this.ordersID = ordersID;
+        this.customerID = customerID;
+        this.dateOrders = dateOrders;
+        this.ordersDtID = ordersDtID;
+        this.revenue = revenue;
+        this.month = month;
+        this.year = year;
+        this.totalOrders = totalOrders;
+    }
+
+    public OrdersDTO(int ordersID, int customerID, Date dateOrders) {
+        this.ordersID = ordersID;
+        this.customerID = customerID;
+        this.dateOrders = dateOrders;
+    }
+
+    public OrdersDTO(int ordersID) {
+        this.ordersID = ordersID;
+    }
+
+    
+     public OrdersDTO(int month, int year, int totalOrders) {
+        this.month = month;
+        this.year = year;
+        this.totalOrders = totalOrders;
+    }
+
+    public OrdersDTO(int year, float revenue) {
+        this.year = year;
+        this.revenue = revenue;
+    }
+
+    public OrdersDTO(int month, int year, float revenue) {
+        this.month = month;
+        this.year = year;
+        this.revenue = revenue;
+    }
+    
+    public OrdersDTO(int year, int totalOrders){
+        this.year = year;
+        this.totalOrders = totalOrders;
+    }
+    
+    
+    
+    
+    
 
     public int getOrdersID() {
         return ordersID;
@@ -147,6 +207,84 @@ public class OrdersDTO implements Serializable {
 
     public void setCusAddress(String cusAddress) {
         this.cusAddress = cusAddress;
+    }
+
+    
+    
+
+  
+
+ 
+    /**
+     * @return the ordersDtID
+     */
+    public int getOrdersDtID() {
+        return ordersDtID;
+    }
+
+    /**
+     * @param ordersDtID the ordersDtID to set
+     */
+    public void setOrdersDtID(int ordersDtID) {
+        this.ordersDtID = ordersDtID;
+    }
+
+    /**
+     * @return the revenue
+     */
+    public float getRevenue() {
+        return revenue;
+    }
+
+    /**
+     * @param revenue the revenue to set
+     */
+    public void setRevenue(float revenue) {
+        this.revenue = revenue;
+    }
+
+    /**
+     * @return the month
+     */
+    public int getMonth() {
+        return month;
+    }
+
+    /**
+     * @param month the month to set
+     */
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    /**
+     * @return the year
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * @param year the year to set
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+  
+
+    /**
+     * @return the totalOrders
+     */
+    public int getTotalOrders() {
+        return totalOrders;
+    }
+
+    /**
+     * @param totalOrders the totalOrders to set
+     */
+    public void setTotalOrders(int totalOrders) {
+        this.totalOrders = totalOrders;
     }
 
     

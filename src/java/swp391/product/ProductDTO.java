@@ -25,6 +25,9 @@ public class ProductDTO implements Serializable{
     private String avatar;
     private String avatar2;
     private int cateID;
+    private int BrandID;
+    private String image1;
+    private String image2;
 
     public int getCateID() {
         return cateID;
@@ -117,6 +120,79 @@ public class ProductDTO implements Serializable{
         this.avatar = avatar;
         this.size = size;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public ProductDTO(String name, String description, int quantity, float price, int size, int cateID, int BrandID) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.size = size;
+        this.cateID = cateID;
+        this.BrandID = BrandID;
+    }
+
+    public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, int cateID, int BrandID, String image1, String image2) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.status = status;
+        this.size = size;
+        this.cateID = cateID;
+        this.BrandID = BrandID;
+        this.image1 = image1;
+        this.image2 = image2;
+    }
+
+    public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.status = status;
+        this.size = size;
+    }
+
+    public ProductDTO(String name, String description, float price, int quantity, int size) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.size = size;
+    }
+
+    public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, String image1, String image2) {
+          this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.status = status;
+        this.size = size;
+        this.image1 = image1;
+        this.image2 = image2;
+    }
+
+    
+    
+    
+    
+    
+    
 
     /**
      * @return the name
@@ -234,6 +310,69 @@ public class ProductDTO implements Serializable{
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    /**
+     * @return the BrandID
+     */
+    public int getBrandID() {
+        return BrandID;
+    }
+
+    /**
+     * @param BrandID the BrandID to set
+     */
+    public void setBrandID(int BrandID) {
+        this.BrandID = BrandID;
+    }
+
+    /**
+     * @return the image1
+     */
+    public String getImage1() {
+        return image1;
+    }
+
+    /**
+     * @param image1 the image1 to set
+     */
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    /**
+     * @return the image2
+     */
+    public String getImage2() {
+        return image2;
+    }
+
+    /**
+     * @param image2 the image2 to set
+     */
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+
+
+    
     
     
 }

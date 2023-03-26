@@ -38,6 +38,57 @@ public class CustomerDAO implements Serializable {
                 //Create SQL String
                 String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin "
                         + "From Customer "
+                        + "Where email = ? And Password = ? And TypeOfLogin = 1";
+
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setString(2, password);
+                //ExecuteQuery
+                rs = stm.executeQuery();
+                //Process result
+                while (rs.next()) {
+                    String name = rs.getString("Name");
+                    int id = rs.getInt("CustomerID");
+                    String phone = rs.getString("Phone");
+                    String address = rs.getString("Address");
+                    int rankID = rs.getInt("RankID");
+                    boolean sex = rs.getBoolean("Sex");
+                    Date dob = rs.getDate("DateOfBirth");
+                    int typeOfLogin = rs.getInt("TypeOfLogin");
+                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin);
+                }
+            }//end con is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
+    
+    
+    
+    
+     public CustomerDTO checkLoginAdminOrUser(String email, String password)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        CustomerDTO result = null;
+        try {
+            //connect DB
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                //Create SQL String
+                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin "
+                        + "From Customer "
                         + "Where email = ? And Password = ? And TypeOfLogin = 0";
 
                 stm = con.prepareStatement(sql);
@@ -71,6 +122,9 @@ public class CustomerDAO implements Serializable {
         }
         return result;
     }
+    
+    
+    
 
     private List<CustomerDTO> accountList;
 
@@ -446,4 +500,224 @@ public class CustomerDAO implements Serializable {
         }
         return list;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+
+    
+
+    
+
+    public void showCustomer()
+            throws SQLException, NamingException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select CustomerID, Name, Email, Phone, Address, Status "
+                        + "From Customer";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int customerID = rs.getInt("CustomerID");
+                    String name = rs.getString("Name");
+                    String email = rs.getString("Email");
+                    String phone = rs.getString("Phone");
+                    String address = rs.getString("Address");
+                    boolean status = rs.getBoolean("Status");
+                    CustomerDTO dto = new CustomerDTO(customerID, name, email, phone, address, status);
+                    if (this.accountList == null) {
+                        this.accountList = new ArrayList<>();
+                    }
+                    this.accountList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+ 
+
+    public boolean adminCreateAccount(String name, String password, String email,
+            String phone, boolean role)
+            throws SQLException, NamingException, ParseException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into Customer("
+                        + "Name, Password, Email, Phone, Role, TypeOfLogin"
+                        + ") "
+                        + "Values(?, ?, ?, ?, ?, 0"
+                        + ")";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, password);
+                stm.setString(3, email);
+                stm.setString(4, phone);
+                stm.setBoolean(5, role);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean adminDeleteAccount(String email)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "Update Customer "
+                    + "Set Status = 0 "
+                    + "Where Email = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, email);
+            int effectedRows = stm.executeUpdate();
+            if (effectedRows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean adminUpdateAccount(String email)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "Update Customer "
+                    + "Set Status = 1 "
+                    + "Where Email = ?";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, email);
+            int effectedRows = stm.executeUpdate();
+            if (effectedRows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean createAccountForShipping(String name, String email,
+            String phone, String address)
+            throws SQLException, NamingException, ParseException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into Customer("
+                        + "Name, Email, Phone, Address"
+                        + ") "
+                        + "Values(?, ?, ?, ?"
+                        + ")";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, email);
+                stm.setString(3, phone);
+                stm.setString(4, address);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+
+
+    public boolean checkTypeOfLogin(String email, String password)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select TypeOfLogin "
+                        + "From Customer "
+                        + "Where Email = ? And Password = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setString(2, password);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+
+    
 }

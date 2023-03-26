@@ -17,6 +17,46 @@ public class CategoryDTO implements Serializable{
     private String description;
     private boolean status;
 
+    
+    public CategoryDTO() {
+    }
+
+    
+     public CategoryDTO(int cateID, String name, String description, boolean status) {
+        this.cateID = cateID;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
+    public CategoryDTO(int cateID, String name, String description) {
+        this.cateID = cateID;
+        this.name = name;
+        this.description = description;
+    }
+
+    public CategoryDTO(int cateID, String name) {
+        this.cateID = cateID;
+        this.name = name;
+    }
+
+    public CategoryDTO(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    
+      public CategoryDTO(String name, String description, boolean status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
+    
+
+    
+    
+    
+    
     /**
      * @return the cateID
      */

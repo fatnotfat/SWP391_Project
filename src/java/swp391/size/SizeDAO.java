@@ -62,4 +62,47 @@ public class SizeDAO implements Serializable {
         }
         return list;
     }
+    
+    
+     private List<SizeDTO> sizeList;
+
+    public List<SizeDTO> getSizeList() {
+        return sizeList;
+    }
+
+    public void showSize()
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select SizeID, Size, Status "
+                        + "From ProductSize";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int sizeID = rs.getInt("SizeID");
+                    int size = rs.getInt("Size");
+                    Boolean status = rs.getBoolean("Status");
+                    SizeDTO dto = new SizeDTO(sizeID, size, status);
+                    if (this.sizeList == null) {
+                        this.sizeList = new ArrayList<>();
+                    }
+                    this.sizeList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

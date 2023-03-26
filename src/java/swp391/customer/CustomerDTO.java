@@ -25,6 +25,7 @@ public class CustomerDTO implements Serializable {
     private int rankID;
     private boolean sex;
     private int typeOfLogin;
+    private boolean status;
 
     public CustomerDTO() {
     }
@@ -87,6 +88,55 @@ public class CustomerDTO implements Serializable {
         this.phone = phone;
         this.address = address;
     }
+    
+    
+    
+    
+    
+    
+  
+    public CustomerDTO(int customerID, String name, String password, Date birthDate, String email, String phone, String address, boolean role, int rankID, boolean sex, int typeOfLogin) {
+        this.customerID = customerID;
+        this.name = name;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.role = role;
+        this.rankID = rankID;
+        this.sex = sex;
+        this.typeOfLogin = typeOfLogin;
+    }
+
+
+    public CustomerDTO(String name, boolean role) {
+        this.name = name;
+        this.role = role;
+    }
+    
+   
+
+    public CustomerDTO(int customerID, String name, String email, String phone, String address, boolean status) {
+        this.customerID = customerID;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+    }
+
+    public CustomerDTO(String name, String email, String phone, String address, boolean role) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.role = role;
+    }
+    
+    
+    
+    
     
     
     public int getCustomerID() {
@@ -232,6 +282,18 @@ public class CustomerDTO implements Serializable {
         this.typeOfLogin = typeOfLogin;
     }
 
-    
+      /**
+     * @return the status
+     */
+    public boolean isStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
 }

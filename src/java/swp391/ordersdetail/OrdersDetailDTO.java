@@ -23,6 +23,7 @@ public class OrdersDetailDTO implements Serializable {
 //    private int shippingID;
     private float total;
 
+    private Boolean status;
 
     
     public OrdersDetailDTO() {
@@ -175,5 +176,37 @@ public class OrdersDetailDTO implements Serializable {
         this.total = total;
     }
 
+    
+    
+  public OrdersDetailDTO(int productID, int quantity, float discount, float price, int paymentID, int shippingID, float total, Boolean status) {
+        this.productID = productID;
+        this.quantity = quantity;
+        this.discount = discount;
+        this.price = price;
+        this.total = total;
+        this.status = status;
+    }
+
+
+  
+
+
+
+  
+    
+
+    /**
+     * @return the status
+     */
+    public Boolean getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
 }

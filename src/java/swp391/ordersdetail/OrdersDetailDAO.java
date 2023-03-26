@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -198,4 +199,46 @@ public class OrdersDetailDAO implements Serializable {
             }
         }
     }
+    
+    
+    
+     public int addToOrdersDetail(int productID)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int key = 0;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Insert Into OrdersDetail("
+                        + "ProductID, Quantity, Discount, Price, PaymentID, "
+                        + "ShippingID, Total, Status"
+                        + ") "
+                        + "Values("
+                        + " ?, ?, ?, ?, ?, ?, ?, ?"
+                        + ")";
+                stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                stm.setInt(1, productID);
+                int effectedRows = stm.executeUpdate();
+                rs = stm.getGeneratedKeys();
+                if (rs.next()) {
+                    key = rs.getInt(1);
+                }
+                while (effectedRows > 0) {
+                    return key;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return key;
+    }
+    
+   
 }

@@ -16,7 +16,7 @@ public class SizeDTO implements Serializable{
     private int size;
     private boolean status;
     private int productID;
-
+    
     public SizeDTO() {
     }
 
@@ -28,6 +28,11 @@ public class SizeDTO implements Serializable{
     }
 
     
+    public SizeDTO(int sizeID, int size, boolean status) {
+        this.sizeID = sizeID;
+        this.size = size;
+        this.status = status;
+    }
     
     
     /**
