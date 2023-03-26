@@ -92,18 +92,25 @@ public class LoginServlet extends HttpServlet {
                     //catch error
                     request.setAttribute("LOGIN_ERROR", errors);
                     //transfer to inform users
+                }
+                if (result.isRole() == true) {
+                    url = siteMaps.getProperty(
+                            MyApplicationConstants.LoginServlet.ADMIN_PAGE);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("USER", result);
+                    if (checkLogged != null) {
+                        email = URLEncoder.encode(email, "UTF-8");
+                        Cookie cookie = new Cookie(email, password);
+                        cookie.setMaxAge(60 * 3);
+                        response.addCookie(cookie);
+                    }
                 } else {
 
-                    boolean result1 = dao.checkTypeOfLogin(email, password);
-                    if (result1 == false) {
-                        HttpSession session = request.getSession();
+                    HttpSession session = request.getSession();
                     String url2 = (String) session.getAttribute("uri");
                     OrdersDAO ordersDAO = new OrdersDAO();
                     List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
                     session.setAttribute("USER_SHIPPINGINFO", customerOrders);
-
-                    List<OrdersDTO> listOrders = ordersDAO.getOrdersByCusId(result.getCustomerID());
-                    session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
 
                     if (url2 == null) {
                         url = siteMaps.getProperty(
@@ -147,8 +154,6 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
                         List<CategoryDTO> categoryList = categoryDao.getListCategory();
                         session.setAttribute("CATEGORY", categoryList);
-                        
-
                         if (checkLogged != null) {
                             email = URLEncoder.encode(email, "UTF-8");
                             Cookie cookie = new Cookie(email, password);
@@ -158,18 +163,6 @@ public class LoginServlet extends HttpServlet {
                         }//check if user want to logged for next access
                     }
 
-                    }else{
-                        url = siteMaps.getProperty(
-                                MyApplicationConstants.LoginServlet.ADMIN_PAGE);
-                        HttpSession session = request.getSession();
-                        session.setAttribute("USER", result);
-                        if (checkLogged != null) {
-                            email = URLEncoder.encode(email, "UTF-8");
-                            Cookie cookie = new Cookie(email, password);
-                            cookie.setMaxAge(60 * 3);
-                            response.addCookie(cookie);
-                        }
-                    }
                 }
             }//end user is existed
         } catch (NamingException ex) {
