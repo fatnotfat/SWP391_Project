@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import swp391.orders.OrdersDAO;
 import swp391.orders.OrdersDTO;
+import swp391.ordersdetail.OrdersDetailDAO;
+import swp391.ordersdetail.OrdersDetailDTO;
 import swp391.utils.MyApplicationConstants;
 
 /**
@@ -52,9 +54,11 @@ public class AdminOrderedListServlet extends HttpServlet {
 
         try {
             OrdersDAO ordersDAO = new OrdersDAO();
+            OrdersDetailDAO ordersDetailDAO = new OrdersDetailDAO();
 
             List<OrdersDTO> ordersList = ordersDAO.getListOfOrders();
             request.setAttribute("ORDERS_LIST", ordersList);
+
             url = siteMaps.getProperty(
                     MyApplicationConstants.AdminOrdersListServlet.ADMINORDERSLIST_PAGE);
 
@@ -64,6 +68,10 @@ public class AdminOrderedListServlet extends HttpServlet {
                 System.out.println("ID:" + orderID);
                 System.out.println("Status:" + status);
                 boolean updateStatus = ordersDAO.updateOrderStatus(orderID, status);
+
+                List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetailByOrderID(orderID);
+                request.setAttribute("orders_detail", list);
+
                 if (updateStatus == true) {
                     ordersList = ordersDAO.getListOfOrders();
                     request.setAttribute("ORDERS_LIST", ordersList);

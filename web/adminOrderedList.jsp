@@ -195,6 +195,7 @@
                                                     <th>Receiver Address</th>
                                                     <th>Status</th>
                                                     <th>Update Status</th>
+                                                    <th>View Order Detail</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -221,8 +222,38 @@
                                                     <td>
                                                         <button type="submit" class="status btn btn-primary">Update Status</button>
                                                     </td>
+
+                                                    <td>
+                                                        <input type="hidden" name="ordersID" value="${dto.ordersID}"/>
+                                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#orderDetails${dto.ordersID}">Xem chi tiết</button>
+                                                    </td>
                                                 </form>
                                                 </tr>
+
+                                                <tr id="orderDetails${dto.ordersID}" class="collapse">
+                                                    <td colspan="10"> <!-- Use colspan="10" to span the entire row -->
+                                                        <table> <!-- Add a new table for the order details information -->
+                                                            <tr>
+                                                                <td>Order ID</td>
+                                                                <td>Product Name</td>
+                                                                <td>Product Price</td>
+                                                                <td>Quantity</td>
+                                                                <td>Total</td>
+                                                            </tr>
+                                                            <!-- Add your order details information here -->
+                                                            <c:forEach var="ordersDetail" items="${orders_detail}">
+                                                                <tr>
+                                                                    <td>${ordersDetail.ordersDetailID}</td>
+                                                                    <td>${ordersDetail.productName}</td>
+                                                                    <td>${ordersDetail.price}</td>
+                                                                    <td>${ordersDetail.quantity}</td>
+                                                                    <td>${ordersDetail.total}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
                                             </c:forEach>
                                             </tbody>
                                         </table>

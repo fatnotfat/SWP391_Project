@@ -170,6 +170,29 @@ public class OrdersDAO implements Serializable {
         return ordersIdLastest;
     }
 
+    public List<Integer> getListOrderID() throws NamingException, SQLException {
+        List<Integer> orderIDs = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        String sql = "SELECT OrdersID FROM Orders";
+        try {
+            conn = DBHelper.makeConnection();
+            Statement s = conn.createStatement();
+            rs = s.executeQuery(sql);
+            while (rs.next()) {
+                orderIDs.add(rs.getInt("OrdersID"));
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return orderIDs;
+    }
+
     public List<OrdersDTO> getTopOneOrdersByCusId(int cusId) throws NamingException, SQLException {
         List<OrdersDTO> list = new ArrayList<>();
         Connection conn = null;

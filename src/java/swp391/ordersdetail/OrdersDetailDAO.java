@@ -110,7 +110,7 @@ public class OrdersDetailDAO implements Serializable {
     }
     
     //getOrderDetailByOrderHeaderID -> select
-    public List<OrdersDetailDTO> getOrdersDetailListLastest() {
+    public List<OrdersDetailDTO> getlListOrdersDetail() {
         List<OrdersDetailDTO> list = new ArrayList<>();
         String sql = "SELECT [OrdersDtID]\n"
                 + "      ,[ProductID]\n"
@@ -127,6 +127,39 @@ public class OrdersDetailDAO implements Serializable {
             OrdersDAO aO = new OrdersDAO();
             int OrdersId = aO.getOrdersIdLastes();
             ps.setInt(1, OrdersId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                OrdersDetailDTO dTO = new OrdersDetailDTO();
+                dTO.setOrdersDetailID(rs.getInt("OrdersDtID"));
+                dTO.setProductID(rs.getInt("ProductID"));
+                dTO.setQuantity(rs.getInt("Quantity"));
+                dTO.setDiscount(rs.getFloat("Discount"));
+                dTO.setPrice(rs.getFloat("Price"));
+                dTO.setTotal(rs.getFloat("Total"));
+                list.add(dTO);
+            }
+        } catch (SQLException | NamingException ex) {
+            ex.getMessage();
+        }
+        return list;
+    }
+    
+    public List<OrdersDetailDTO> getlListOrdersDetailByOrderID(int orderID) {
+        List<OrdersDetailDTO> list = new ArrayList<>();
+        String sql = "SELECT [OrdersDtID]\n"
+                + "      ,[ProductID]\n"
+                + "      ,[OrdersID]\n"
+                + "      ,[Quantity]\n"
+                + "      ,[Discount]\n"
+                + "      ,[Price]\n"
+                + "      ,[Total]\n"
+                + "      ,[Status]\n"
+                + "  FROM [dbo].[OrdersDetail] where OrdersID = ? ";
+        try {
+            Connection con = DBHelper.makeConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, orderID);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
