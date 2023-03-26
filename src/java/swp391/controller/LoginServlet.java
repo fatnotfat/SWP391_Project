@@ -106,69 +106,63 @@ public class LoginServlet extends HttpServlet {
                     }
                 } else {
 
-                    boolean result1 = dao.checkTypeOfLogin(email, password);
-                    if (result1 == false) {
-                        HttpSession session = request.getSession();
-                        String url2 = (String) session.getAttribute("uri");
-                        OrdersDAO ordersDAO = new OrdersDAO();
-                        List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
-                        session.setAttribute("USER_SHIPPINGINFO", customerOrders);
+                    HttpSession session = request.getSession();
+                    String url2 = (String) session.getAttribute("uri");
+                    OrdersDAO ordersDAO = new OrdersDAO();
+                    List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
+                    session.setAttribute("USER_SHIPPINGINFO", customerOrders);
 
-                        List<OrdersDTO> listOrders = ordersDAO.getOrdersByCusId(result.getCustomerID());
-                        session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
-
-                        if (url2 == null) {
-                            url = siteMaps.getProperty(
-                                    MyApplicationConstants.LoginServlet.MAIN_PAGE);
-                            session.setAttribute("USER", result);
+                    if (url2 == null) {
+                        url = siteMaps.getProperty(
+                                MyApplicationConstants.LoginServlet.MAIN_PAGE);
+                        session.setAttribute("USER", result);
 //                        String sessionid = session.getId();
 //                        session.setAttribute("USER_SESSION_ID", sessionid);
-                            List<CartDTO> list = cartDao.getCart(result.getCustomerID());
-                            if (list != null) {
-                                cartObject.insertToCartUser(list);
-                            }
-                            session.setAttribute("CART", cartObject);
-
-                            //get newest product
-                            List<ProductDTO> productList = productDao.getNewestProduct();
-                            session.setAttribute("NEWEST_PRODUCT", productList);
-                            List<ProductDTO> productList2 = productDao.getSecondNewestProduct();
-                            session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
-                            List<CategoryDTO> categoryList = categoryDao.getListCategory();
-                            session.setAttribute("CATEGORY", categoryList);
-                            if (checkLogged != null) {
-                                email = URLEncoder.encode(email, "UTF-8");
-                                Cookie cookie = new Cookie(email, password);
-                                cookie.setMaxAge(60 * 99999);
-                                response.addCookie(cookie);
-                            }//check if user want to logged for next access
-                        } else {
-                            String latestPart = url2.substring(url2.lastIndexOf("/") + 1);
-                            url = latestPart;
-                            session.setAttribute("USER", result);
-                            List<CartDTO> list = cartDao.getCart(result.getCustomerID());
-                            if (list != null) {
-                                cartObject.insertToCartUser(list);
-                            }
-                            session.setAttribute("CART", cartObject);
-
-                            //get newest product
-                            List<ProductDTO> productList = productDao.getNewestProduct();
-                            session.setAttribute("NEWEST_PRODUCT", productList);
-                            List<ProductDTO> productList2 = productDao.getSecondNewestProduct();
-                            session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
-                            List<CategoryDTO> categoryList = categoryDao.getListCategory();
-                            session.setAttribute("CATEGORY", categoryList);
-
-                            if (checkLogged != null) {
-                                email = URLEncoder.encode(email, "UTF-8");
-                                Cookie cookie = new Cookie(email, password);
-                                cookie.setMaxAge(60 * 99999);
-                                response.addCookie(cookie);
-
-                            }//check if user want to logged for next access
+                        List<CartDTO> list = cartDao.getCart(result.getCustomerID());
+                        if (list != null) {
+                            cartObject.insertToCartUser(list);
                         }
+                        session.setAttribute("CART", cartObject);
+
+                        //get newest product
+                        List<ProductDTO> productList = productDao.getNewestProduct();
+                        session.setAttribute("NEWEST_PRODUCT", productList);
+                        List<ProductDTO> productList2 = productDao.getSecondNewestProduct();
+                        session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
+                        List<CategoryDTO> categoryList = categoryDao.getListCategory();
+                        session.setAttribute("CATEGORY", categoryList);
+                        if (checkLogged != null) {
+                            email = URLEncoder.encode(email, "UTF-8");
+                            Cookie cookie = new Cookie(email, password);
+                            cookie.setMaxAge(60 * 99999);
+                            response.addCookie(cookie);
+                        }//check if user want to logged for next access
+                    } else {
+                        String latestPart = url2.substring(url2.lastIndexOf("/") + 1);
+                        url = latestPart;
+                        session.setAttribute("USER", result);
+                        List<CartDTO> list = cartDao.getCart(result.getCustomerID());
+                        if (list != null) {
+                            cartObject.insertToCartUser(list);
+                        }
+                        session.setAttribute("CART", cartObject);
+
+                        //get newest product
+                        List<ProductDTO> productList = productDao.getNewestProduct();
+                        session.setAttribute("NEWEST_PRODUCT", productList);
+                        List<ProductDTO> productList2 = productDao.getSecondNewestProduct();
+                        session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
+                        List<CategoryDTO> categoryList = categoryDao.getListCategory();
+                        session.setAttribute("CATEGORY", categoryList);
+                        if (checkLogged != null) {
+                            email = URLEncoder.encode(email, "UTF-8");
+                            Cookie cookie = new Cookie(email, password);
+                            cookie.setMaxAge(60 * 99999);
+                            response.addCookie(cookie);
+
+                        }//check if user want to logged for next access
                     }
+
                 }
             }//end user is existed
         } catch (NamingException ex) {
