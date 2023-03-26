@@ -170,7 +170,7 @@ public class OrdersDAO implements Serializable {
         return ordersIdLastest;
     }
 
-    public List<OrdersDTO> getOrdersByCusId(int cusId) throws NamingException, SQLException {
+    public List<OrdersDTO> getTopOneOrdersByCusId(int cusId) throws NamingException, SQLException {
         List<OrdersDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -187,9 +187,8 @@ public class OrdersDAO implements Serializable {
                 int shippingID = rs.getInt("ShippingID");
                 Date DateOrders = rs.getDate("DateOrders");
                 int status = rs.getInt("Status");
-                String cusName = rs.getString("CusName");
 
-                OrdersDTO orders = new OrdersDTO(orderID, customerID, shippingID, DateOrders, status, cusName);
+                OrdersDTO orders = new OrdersDTO(orderID, customerID, shippingID, DateOrders, status);
                 list.add(orders);
             }
         } finally {
@@ -204,6 +203,82 @@ public class OrdersDAO implements Serializable {
             }
         }
         return list;
+    }
+
+    public List<OrdersDTO> getListOfOrders() throws NamingException, SQLException {
+        List<OrdersDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "select [OrdersID]\n"
+                + "      ,[CustomerID]\n"
+                + "      ,[PaymentID]\n"
+                + "      ,[ShippingID]\n"
+                + "      ,[DateOrders]\n"
+                + "      ,[Status]\n"
+                + "      ,[CusName]\n"
+                + "      ,[CusPhone]\n"
+                + "      ,[CusAddress]"
+                + " from Orders";
+        try {
+            conn = DBHelper.makeConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int orderID = rs.getInt("OrdersID");
+                int customerID = rs.getInt("CustomerID");
+                int shippingID = rs.getInt("ShippingID");
+                int paymentID = rs.getInt("PaymentID");
+                Date DateOrders = rs.getDate("DateOrders");
+                int status = rs.getInt("Status");
+                String cusName = rs.getString("CusName");
+                String cusPhone = rs.getString("CusPhone");
+                String cusAddress = rs.getString("CusAddress");
+                OrdersDTO orders = new OrdersDTO(orderID, customerID, paymentID, shippingID, DateOrders, status, cusName, cusPhone, cusAddress);
+                list.add(orders);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public boolean updateOrderStatus(int orderId, boolean status)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE Orders "
+                        + "SET Status = ? "
+                        + "WHERE OrdersID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, status);
+                stm.setInt(2, orderId);
+                int effectedRows = stm.executeUpdate();
+                if (effectedRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
     }
 
     public boolean addToOrders(int customerID, int key)

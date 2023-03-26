@@ -445,14 +445,7 @@
                                             <li class="overview-right-latest-order-table-title-list-item">Transport</li>
                                         </ul>
                                         <img srcset="images/Overview-line.png 2x" alt="">
-                                        <!-- private int ordersID;
-    private int customerID;
-    private int shippingID;
-    private Date dateOrders;
-    private int status;
-    private String cusName;
-    private String cusPhone;
-    private String cusAddress; -->
+
                                         <c:forEach var="orders" items="${ORDERS_LIST_OF_USER}" varStatus="loop">
                                             <ul class="overview-right-latest-order-table-desc-list">
                                                 <li class="overview-right-latest-order-table-desc-list-item">${loop.count}</li>

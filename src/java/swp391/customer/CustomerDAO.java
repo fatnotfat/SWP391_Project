@@ -430,7 +430,7 @@ public class CustomerDAO implements Serializable {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     CustomerDTO dto = new CustomerDTO(rs.getInt("CustomerID"), rs.getString("Name"));
-                    if(list == null){
+                    if (list == null) {
                         list = new ArrayList<>();
                     }
                     list.add(dto);
@@ -449,21 +449,6 @@ public class CustomerDAO implements Serializable {
         }
         return list;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     
-
-    
-
-    
 
     public void showCustomer()
             throws SQLException, NamingException {;
@@ -503,8 +488,6 @@ public class CustomerDAO implements Serializable {
             }
         }
     }
-
- 
 
     public boolean adminCreateAccount(String name, String password, String email,
             String phone, boolean role)
@@ -631,7 +614,7 @@ public class CustomerDAO implements Serializable {
         return result;
     }
 
-public boolean adminCreateAccount(String name, String password, String email,
+    public boolean adminCreateAccount(String name, String password, String email,
             String phone, boolean role, boolean status)
             throws SQLException, NamingException, ParseException {;
         Connection con = null;
@@ -651,7 +634,7 @@ public boolean adminCreateAccount(String name, String password, String email,
                 stm.setString(3, email);
                 stm.setString(4, phone);
                 stm.setBoolean(5, role);
-                 stm.setBoolean(6, true);
+                stm.setBoolean(6, true);
 
                 int effectedRows = stm.executeUpdate();
                 if (effectedRows > 0) {
@@ -703,6 +686,32 @@ public boolean adminCreateAccount(String name, String password, String email,
         return result;
     }
 
+    public String getNameOfUserByUserID(int userID) throws SQLException, NamingException {
+        String userName = null;
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "SELECT Name from Customer WHERE CustomerID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, userID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                userName = rs.getString("Name");
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return userName;
+    }
 
-    
 }

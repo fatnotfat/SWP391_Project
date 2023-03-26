@@ -105,12 +105,14 @@ public class LoginServlet extends HttpServlet {
                         response.addCookie(cookie);
                     }
                 } else {
-
                     HttpSession session = request.getSession();
                     String url2 = (String) session.getAttribute("uri");
                     OrdersDAO ordersDAO = new OrdersDAO();
                     List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
                     session.setAttribute("USER_SHIPPINGINFO", customerOrders);
+                    
+                    List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(result.getCustomerID());
+                    session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
 
                     if (url2 == null) {
                         url = siteMaps.getProperty(

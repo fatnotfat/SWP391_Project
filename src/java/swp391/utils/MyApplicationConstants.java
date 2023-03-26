@@ -81,41 +81,44 @@ public class MyApplicationConstants {
         public static final String RESETPASSWORD_PAGE = "resetPasswordPage";
         public static final String LOGIN_PAGE = "loginPage";
     }
-    
+
     public class ShowMainPageServlet {
+
         public static final String MAIN_PAGE = "mainPage";
     }
-    
-    public class SearchServlet{
+
+    public class SearchServlet {
+
         public static final String SEARCH_TEXT_PAGE = "searchTextPage";
         public static final String SEARCH_FILTER_PAGE = "searchFilterPage";
-        public static final String SEARCH_FILTER_SERVLET="searchByFilterController";
+        public static final String SEARCH_FILTER_SERVLET = "searchByFilterController";
     }
-    
-    public class CartFeature{
+
+    public class CartFeature {
+
         public static final String CART_SERVLET = "addToCartController";
         public static final String CART_PAGE = "addToCartPage";
     }
-    
-    
-    public class ProductFeature{
+
+    public class ProductFeature {
+
         public static final String PRODUCT_SERVLET = "viewProductController";
         public static final String PRODUCT_PAGE = "viewProductPage";
     }
-    
-    
-    public class AccountFeature{
+
+    public class AccountFeature {
+
         public static final String ACCOUNT_SERVLET = "updateAccountController";
         public static final String ACCOUNT_UPDATE_PAGE = "updateInforPage";
         public static final String ACCOUNT_INFOR_PAGE = "userInforPage";
     }
-    
-    
-    public class CommentFeature{
-        public static final String ADD_COMMENT_SERVLET = "addCommentController"; 
+
+    public class CommentFeature {
+
+        public static final String ADD_COMMENT_SERVLET = "addCommentController";
         public static final String PRODUCT_PAGE = "viewProductPage";
     }
-    
+
     public class ShippingServlet {
 
         public static final String SHIPPING_PAGE = "shippingPage";
@@ -127,27 +130,23 @@ public class MyApplicationConstants {
         public static final String PAYMENT_PAGE = "paymentPage";
         public static final String CHECKOUT_PAGE = "checkOutPage";
     }
-    
-    
+
     public enum AuthorizationFilterConstant {
         LOGIN_JSP_PAGE("loginPage"),
         NOT_FOUND_PAGE("404Page");
-        
+
         public final String value;
 
         private AuthorizationFilterConstant(String value) {
             this.value = value;
         }
     }
-    
-  
+
     public class LoginForCheckoutServlet {
 
         public static final String LOGINFORCHECKOUT_PAGE = "loginForCheckoutPage";
         public static final String SHIPPING_PAGE = "shippingPage";
     }
-
-  
 
     public class AdminNewAccountServlet {
 
@@ -185,11 +184,11 @@ public class MyApplicationConstants {
         public static final String ADMIN_PAGE = "adminOrdersRevenueController";
     }
 
-        public class AdminCategoryListServlet {
+    public class AdminCategoryListServlet {
 
-            public static final String ADMINCATEGORYLIST_PAGE = "adminCategoryListPage";
-            public static final String ADMIN_PAGE = "adminOrdersRevenueController";
-        }
+        public static final String ADMINCATEGORYLIST_PAGE = "adminCategoryListPage";
+        public static final String ADMIN_PAGE = "adminOrdersRevenueController";
+    }
 
     public class AdminProductListServlet {
 
@@ -244,42 +243,45 @@ public class MyApplicationConstants {
         public static final String ADMINPRODUCTLIST_PAGE = "adminProductListController";
         public static final String ADMIN_PAGE = "adminOrdersRevenueController";
     }
-      public class ChartDetail {
+
+    public class ChartDetail {
+
         public static final String ADMINCHART_PAGE = "chartDetailController";
     }
-      
-        public class AdminOrdersRevenueServlet {
+
+    public class AdminOrdersRevenueServlet {
 
         public static final String ADMIN_PAGE = "adminPage";
     }
-      public class AdminOrdersRevenueSearchByMonthYearServlet{
-                  public static final String ADMIN_PAGE = "adminPage";
 
-      }
-       public class AdminOrdersRevenueSearchByYearServlet{
-                  public static final String ADMIN_PAGE = "adminPage";
+    public class AdminOrdersRevenueSearchByMonthYearServlet {
 
-      }
-       public class AdminOrdersTotalSearchByMonthYearServlet{
-                  public static final String ADMIN_PAGE = "adminPage";
+        public static final String ADMIN_PAGE = "adminPage";
 
-      }
-       public class AdminOrdersTotalSearchByYearServlet{
-                  public static final String ADMIN_PAGE = "adminPage";
+    }
 
-      }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public class AdminOrdersRevenueSearchByYearServlet {
+
+        public static final String ADMIN_PAGE = "adminPage";
+
+    }
+
+    public class AdminOrdersTotalSearchByMonthYearServlet {
+
+        public static final String ADMIN_PAGE = "adminPage";
+
+    }
+
+    public class AdminOrdersTotalSearchByYearServlet {
+
+        public static final String ADMIN_PAGE = "adminPage";
+
+    }
+
+    public class AdminOrdersListServlet {
+
+        public static final String ADMINORDERSLIST_PAGE = "adminOrdersListPage";
+        public static final String ADMIN_PAGE = "AdminOrderedListServlet";
+    }
+
 }
