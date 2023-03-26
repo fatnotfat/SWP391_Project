@@ -41,7 +41,7 @@ public class CustomerDTO implements Serializable {
     
     
 
-    public CustomerDTO(int customerID, String name, Date birthDate, String email, String phone, String address, int rankID, boolean sex, int typeOfLogin, boolean role) {
+    public CustomerDTO(int customerID, String name, Date birthDate, String email, String phone, String address, int rankID, boolean sex, int typeOfLogin) {
         this.customerID = customerID;
         this.name = name;
         this.birthDate = birthDate;
@@ -51,7 +51,6 @@ public class CustomerDTO implements Serializable {
         this.rankID = rankID;
         this.sex = sex;
         this.typeOfLogin = typeOfLogin;
-        this.role = role;
     }
     
     
