@@ -79,7 +79,8 @@ public class ProductDAO implements Serializable {
                     int size = rs.getInt("Size");
                     Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                    ProductDTO dto = new ProductDTO(id, name, descr, quantity, price,cateID, status, size, date, avatar);
+                    String avatar2 = rs.getString("Avatar2");
+                    ProductDTO dto = new ProductDTO(id, name, descr, quantity, price, cateID, status, size, date, avatar, avatar2);
 
                     if (this.listProduct == null) {
                         this.listProduct = new ArrayList<>();
@@ -158,8 +159,9 @@ public class ProductDAO implements Serializable {
                     double price = rs.getDouble("Price");
                     size = rs.getInt("Size");
                     String avatar = rs.getString("Avatar");
-                    ProductDTO dto = new ProductDTO(
-                            id, name, description, quantity, price, size, avatar);
+                    String avatar2 = rs.getString("Avatar2");
+                   ProductDTO dto = new ProductDTO(
+                            id, name, description, quantity, price, size, avatar, avatar2);
                     if (this.listProductByFilter == null) {
                         this.listProductByFilter = new ArrayList<>();
                     }
@@ -197,7 +199,7 @@ public class ProductDAO implements Serializable {
                 while (rs.next()) {
                     int id = rs.getInt("ProductID");
                     String name = rs.getString("Name");
-                    String descr = rs.getString("Description");
+                    String description  = rs.getString("Description");
                     int quantity = rs.getInt("Quantity");
                     double price = rs.getDouble("Price");
                     boolean status = rs.getBoolean("Status");
@@ -205,7 +207,8 @@ public class ProductDAO implements Serializable {
                     int cateID = rs.getInt("CateID");
                     Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                    dto = new ProductDTO(id, name, descr, quantity, price,cateID, status, size, date, avatar);
+                     String avatar2 = rs.getString("Avatar2");
+                   dto = new ProductDTO(id, name, description, quantity, price, cateID, status, size, date, avatar, avatar2);
                 }
             }
         } finally {
@@ -459,10 +462,9 @@ public class ProductDAO implements Serializable {
                     float price = rs.getInt("Price");
                     int size = rs.getInt("Size");
                     boolean status = rs.getBoolean("Status");
-                    String image1 = rs.getString("Avatar");
-                   String image2 = rs.getString("Avatar2");
-
-                    ProductDTO dto = new ProductDTO(productID, name, description, quantity, price, status, size, image1, image2);
+                     String avatar = rs.getString("Avatar");
+                    String avatar2 = rs.getString("Avatar2");
+                    ProductDTO dto = new ProductDTO(productID, name, description, quantity, price, status, size, avatar, avatar2);
                     if (this.itemsList == null) {
                         this.itemsList = new ArrayList<>();
                     }
@@ -510,8 +512,8 @@ public class ProductDAO implements Serializable {
                 stm.setDate(7, date);
                 stm.setInt(8, dto.getCateID());
                 stm.setInt(9, dto.getBrandID());
-                stm.setString(10, dto.getImage1());
-                stm.setString(11, dto.getImage2());
+                  stm.setString(10, dto.getAvatar());
+                stm.setString(11, dto.getAvatar2());
 
                 int effectedRows = stm.executeUpdate();
                 if (effectedRows > 0) {

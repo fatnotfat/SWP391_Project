@@ -86,9 +86,15 @@ public class AdminNewProductServlet extends HttpServlet {
         
         String name = request.getParameter("txtName");
         System.out.println("txtName:" + name);
+          byte[] bytes1 = name.getBytes(StandardCharsets.ISO_8859_1);
+        name = new String(bytes1, StandardCharsets.UTF_8);
+        
         String description = request.getParameter("txtDescription");
         System.out.println("txtDescription:" + description);
-
+ byte[] bytes2 = description.getBytes(StandardCharsets.ISO_8859_1);
+        description = new String(bytes2, StandardCharsets.UTF_8);
+        
+        
         String txtQuantity = request.getParameter("txtQuantity");
         int quantity = Integer.parseInt(txtQuantity);
         System.out.println("txtQuantity:" + quantity);
@@ -112,11 +118,14 @@ public class AdminNewProductServlet extends HttpServlet {
         // Get the first image data from the request
         Part filePart1 = request.getPart("image1");
         String imageName1 = filePart1.getSubmittedFileName();
-        InputStream imageData1 = filePart1.getInputStream();
+        String imageFilePath1 = "D:/SWP/SWP391_Project/web/images/" + imageName1;
+//        InputStream imageData1 = filePart1.getInputStream();
         System.out.println("IMAGE:" + filePart1);
         Part filePart2 = request.getPart("image2");
         String imageName2 = filePart2.getSubmittedFileName();
-        InputStream imageData2 = filePart2.getInputStream();
+          String imageFilePath2 = "D:/SWP/SWP391_Project/web/images/" + imageName2;
+
+//        InputStream imageData2 = filePart2.getInputStream();
         
         try {
             CategoryDAO categoryDao = new CategoryDAO();
@@ -127,46 +136,46 @@ public class AdminNewProductServlet extends HttpServlet {
             brandDao.showBrand();
             List<BrandDTO> brandResult = brandDao.getBrandsList();
             request.setAttribute("BRAND_RESULT", brandResult);
-//          
-            ByteArrayOutputStream buffer1 = new ByteArrayOutputStream();
-
-            int nRead1;
-            byte[] data1 = new byte[1024];
-
-            while ((nRead1 = imageData1.read(data1, 0, data1.length)) != -1) {
-                buffer1.write(data1, 0, nRead1);
-            }
-
-            buffer1.flush();
-
-            byte[] byteArray1 = buffer1.toByteArray();
-
-            ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
-
-            int nRead2;
-            byte[] data2 = new byte[1024];
-
-            while ((nRead2 = imageData2.read(data2, 0, data2.length)) != -1) {
-                buffer2.write(data2, 0, nRead2);
-            }
-
-            buffer2.flush();
-
-            byte[] byteArray2 = buffer2.toByteArray();
-
-            // Convert byteArray1 to Base64 encoding
-            String base64Image1 = Base64.getEncoder().encodeToString(byteArray1);
-            System.out.println("ImageData1:" + base64Image1);
-            // Convert byteArray2 to Base64 encoding
-            String base64Image2 = Base64.getEncoder().encodeToString(byteArray2);
-            System.out.println("ImageData2:" + base64Image2);
-
-            // Set the Base64-encoded images as request attributes
-            request.setAttribute("base64Image1", base64Image1);
-            request.setAttribute("base64Image2", base64Image2);
+////          
+//            ByteArrayOutputStream buffer1 = new ByteArrayOutputStream();
+//
+//            int nRead1;
+//            byte[] data1 = new byte[1024];
+//
+//            while ((nRead1 = imageData1.read(data1, 0, data1.length)) != -1) {
+//                buffer1.write(data1, 0, nRead1);
+//            }
+//
+//            buffer1.flush();
+//
+//            byte[] byteArray1 = buffer1.toByteArray();
+//
+//            ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
+//
+//            int nRead2;
+//            byte[] data2 = new byte[1024];
+//
+//            while ((nRead2 = imageData2.read(data2, 0, data2.length)) != -1) {
+//                buffer2.write(data2, 0, nRead2);
+//            }
+//
+//            buffer2.flush();
+//
+//            byte[] byteArray2 = buffer2.toByteArray();
+//
+//            // Convert byteArray1 to Base64 encoding
+//            String base64Image1 = Base64.getEncoder().encodeToString(byteArray1);
+//            System.out.println("ImageData1:" + base64Image1);
+//            // Convert byteArray2 to Base64 encoding
+//            String base64Image2 = Base64.getEncoder().encodeToString(byteArray2);
+//            System.out.println("ImageData2:" + base64Image2);
+//
+//            // Set the Base64-encoded images as request attributes
+//            request.setAttribute("base64Image1", base64Image1);
+//            request.setAttribute("base64Image2", base64Image2);
 
             ProductDAO dao = new ProductDAO();
-            ProductDTO dto1 = new ProductDTO(brandID, name, description, quantity, price, true, sizeID, brandID, brandID, base64Image1, base64Image2);
+            ProductDTO dto1 = new ProductDTO(brandID, name, description, quantity, price, true, sizeID, brandID, brandID, imageFilePath1, imageFilePath2);
 
             boolean result1 = dao.createProduct(dto1);
             if (result1) {
