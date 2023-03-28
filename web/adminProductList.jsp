@@ -203,8 +203,8 @@
                                                     <tr>
                                                         <td>${dto.id}</td>
                                                         <td>${dto.name}</td>
-                                                        <td><img src="${dto.avatar}" style="width: 50px; height: 50px"></td>
-                                                        <td><img src="${dto.avatar2}" style="width: 50px; height: 50px"></td>
+                                                        <td><img src="${pageContext.request.contextPath}/images/${dto.avatar}" style="width: 50px; height: 50px"></td>
+                                                        <td><img src="${pageContext.request.contextPath}/images/${dto.avatar2}" style="width: 50px; height: 50px"></td>
                                                         <td>${dto.description}</td>
                                                         <td>${dto.quantity}</td>
                                                         <td>${dto.price}</td>

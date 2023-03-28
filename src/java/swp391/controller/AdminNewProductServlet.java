@@ -118,12 +118,12 @@ public class AdminNewProductServlet extends HttpServlet {
         // Get the first image data from the request
         Part filePart1 = request.getPart("image1");
         String imageName1 = filePart1.getSubmittedFileName();
-        String imageFilePath1 = "D:/SWP/SWP391_Project/web/images/" + imageName1;
+//        String imageFilePath1 = "D:/SWP/SWP391_Project/web/images/" + imageName1;
 //        InputStream imageData1 = filePart1.getInputStream();
         System.out.println("IMAGE:" + filePart1);
         Part filePart2 = request.getPart("image2");
         String imageName2 = filePart2.getSubmittedFileName();
-          String imageFilePath2 = "D:/SWP/SWP391_Project/web/images/" + imageName2;
+//          String imageFilePath2 = "D:/SWP/SWP391_Project/web/images/" + imageName2;
 
 //        InputStream imageData2 = filePart2.getInputStream();
         
@@ -175,7 +175,7 @@ public class AdminNewProductServlet extends HttpServlet {
 //            request.setAttribute("base64Image2", base64Image2);
 
             ProductDAO dao = new ProductDAO();
-            ProductDTO dto1 = new ProductDTO(brandID, name, description, quantity, price, true, sizeID, brandID, brandID, imageFilePath1, imageFilePath2);
+            ProductDTO dto1 = new ProductDTO(brandID, name, description, quantity, price, true, sizeID, brandID, brandID, imageName1, imageName2);
 
             boolean result1 = dao.createProduct(dto1);
             if (result1) {
