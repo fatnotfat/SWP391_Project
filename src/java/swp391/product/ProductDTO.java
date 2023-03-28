@@ -70,6 +70,21 @@ public class ProductDTO implements Serializable{
         this.avatar = avatar;
     }
     
+    
+    
+       
+    public ProductDTO(int id, String name, double price, String description, int size, String avatar, String avatar2) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.size = size;
+        this.avatar = avatar;
+    }
+    
+    
+    
+    
     public ProductDTO(int id, String name, double price) {
         this.id = id;
         this.name = name;
@@ -132,7 +147,19 @@ public class ProductDTO implements Serializable{
         this.size = size;
     }
     
-    
+    public ProductDTO(int id, String name, String description, int quantity, double price,int cateID, boolean status,int size ,Date createTime, String avatar, String avatar2) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.status = status;
+        this.createTime = createTime;
+        this.avatar = avatar;
+        this.avatar2 = avatar2;
+        this.size = size;
+        this.cateID = cateID;
+    }
     
     
     

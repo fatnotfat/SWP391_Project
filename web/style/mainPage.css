@@ -1690,7 +1690,7 @@ header {
   margin-left: auto;
   margin-right: auto;
   flex-basis: 40%;
-  width: auto;
+    width: 70%;
   opacity: 1;
   animation: fromTheLeftTo 1s
 }
@@ -1934,6 +1934,8 @@ input[type="checkbox"]:checked {
   opacity: 1;
   margin-left: auto;
   margin-right: auto;
+      width: 70%;
+
   animation: fromTheRightTo 1s;
 
 }
@@ -1941,6 +1943,16 @@ input[type="checkbox"]:checked {
 .product-info {
   width: 650px;
 }
+
+
+
+
+.product_contain-img{
+    width: 100%;
+}
+
+
+
 
 .outstanding {
   width: 100%;
@@ -2396,14 +2408,9 @@ input[type="checkbox"]:checked {
     margin: auto;
   }
 
-  .product_secondline-img.active{
-    width: 60%;
-  }
-  
-  .product_thirdline-img.active{
-    width: 60%;
-  }
 
+  
+ 
   .outstanding{
     display: flex;
     flex-direction: column;

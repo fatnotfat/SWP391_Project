@@ -251,8 +251,10 @@ public class ProductDAO implements Serializable {
                     int size = rs.getInt("Size");
 //                    Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                    dto = new ProductDTO(id, name, price, descr, size, avatar);
-
+                    String avatar2 = rs.getString("Avatar2");
+                    
+                    dto = new ProductDTO(id, name, price, descr, size, avatar, avatar2);
+                    
                     if (list == null) {
                         list = new ArrayList<>();
                     }
@@ -305,8 +307,8 @@ public class ProductDAO implements Serializable {
                     int size = rs.getInt("Size");
 //                    Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                    dto = new ProductDTO(id, name, price, descr, size, avatar);
-
+                    String avatar2 = rs.getString("Avatar2");
+                    dto = new ProductDTO(id, name, price, descr, size, avatar, avatar2);
                     if (list == null) {
                         list = new ArrayList<>();
                     }
@@ -354,7 +356,9 @@ public class ProductDAO implements Serializable {
                     int size = rs.getInt("Size");
                     Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                    ProductDTO dto = new ProductDTO(id, name, descr, quantity, price,cateID, status, size, date, avatar);
+                    String avatar2 = rs.getString("Avatar2");
+
+                    ProductDTO dto = new ProductDTO(id, name, descr, quantity, price, cateID, status, size, date, avatar, avatar2);
 
                     if (list == null) {
                         list = new ArrayList<>();
