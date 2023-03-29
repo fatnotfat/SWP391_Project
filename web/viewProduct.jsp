@@ -66,81 +66,23 @@
                                             <a href="SearchByFilterServlet?txtProductCateID=1" class="menu-link menu-link-bracelet"
                                                >BRACELET</a
                                             >
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                           
                                         </li>
                                         <li class="menu-link-category-tab-title">
                                             <a href="SearchByFilterServlet?txtProductCateID=2" class="menu-link menu-link-ring"> RING </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 1 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 2 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 3 </a>
-                                                </li>
-                                            </ul>
+                                          
                                         </li>
                                         <li class="menu-link-category-tab-title">
                                             <a href="SearchByFilterServlet?txtProductCateID=3" class="menu-link menu-link-necklace">
                                                 NECKLACE
                                             </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                         
                                         </li>
                                         <li class="menu-link-category-tab-title">
                                             <a href="SearchByFilterServlet?txtProductCateID=4" class="menu-link menu-link-earring">
                                                 EARRINGS
                                             </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            
                                         </li>
                                     </div>
                                 </ul>
@@ -453,16 +395,19 @@
                 <img src="assets/image/Nav-line.png" alt="" class="nav-line-bot" />
             </header>
 
+           <c:set var="itemDetail" value="${sessionScope.ITEM_DETAIL}" />
+
             <div class="container">
                 <div class="grid__full-width">
+
                     <div class="grid__row">
                         <div class="product__item">
                             <div class="grid__column-8">
                                 <div class="product__item-img">
-                                    <img src="assets/image/331131002_877885213442462_5128773086041927233_n.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/images/${itemDetail.avatar}" alt="">
                                     <div class="product__item-img-group-2">
                                        
-                                        <img src="assets/image/4.Vòng tay bạc nam, nữ HeliSilver Chain Helios Gle x Lotus Helios Original S925 (5).jpg" alt="">
+                                       <img src="${pageContext.request.contextPath}/images/${itemDetail.avatar2}" alt="">
 
                                     </div>
 
@@ -475,7 +420,6 @@
                                 <script>alert('${requestScope.FEEDBACK_ERROR_RESULT}');</script>
                             </c:if>
 
-                            <c:set var="itemDetail" value="${sessionScope.ITEM_DETAIL}" />
 
                             <div class="grid__column-4">
                                 <div class="product__item-include">

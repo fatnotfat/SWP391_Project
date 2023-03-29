@@ -111,9 +111,12 @@
 
 
                                 html += '<div class="grid__column-3-4">'
-                                        + '<div class="product__item"'
-                                        + '>'
-                                        + '<div class="product__item-img"><img src="assets/image/Vector.png"/>'
+                                        + '<div class="product__item">'
+                                        + '<div class="product__item-img">'
+                                        + '<div  class="card">'
+                                        + '<img  class="img-back" src="${pageContext.request.contextPath}/images/' + data[i].avatar + '" alt="Card Back">'
+                                        + '<img class="img-top"  src="${pageContext.request.contextPath}/images/' + data[i].avatar2 + '" alt="Card Front">'
+                                        + '</div>'
                                         + '</div>'
                                         + '<div class="product__item-name">'
                                         + JSON.stringify(data[i].name).replace(/^"(.*)"$/, '$1')
@@ -124,12 +127,9 @@
                                         + '<div class="product__item-info">'
                                         + '<form action="viewProductController" method="POST" class="form__product-item-view">'
                                         + '<input type="hidden" name="txtProductID" value="' + JSON.stringify(data[i].id) + '" />'
-                                        + '<button class="product__item-view">View more</button>'
+                                        + '<button class="product__item-view">Xem Ngay</button>'
                                         + '</form>'
                                         + '</div>'
-//                                    + '<a href="#" onclick="addToCart('
-//                                    + JSON.stringify(data[i].id)
-//                                    + ');">Add to Cart</a>'
                                         + '</div>'
                                         + '</div>';
                             }

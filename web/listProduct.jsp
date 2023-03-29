@@ -110,12 +110,12 @@
                         var html = '';
                         if (data.length > 1) {
                             for (var i = 0; i < data.length; i++) {
-                                html += '<div class="grid__column-3-4">'
+                                   html += '<div class="grid__column-3-4">'
                                         + '<div class="product__item">'
                                         + '<div class="product__item-img">'
                                         + '<div  class="card">'
-                                        + '<img  class="img-back" src="assets/image/necklake.png" alt="Card Back">'
-                                        + '<img class="img-top" src="assets/image/duck-light.jpg" alt="Card Front">'
+                                        + '<img  class="img-back" src="${pageContext.request.contextPath}/images/' + data[i].avatar + '"  alt="Card Back">'
+                                        + '<img class="img-top"  src="${pageContext.request.contextPath}/images/' + data[i].avatar2 + '" alt="Card Front">'
                                         + '</div>'
                                         + '</div>'
                                         + '<div class="product__item-name">'

@@ -26,9 +26,7 @@ public class ProductDTO implements Serializable{
     private String avatar2;
     private int cateID;
     private int BrandID;
-    private String image1;
-    private String image2;
-
+   
     public int getCateID() {
         return cateID;
     }
@@ -71,6 +69,21 @@ public class ProductDTO implements Serializable{
         this.size = size;
         this.avatar = avatar;
     }
+    
+    
+    
+       
+    public ProductDTO(int id, String name, double price, String description, int size, String avatar, String avatar2) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.size = size;
+        this.avatar = avatar;
+    }
+    
+    
+    
     
     public ProductDTO(int id, String name, double price) {
         this.id = id;
@@ -123,8 +136,30 @@ public class ProductDTO implements Serializable{
     
     
     
+        public ProductDTO(int id, String name, String description, int quantity, double price,int size, String avatar, String avatar2) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.avatar = avatar;
+        this.avatar2 = avatar2;
+        this.size = size;
+    }
     
-    
+    public ProductDTO(int id, String name, String description, int quantity, double price,int cateID, boolean status,int size ,Date createTime, String avatar, String avatar2) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.status = status;
+        this.createTime = createTime;
+        this.avatar = avatar;
+        this.avatar2 = avatar2;
+        this.size = size;
+        this.cateID = cateID;
+    }
     
     
     
@@ -142,8 +177,9 @@ public class ProductDTO implements Serializable{
         this.cateID = cateID;
         this.BrandID = BrandID;
     }
-
-    public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, int cateID, int BrandID, String image1, String image2) {
+    
+    
+      public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, int cateID, int BrandID, String avatar, String avatar2) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -153,10 +189,11 @@ public class ProductDTO implements Serializable{
         this.size = size;
         this.cateID = cateID;
         this.BrandID = BrandID;
-        this.image1 = image1;
-        this.image2 = image2;
+        this.avatar = avatar;
+        this.avatar2 = avatar2;
     }
 
+  
     public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size) {
         this.id = id;
         this.name = name;
@@ -175,7 +212,7 @@ public class ProductDTO implements Serializable{
         this.size = size;
     }
 
-    public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, String image1, String image2) {
+     public ProductDTO(int id, String name, String description, int quantity, float price, boolean status, int size, String avatar, String avatar2) {
           this.id = id;
         this.name = name;
         this.description = description;
@@ -183,10 +220,9 @@ public class ProductDTO implements Serializable{
         this.price = price;
         this.status = status;
         this.size = size;
-        this.image1 = image1;
-        this.image2 = image2;
+        this.avatar = avatar;
+        this.avatar2 = avatar2;
     }
-
     
     
     
@@ -325,53 +361,8 @@ public class ProductDTO implements Serializable{
         this.BrandID = BrandID;
     }
 
-    /**
-     * @return the image1
-     */
-    public String getImage1() {
-        return image1;
-    }
 
-    /**
-     * @param image1 the image1 to set
-     */
-    public void setImage1(String image1) {
-        this.image1 = image1;
-    }
-
-    /**
-     * @return the image2
-     */
-    public String getImage2() {
-        return image2;
-    }
-
-    /**
-     * @param image2 the image2 to set
-     */
-    public void setImage2(String image2) {
-        this.image2 = image2;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-  
-
-
+ 
     
     
     
