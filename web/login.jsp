@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -45,95 +46,20 @@
 
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
                         <ul class="menu">
-                            <!--                            <li class="menu-item">
-                                                            <a href="searchByFilterPage" class="menu-link menu-link-category">Categories</a>
-                                                        </li>-->
                             <li class="menu-item">
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
                                 <ul class="menu-link-category-tab">
                                     <div class="container">
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=1" class="menu-link menu-link-bracelet"
-                                               >BRACELET</a
-                                            >
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=2" class="menu-link menu-link-ring"> RING </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 1 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 2 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 3 </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=3" class="menu-link menu-link-necklace">
-                                                NECKLACE
-                                            </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=4" class="menu-link menu-link-earring">
-                                                EARRINGS
-                                            </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        <c:set var="categoryList" value="${sessionScope.CATEGORY}"/>
+                                        <c:forEach var="category" items="${categoryList}">
+                                            <li class="menu-link-category-tab-title">
+                                                <a href="SearchByFilterServlet?txtProductCateID=${category.cateID}" class="menu-link menu-link-bracelet"
+                                                   >${fn:toUpperCase(category.name)}</a
+                                                >
+                                            </li>
+                                        </c:forEach>
                                     </div>
                                 </ul>
                             </li>
@@ -299,11 +225,11 @@
                 <div class="nav-bot-responsive">
                     <div class="container">
                         <div class="menu-responsive-icon">
-                            <!--                            <img
-                                                            class="menu-responsive-icon-img"
-                                                            srcset="images/shopping-cart.png 2x"
-                                                            alt=""
-                                                            />-->
+                            <!-- <img
+                              class="menu-responsive-icon-img"
+                              srcset="./assets/image/shopping-cart.png 2x"
+                              alt=""
+                            /> -->
                             <div class="menu-responsive-icon-tab">
                                 <button class="menu-responsive-icon-tab-cart" href="#!">
                                     <img
@@ -342,14 +268,32 @@
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
-                                                <p
-                                                    class="menu-responsive-icon-tab-cart-content-show-txt-desc"
-                                                    >
-                                                    There are currently no products
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="cartSize" value="${0}"/>
+                                                    <%--<c:set var="CART_PRICE" value="${calculateTotalPrice()}" scope="session"/>--%>
+                                                </c:if>
+                                                <p class="menu-icon-tab-cart-content-show-txt-desc">
+                                                    <c:if test="${cartSize eq 0}">
+                                                        There are no currently products.
+                                                    </c:if>
+                                                    <c:if test="${cartSize ne 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">${cartSize}</span> products
+                                                    </c:if>
                                                 </p>
                                             </div>
                                         </div>
                                         <img srcset="images/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
                                         <div class="menu-responsive-icon-tab-cart-content-function">
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-function-total"
@@ -362,7 +306,8 @@
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    0₫
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                    ${price}₫
                                                 </p>
                                             </div>
                                             <div

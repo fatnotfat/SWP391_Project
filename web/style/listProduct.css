@@ -434,6 +434,24 @@ header {
     color: var(--font-color);
     font-weight: 700;
     font-size: 27px;
+    overflow: hidden;
+}
+.menu-logo img {
+    display: inline;
+    height: 50px;
+}
+
+.menu-responsive-logo {
+    text-decoration: none;
+    color: var(--font-color);
+    font-weight: 700;
+    font-size: 27px;
+    overflow: hidden;
+}
+.menu-responsive-logo img {
+    display: inline;
+    height: 30px;
+    margin-top: 10px;
 }
 
 .nav-bot-responsive .container {
@@ -620,8 +638,15 @@ header {
     .menu {
         padding: 0 10rem;
     }
+    .nav-bot .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 30px;
+        flex-wrap: wrap;
+    }
 }
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
     .nav-bot .container {
         padding: 30px;
     }
@@ -637,15 +662,14 @@ header {
         line-height: 1.21875;
         font-weight: 600;
     }
-}
-@media screen and (max-width: 600px) {
+}*/
+@media screen and (max-width: 768px) {
     .nav-bot .container {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30px 60px;
         flex-wrap: nowrap;
-        flex-direction: row;
+        flex-direction: column;
     }
     .nav-bot {
         display: block;
@@ -674,7 +698,22 @@ header {
         display: block;
     }
     .menu-icon {
+        flex-direction: column;
+    }
+    .menu-icon-tab:nth-child(3) {
         display: none;
+    }
+    .menu-icon-tab-search-content .container {
+        left: -191px;
+    }
+    .menu-icon-tab-search-content .container::after {
+        right: 180px;
+    }
+    .menu-icon-tab-profile-content .container {
+        left: -117px;
+    }
+    .menu-icon-tab-profile-content .container::after {
+        right: 110px;
     }
     .menu-link {
         font-size: 18px;
@@ -1483,7 +1522,6 @@ header {
 
 
 /* FOOTER________________________________________________________________________- */
-
 .footer .container {
   display: flex;
   align-items: center;
@@ -1493,7 +1531,7 @@ header {
 
 .footer-menu {
   display: flex;
-  /*flex-wrap: wrap;*/
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
 }
@@ -1503,13 +1541,14 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+      width: calc(25% - 30px);
 }
 .footer-menu-connect-title {
   font-size: 20px;
   padding-bottom: 20px;
 }
 .footer-menu-connect-desc {
-  width: 400px;
+  /*width: 400px;*/
   font-size: 14px;
   padding-bottom: 40px;
 }
@@ -1528,6 +1567,7 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+      width: calc(25% - 30px);
 }
 .footer-menu-cus-service-title {
   font-size: 20px;
@@ -1553,6 +1593,7 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+      width: calc(25% - 30px);
 }
 .footer-menu-about-title {
   font-size: 20px;
@@ -1578,13 +1619,14 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+      width: calc(25% - 30px);
 }
 .footer-menu-care-title {
   font-size: 20px;
   padding-bottom: 20px;
 }
 .footer-menu-care-desc {
-  width: 400px;
+  /*width: 400px;*/
   font-size: 14px;
   padding-bottom: 40px;
 }
@@ -1600,10 +1642,38 @@ header {
 .footer-copyright-txt {
   font-size: 14px;
 }
-@media screen and (max-width:1024px ){
-    .footer-menu {
-        flex-wrap: wrap;
-    }
+
+@media screen and (max-width: 1024px) {
+  .footer-menu-connect-desc {
+    text-align: center;
+    padding: 0 10px;
+  }
+  .footer-menu-connect {
+    margin-bottom: 40px;
+    align-items: center;
+    width: auto;
+  }
+  .footer-menu-cus-service {
+    align-items: center;
+    width: auto;
+  }
+  .footer-menu-cus-service-desc {
+    text-align: center;
+  }
+  .footer-menu-about {
+       width: auto;
+    align-items: center;
+  }
+  .footer-menu-about-desc {
+    text-align: center;
+  }
+  .footer-menu-care {
+       width: auto;
+    align-items: center;
+  }
+  .footer-menu-care-desc {
+    text-align: center;
+  }
 }
 
 /* FOOTER_______________________________________________________________________ */

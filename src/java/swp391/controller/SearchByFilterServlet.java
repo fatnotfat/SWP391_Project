@@ -7,8 +7,6 @@ package swp391.controller;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -21,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import swp391.category.CategoryDAO;
+import swp391.category.CategoryDTO;
 import swp391.product.ProductDAO;
 import swp391.product.ProductDTO;
 import swp391.utils.MyApplicationConstants;
@@ -68,6 +68,7 @@ public class SearchByFilterServlet extends HttpServlet {
         int size = Integer.parseInt(txtSize);
         try {
             ProductDAO dao = new ProductDAO();
+            CategoryDAO cateDAO = new CategoryDAO();
             dao.searchByFilter(cateID, priceFrom, priceTo, size);
             List<ProductDTO> result = dao.getListProductByFilter();
             request.setAttribute("SEARCHBYFILTER_RESULT", result);
@@ -75,7 +76,18 @@ public class SearchByFilterServlet extends HttpServlet {
                     MyApplicationConstants.SearchServlet.SEARCH_FILTER_PAGE);
             String json = new Gson().toJson(result);
             HttpSession session = request.getSession();
-            session.setAttribute("products", json);
+            
+            List<CategoryDTO> cateList = cateDAO.getListCategory();
+            List<Integer> cateSize = cateDAO.getListSize();
+            if(cateList.size() > 0){
+            session.setAttribute("SIZE_LIST", cateSize);
+            }
+            if(cateList.size() > 0){
+            session.setAttribute("CATEGORY_LIST", cateList);
+            }
+            if(result.size() > 0){
+            request.setAttribute("products", json);
+            }
         } catch (NamingException ex) {
             log("SearchByFilterServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

@@ -59,13 +59,12 @@
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
                         <ul class="menu">
                             <li class="menu-item">
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
                                 <ul class="menu-link-category-tab">
                                     <div class="container">
-                                        <%--
                                         <c:set var="categoryList" value="${sessionScope.CATEGORY}"/>
                                         <c:forEach var="category" items="${categoryList}">
                                             <li class="menu-link-category-tab-title">
@@ -74,29 +73,6 @@
                                                 >
                                             </li>
                                         </c:forEach>
-                                        --%>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=1" class="menu-link menu-link-bracelet"
-                                               >BRACELET</a
-                                            >
-                                           
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=2" class="menu-link menu-link-ring"> RING </a>
-                                          
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=3" class="menu-link menu-link-necklace">
-                                                NECKLACE
-                                            </a>
-                                           
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=4" class="menu-link menu-link-earring">
-                                                EARRINGS
-                                            </a>
-                                          
-                                        </li>
                                     </div>
                                 </ul>
                             </li>

@@ -29,21 +29,21 @@ public class CategoryDAO implements Serializable {
 
         try {
             con = DBHelper.makeConnection();
-            if(con!=null){
-                
+            if (con != null) {
+
                 String sql = "SELECT CateID, Name, Description, Status "
                         + "FROM Category";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
-                
-                while(rs.next()){
+
+                while (rs.next()) {
                     CategoryDTO dto = new CategoryDTO();
                     dto.setCateID(rs.getInt("CateID"));
                     dto.setName(rs.getString("Name"));
                     dto.setDescription(rs.getString("Description"));
                     dto.setStatus(rs.getBoolean("Status"));
-                    
-                    if(list == null){
+
+                    if (list == null) {
                         list = new ArrayList<>();
                     }
                     list.add(dto);
@@ -64,15 +64,8 @@ public class CategoryDAO implements Serializable {
         }
         return list;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-     public boolean createCategory(CategoryDTO dto)
+
+    public boolean createCategory(CategoryDTO dto)
             throws SQLException, NamingException {;
         Connection con = null;
         PreparedStatement stm = null;
@@ -162,7 +155,7 @@ public class CategoryDAO implements Serializable {
             stm = con.prepareStatement(sql);
             stm.setString(1, name);
             stm.setString(2, description);
-             stm.setBoolean(3, status);
+            stm.setBoolean(3, status);
             stm.setInt(4, cateID);
             int effectedRows = stm.executeUpdate();
             if (effectedRows > 0) {
@@ -208,6 +201,81 @@ public class CategoryDAO implements Serializable {
         }
         return result;
     }
-    
-    
+
+    public List<Integer> getListSizeByCategory(int cateID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<Integer> list = null;
+        try {
+            //1. connect DB
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select Size \n"
+                        + "from ProductSize ps, Product p \n"
+                        + "where p.SizeID = ps.SizeID and CateID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, cateID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int size = rs.getInt("Size");
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    list.add(size);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> getListSize()
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<Integer> list = null;
+        try {
+            //1. connect DB
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select Size \n"
+                        + "from ProductSize ps, Product p \n"
+                        + "where p.SizeID = ps.SizeID\n"
+                        + "group by Size";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int size = rs.getInt("Size");
+                    if (list == null) {
+                        list = new ArrayList<>();
+                    }
+                    list.add(size);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return list;
+    }
+
 }

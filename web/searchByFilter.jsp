@@ -10,6 +10,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -70,28 +72,30 @@
             <%
                 try {
                     // Assuming that your servlet stores the JSON data as a string in a variable called jsonData
-                    String jsonData = (String) session.getAttribute("products");
+                    String jsonData = (String) request.getAttribute("products");
                     if (jsonData != null) {
                         System.out.println(jsonData);
-                        JSONArray jsonArray = new JSONArray(jsonData);
-                        for (int i = 0; i < jsonArray.length(); i++) {
+                        if (jsonData.length() > 0) {
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int i = 0; i < jsonArray.length(); i++) {
 //                                    if (jsonArray.get(i) instanceof String) {
 //                                        String item = jsonArray.getString(i);
 //                                        out.print("dataSource.push('" + item + "');\n");
 //                                    }
-                            Object element = jsonArray.get(i);
-                            if (element instanceof String) {
-                                String item = (String) element;
-                                out.print("dataSource.push('" + item + "');\n");
-                            } else if (element instanceof Number) {
-                                Number item = (Number) element;
-                                out.print("dataSource.push(" + item.toString() + ");\n");
-                            } else if (element instanceof JSONObject) {
-                                JSONObject obj = (JSONObject) element;
+                                Object element = jsonArray.get(i);
+                                if (element instanceof String) {
+                                    String item = (String) element;
+                                    out.print("dataSource.push('" + item + "');\n");
+                                } else if (element instanceof Number) {
+                                    Number item = (Number) element;
+                                    out.print("dataSource.push(" + item.toString() + ");\n");
+                                } else if (element instanceof JSONObject) {
+                                    JSONObject obj = (JSONObject) element;
 
-                                out.print("dataSource.push(" + obj.toString(2) + ");\n");
-                                // Handle object element
-                                System.out.println(obj.toString());
+                                    out.print("dataSource.push(" + obj.toString(2) + ");\n");
+                                    // Handle object element
+                                    System.out.println(obj.toString());
+                                }
                             }
                         }
                     }
@@ -106,7 +110,7 @@
                     pageSize: 9,
                     callback: function (data, pagination) {
                         var html = '';
-                        if (data.length > 1) {
+                        if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
 
 
@@ -127,7 +131,7 @@
                                         + '<div class="product__item-info">'
                                         + '<form action="viewProductController" method="POST" class="form__product-item-view">'
                                         + '<input type="hidden" name="txtProductID" value="' + JSON.stringify(data[i].id) + '" />'
-                                        + '<button class="product__item-view">Xem Ngay</button>'
+                                        + '<button class="product__item-view">View now</button>'
                                         + '</form>'
                                         + '</div>'
                                         + '</div>'
@@ -177,92 +181,20 @@
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
                         <ul class="menu">
                             <li class="menu-item">
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
                                 <ul class="menu-link-category-tab">
                                     <div class="container">
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=1" class="menu-link menu-link-bracelet"
-                                               >BRACELET</a
-                                            >
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-bracelet">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=2" class="menu-link menu-link-ring"> RING </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 1 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 2 </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-ring"> 3 </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=3" class="menu-link menu-link-necklace">
-                                                NECKLACE
-                                            </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-necklace">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-link-category-tab-title">
-                                            <a href="SearchByFilterServlet?txtProductCateID=4" class="menu-link menu-link-earring">
-                                                EARRINGS
-                                            </a>
-                                            <ul class="menu-link-category-tab-list">
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        2
-                                                    </a>
-                                                </li>
-                                                <li class="menu-link-category-tab-list-item">
-                                                    <a href="#!" class="menu-link menu-link-earring">
-                                                        3
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        <c:set var="categoryList" value="${sessionScope.CATEGORY}"/>
+                                        <c:forEach var="category" items="${categoryList}">
+                                            <li class="menu-link-category-tab-title">
+                                                <a href="SearchByFilterServlet?txtProductCateID=${category.cateID}" class="menu-link menu-link-bracelet"
+                                                   >${fn:toUpperCase(category.name)}</a
+                                                >
+                                            </li>
+                                        </c:forEach>
                                     </div>
                                 </ul>
                             </li>
@@ -585,12 +517,15 @@
                             <div class="category__filter ">
                                 <form class="category__filter-form" action="searchByFilterController" method="POST">
                                     <ul class="category__filter-include">
-                                        Category <select name="txtProductCateID" >
-                                            <option value="1" ${param.txtProductCateID == '1' ? 'selected' : ''}>BRACKLET</option>
+                                        Category <select name="txtProductCateID" id="categorySelect">
+                                            <c:forEach var="cateDTO" items="${sessionScope.CATEGORY_LIST}" >
+                                                <option value="${cateDTO.cateID}" ${param.txtProductCateID == cateDTO.cateID ? 'selected' : ''}>${fn:toUpperCase(cateDTO.name)}</option>
+                                            </c:forEach>
+                                            <%--<option value="1" ${param.txtProductCateID == '1' ? 'selected' : ''}>BRACKLET</option>
                                             <option value="2" ${param.txtProductCateID == '2' ? 'selected' : ''}>RING</option>
                                             <option value="3" ${param.txtProductCateID == '3' ? 'selected' : ''}>NECKLACE</option>
                                             <option value="4" ${param.txtProductCateID == '4' ? 'selected' : ''}>EARRINGS</option>
-
+                                            --%>
                                         </select>
                                         <li>
                                             <span class="category__filter-include-title">Price:</span>
@@ -608,16 +543,20 @@
 
                                         <!--<hr class="category__filter-line">-->
 
-                                        Size <select name="cboSize">
-                                            <option value="6" ${param.cboSize == '6' ? 'selected' : ''}>6</option>
-                                            <option value="7" ${param.cboSize == '7' ? 'selected' : ''}>7</option>
-                                            <option value="8" ${param.cboSize == '8' ? 'selected' : ''}>8</option>
-                                            <option value="17" ${param.cboSize == '17' ? 'selected' : ''}>17</option>
-                                            <option value="18" ${param.cboSize == '18' ? 'selected' : ''}>18</option>
-                                            <option value="19" ${param.cboSize == '19' ? 'selected' : ''}>19</option>
-                                            <option value="20" ${param.cboSize == '20' ? 'selected' : ''}>20</option>
-                                            <option value="21" ${param.cboSize == '21' ? 'selected' : ''}>21</option>
-                                            <option value="22" ${param.cboSize == '22' ? 'selected' : ''}>22</option>
+                                        Size <select name="cboSize" id="sizeSelect">
+                                            <c:forEach var="cateSizeDTO" items="${sessionScope.SIZE_LIST}" >
+                                                <option value="${cateSizeDTO}" ${param.cboSize == cateSizeDTO ? 'selected' : ''}>${cateSizeDTO}</option>
+                                                <%--<option value="6" ${param.cboSize == '6' ? 'selected' : ''}>6</option>
+                                                <option value="7" ${param.cboSize == '7' ? 'selected' : ''}>7</option>
+                                                <option value="8" ${param.cboSize == '8' ? 'selected' : ''}>8</option>
+                                                <option value="17" ${param.cboSize == '17' ? 'selected' : ''}>17</option>
+                                                <option value="18" ${param.cboSize == '18' ? 'selected' : ''}>18</option>
+                                                <option value="19" ${param.cboSize == '19' ? 'selected' : ''}>19</option>
+                                                <option value="20" ${param.cboSize == '20' ? 'selected' : ''}>20</option>
+                                                <option value="21" ${param.cboSize == '21' ? 'selected' : ''}>21</option>
+                                                <option value="22" ${param.cboSize == '22' ? 'selected' : ''}>22</option>
+                                                --%>
+                                            </c:forEach>
                                         </select><br/>
 
                                     </ul>
@@ -636,7 +575,7 @@
                                     <div class="grid__row" style="align-items: center!important; justify-content: center; font-size: 16px; color: red; margin-bottom: 20px;"><p>There are no related product!!</p></div>
                                 </c:if>
                                 <c:if test="${empty requestScope.INVALID_INPUT}">
-                                <div id="data-container" class="grid__row"></div>   
+                                    <div id="data-container" class="grid__row"></div>   
                                 </c:if>
                                 <div id="pagination-container"></div>
                             </div>
