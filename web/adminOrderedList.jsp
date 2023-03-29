@@ -171,7 +171,6 @@
                         <p class="mb-4">Danh sách các Order được tạo trên Store PDDTK <a target="_blank"
                                                                                          href="https://datatables.net">Link edit danh sách</a>.</p>
 
-                        <button class="button__form-create-category" onclick="showCreateCategory()">Add a new Order</button>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
