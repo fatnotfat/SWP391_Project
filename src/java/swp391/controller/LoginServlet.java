@@ -105,7 +105,10 @@ public class LoginServlet extends HttpServlet {
                         response.addCookie(cookie);
                     }
                 } else {
+                    
                     HttpSession session = request.getSession();
+//                    session.invalidate();
+//                    session = request.getSession(true);
                     String url2 = (String) session.getAttribute("uri");
                     OrdersDAO ordersDAO = new OrdersDAO();
                     List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());

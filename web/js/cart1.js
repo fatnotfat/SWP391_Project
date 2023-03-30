@@ -222,6 +222,7 @@ function updateCartSize() {
 //            alert(response.cartSize);
             $("#cart-size").text(response.cartSize);
             $("#cart-size-header").text(response.cartSize);
+            $("#cart-size-header-mobile").text(response.cartSize);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // handle error
@@ -243,6 +244,7 @@ $(document).ready(function () {
 // Get the "Add To Cart" button
     const checkboxes = document.querySelectorAll(".product-size-list input[type='checkbox']");
     const totalPriceElement = document.getElementById("totalPrice");
+    const totalPriceElement2 = document.getElementById("total-price-nav-mobile");
     const addToCartButton = document.getElementById("addToCartButton");
     const addToCartButton2 = document.getElementById("addToCartButton2");
 //    alert(addToCartButton);
@@ -295,6 +297,7 @@ $(document).ready(function () {
                     updateTotalPrice();
                     var totalPrice = updateTotalPrice();
                     $('#totalPrice').text(formatPrice(totalPrice.toFixed()) + '₫');
+                    $('#total-price-nav-mobile').text(formatPrice(totalPrice.toFixed()) + '₫');
                     totalPriceElement.textContent = formatPrice(totalPrice.toFixed()) + '₫';
                     updateCartSize();
                 },
@@ -328,7 +331,9 @@ $(document).ready(function () {
                     updateTotalPrice();
                     var totalPrice = updateTotalPrice();
                     $('#totalPrice').text(formatPrice(totalPrice.toFixed()) + '₫');
+                    $('#total-price-nav-mobile').text(formatPrice(totalPrice.toFixed()) + '₫');
                     totalPriceElement.textContent = formatPrice(totalPrice.toFixed()) + '₫';
+                    totalPriceElement2.textContent = formatPrice(totalPrice.toFixed()) + '₫';
                     updateCartSize();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

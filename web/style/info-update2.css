@@ -29,6 +29,7 @@ body {
 }
 
 header {
+        max-width: 1920px;
     position: fixed;
     z-index: 999;
     background-color: var(--primary-color);

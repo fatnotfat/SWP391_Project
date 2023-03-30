@@ -311,17 +311,21 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
                                                 <c:if test="${empty sessionScope.CART.items.size()}">
-                                                    <c:set var="cartSize" value="${0}"/>
+                                                    <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-show-txt-desc"
                                                     >
-                                                    <c:if test="${cartSize eq 0}">
-                                                        There are no currently products.
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">${cartSize}</span> products
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
 
@@ -339,7 +343,7 @@
                                                 </p>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
-
+                                                    id="total-price-nav-mobile"
                                                     >
                                                     <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###" />
                                                     ${price}₫
@@ -366,7 +370,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
@@ -377,7 +381,8 @@
                     </div>
                 </div>
                 <!--  -->
-                <img src="assets/image/Nav-line.png" alt="" class="nav-line-bot" />
+                <hr style="opacity: 0.6">
+                <!--<img src="assets/image/Nav-line.png" alt="" class="nav-line-bot" />-->
             </header>
 
             <div class="main_page">

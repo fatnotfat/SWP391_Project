@@ -41,7 +41,9 @@
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
+                        <a href="mainPage" class="menu-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">    
+                        </a>
                         <ul class="menu">
                             <li class="menu-item">
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
@@ -131,6 +133,7 @@
                                                 >
                                             </div>
                                         </c:if>
+
                                         <c:if test="${empty sessionScope.USER}">
                                             <p style="font-size: 15px; margin: 5px 0">You are not already logged <span style="color: red">PLEASE LOGIN FIRST!!</span></p><br/>
                                             <%--<c:set var="URL" value="userCart.jsp" scope="session"/>--%>
@@ -184,10 +187,10 @@
                                                     <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    <c:if test="${cartSize eq 0}">
-                                                        There are no currently products.
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
+                                                    <c:if test="${totalQuantity ne 0}">
                                                         There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
@@ -344,7 +347,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
@@ -355,143 +360,279 @@
                     </div>
                 </div>
                 <!--  -->
-                <img src="images/Nav-line.png" alt="" class="nav-line-bot" />
+                <hr style="opacity: 0.6">
+                <!--<img src="images/Nav-line.png" alt="" class="nav-line-bot" />-->
             </header>
             <section class="shipping-info">
                 <div class="container">
                     <form action="paymentController" method="POST">
                         <div class="shipping-info-left">
                             <c:set var="customerInfomation" value="${sessionScope.USER}"/>
-                            <input type="hidden" name="txtCustomerID" value="${customerInfomation.customerID}" />
-                            <c:set var = "errors" value="${requestScope.PAYMENT_ERROR}"/>
-                            <c:set var = "shippingID" value="${requestScope.SHIPPING_ID}"/>
-                            <div class="container">
-                                <div class="shipping-info-left-breadcrumb">
-                                    <div class="container">
-                                        <ul class="shipping-info-left-breadcrumb-menu">
-                                            <li>Cart</li>
-                                            <li>Shipping information</li>
-                                            <li>Payment methods</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="shipping-info-left-avatar">
-                                    <div class="container">
-                                        <div class="shipping-info-left-avatar-icon">
-                                            <i class="fa-solid fa-user"></i>
-                                        </div>
-                                        <div class="shipping-info-left-avatar-content">
-                                            <p class="shipping-info-left-avatar-content-name">
-                                                ${customerInfomation.name}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="shipping-info-left-title">
-                                    <div class="container">
-                                        <p class="shipping-info-left-title-txt">Shipping method</p>
-                                    </div>
-                                </div>
-
-                                <c:forEach items="${SHIPPINGMETHOD_LIST}" var="shippingMethod" varStatus="loop">
-                                    <div class="shipping-info-left-form-delivery-home">
-                                        <label class="radio-label">
-                                            <div class="radio-input">
-                                                <input
-                                                    type="radio"
-                                                    id="location"
-                                                    name="location"
-                                                    value="${shippingMethod.shippingID}"
-                                                    class="input-radio"
-                                                    <c:if test="${loop.first}">checked</c:if>
-                                                        />
-                                                </div>
-                                                <span class="radio-label-primary">${shippingMethod.nameOfMethod}</span>
-                                        </label>
-                                        <div class="shipping-info-left-form-delivery-home-price">
-                                            <p class="shipping-info-left-form-delivery-home-price-number">
-                                                <input type="hidden" name="txtFee" value="${shippingMethod.transportFee}" />
-                                                <fmt:formatNumber var="shippingFee" value="${shippingMethod.transportFee}" pattern="#,##0"/>
-                                                                    ${shippingFee}₫
-                                            </p>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                                <div class="shipping-info-left-payment">                                  
-                                    <div class="shipping-info-left-payment-title">
+                            <c:if test="${not empty customerInfomation}">
+                                <input type="hidden" name="txtCustomerID" value="${customerInfomation.customerID}" />
+                                <c:set var = "errors" value="${requestScope.PAYMENT_ERROR}"/>
+                                <c:set var = "shippingID" value="${requestScope.SHIPPING_ID}"/>
+                                <div class="container">
+                                    <div class="shipping-info-left-breadcrumb">
                                         <div class="container">
-                                            <p class="shipping-info-left-payment-title-txt">
-                                                Payment Methods
-                                            </p>
+                                            <ul class="shipping-info-left-breadcrumb-menu">
+                                                <li>Cart</li>
+                                                <li>Shipping information</li>
+                                                <li>Payment methods</li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="shipping-info-left-payment-all">
-                                        <div class="shipping-info-left-payment-field">                                      
+                                    <div class="shipping-info-left-avatar">
+                                        <div class="container">
+                                            <div class="shipping-info-left-avatar-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+                                            <div class="shipping-info-left-avatar-content">
+                                                <p class="shipping-info-left-avatar-content-name">
+                                                    ${customerInfomation.name}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shipping-info-left-title">
+                                        <div class="container">
+                                            <p class="shipping-info-left-title-txt">Shipping method</p>
+                                        </div>
+                                    </div>
 
-                                            <div class="shipping-info-left-payment-field-input">
-                                                <label class="radio-label" id="shipping-info-cod-radio">
-                                                    <div class="radio-input">
-                                                        <input
-                                                            type="radio"
-                                                            id="method"
-                                                            name="method"
-                                                            value="${1}"
-                                                            class="input-radio"
-                                                            checked
+                                    <c:forEach items="${SHIPPINGMETHOD_LIST}" var="shippingMethod" varStatus="loop">
+                                        <div class="shipping-info-left-form-delivery-home">
+                                            <label class="radio-label">
+                                                <div class="radio-input">
+                                                    <input
+                                                        type="radio"
+                                                        id="location"
+                                                        name="location"
+                                                        value="${shippingMethod.shippingID}"
+                                                        class="input-radio"
+                                                        <c:if test="${loop.first}">checked</c:if>
                                                             />
                                                     </div>
-                                                    <img
-                                                        src="images/cod.svg"
-                                                        alt=""
-                                                        class="main-img"
-                                                        />
-                                                    <span class="radio-label-primary"
-                                                          >Collecting Household (COD)</span
-                                                    >
-                                                </label>
+                                                    <span class="radio-label-primary">${shippingMethod.nameOfMethod}</span>
+                                            </label>
+                                            <div class="shipping-info-left-form-delivery-home-price">
+                                                <p class="shipping-info-left-form-delivery-home-price-number">
+                                                    <input type="hidden" name="txtFee" value="${shippingMethod.transportFee}" />
+                                                    <fmt:formatNumber var="shippingFee" value="${shippingMethod.transportFee}" pattern="#,##0"/>
+                                                    ${shippingFee}₫
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="shipping-info-left-payment-content-cod">
-                                            The customer will pay the product invoice and delivery fee
-                                            upon receipt.
+                                    </c:forEach>
+                                    <div class="shipping-info-left-payment">                                  
+                                        <div class="shipping-info-left-payment-title">
+                                            <div class="container">
+                                                <p class="shipping-info-left-payment-title-txt">
+                                                    Payment Methods
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="shipping-info-left-payment-field-other">
-                                            <div class="shipping-info-left-payment-field-other-input">
-                                                <label class="radio-label" id="shipping-info-other-radio">
-                                                    <div class="radio-input">
-                                                        <input
-                                                            type="radio"
-                                                            id="method"
-                                                            name="method"
-                                                            value="${2}"
-                                                            class="input-radio"
+                                        <div class="shipping-info-left-payment-all">
+                                            <div class="shipping-info-left-payment-field">                                      
+
+                                                <div class="shipping-info-left-payment-field-input">
+                                                    <label class="radio-label" id="shipping-info-cod-radio">
+                                                        <div class="radio-input">
+                                                            <input
+                                                                type="radio"
+                                                                id="method"
+                                                                name="method"
+                                                                value="${1}"
+                                                                class="input-radio"
+                                                                checked
+                                                                />
+                                                        </div>
+                                                        <img
+                                                            src="images/cod.svg"
+                                                            alt=""
+                                                            class="main-img"
                                                             />
-                                                    </div>
-                                                    <img
-                                                        src="images/other.svg"
-                                                        alt=""
-                                                        class="main-img"
-                                                        />
-                                                    <span class="radio-label-primary">Bank transfer</span>
-                                                </label>
+                                                        <span class="radio-label-primary"
+                                                              >Collecting Household (COD)</span
+                                                        >
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="shipping-info-left-payment-content-cod">
+                                                The customer will pay the product invoice and delivery fee
+                                                upon receipt.
+                                            </div>
+                                            <div class="shipping-info-left-payment-field-other">
+                                                <div class="shipping-info-left-payment-field-other-input">
+                                                    <label class="radio-label" id="shipping-info-other-radio">
+                                                        <div class="radio-input">
+                                                            <input
+                                                                type="radio"
+                                                                id="method"
+                                                                name="method"
+                                                                value="${2}"
+                                                                class="input-radio"
+                                                                />
+                                                        </div>
+                                                        <img
+                                                            src="images/other.svg"
+                                                            alt=""
+                                                            class="main-img"
+                                                            />
+                                                        <span class="radio-label-primary">Bank transfer</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="shipping-info-left-payment-content-other">
+                                                Customers transfer via bank's number:<br>
+                                                0781000487810 - VCB - NGUYEN VAN DUNG <br>
+                                                Content: Full name + phone number
                                             </div>
                                         </div>
-                                        <div class="shipping-info-left-payment-content-other">
-                                            Customers transfer via bank's number:<br>
-                                            0781000487810 - VCB - NGUYEN VAN DUNG <br>
-                                            Content: Full name + phone number
+                                        <c:if test="${not empty errors.paymentIDLengthError}">
+                                            <font color="red">
+                                            ${errors.paymentIDLengthError}
+                                            </font><br/>
+                                        </c:if>
+                                    </div>
+                                    <button class="shipping-info-left-btn" type="submit">
+                                        Complete payment 
+                                    </button>
+                                </div>
+                            </c:if>                            
+                            <c:set var="customerInfomation2" value="${sessionScope.GUEST}"/>
+                            <c:if test="${not empty customerInfomation2}">
+                                <input type="hidden" name="txtCustomerID" value="${customerInfomation2.customerID}" />
+                                <c:set var = "errors" value="${requestScope.PAYMENT_ERROR}"/>
+                                <c:set var = "shippingID" value="${requestScope.SHIPPING_ID}"/>
+                                <div class="container">
+                                    <div class="shipping-info-left-breadcrumb">
+                                        <div class="container">
+                                            <ul class="shipping-info-left-breadcrumb-menu">
+                                                <li>Cart</li>
+                                                <li>Shipping information</li>
+                                                <li>Payment methods</li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <c:if test="${not empty errors.paymentIDLengthError}">
-                                        <font color="red">
-                                        ${errors.paymentIDLengthError}
-                                        </font><br/>
-                                    </c:if>
+                                    <div class="shipping-info-left-avatar">
+                                        <div class="container">
+                                            <div class="shipping-info-left-avatar-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+                                            <div class="shipping-info-left-avatar-content">
+                                                <p class="shipping-info-left-avatar-content-name">
+                                                    ${customerInfomation2.name}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shipping-info-left-title">
+                                        <div class="container">
+                                            <p class="shipping-info-left-title-txt">Shipping method</p>
+                                        </div>
+                                    </div>
+
+                                    <c:forEach items="${SHIPPINGMETHOD_LIST}" var="shippingMethod" varStatus="loop">
+                                        <div class="shipping-info-left-form-delivery-home">
+                                            <label class="radio-label">
+                                                <div class="radio-input">
+                                                    <input
+                                                        type="radio"
+                                                        id="location"
+                                                        name="location"
+                                                        value="${shippingMethod.shippingID}"
+                                                        class="input-radio"
+                                                        <c:if test="${loop.first}">checked</c:if>
+                                                            />
+                                                    </div>
+                                                    <span class="radio-label-primary">${shippingMethod.nameOfMethod}</span>
+                                            </label>
+                                            <div class="shipping-info-left-form-delivery-home-price">
+                                                <p class="shipping-info-left-form-delivery-home-price-number">
+                                                    <input type="hidden" name="txtFee" value="${shippingMethod.transportFee}" />
+                                                    <fmt:formatNumber var="shippingFee" value="${shippingMethod.transportFee}" pattern="#,##0"/>
+                                                    ${shippingFee}₫
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <div class="shipping-info-left-payment">                                  
+                                        <div class="shipping-info-left-payment-title">
+                                            <div class="container">
+                                                <p class="shipping-info-left-payment-title-txt">
+                                                    Payment Methods
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="shipping-info-left-payment-all">
+                                            <div class="shipping-info-left-payment-field">                                      
+
+                                                <div class="shipping-info-left-payment-field-input">
+                                                    <label class="radio-label" id="shipping-info-cod-radio">
+                                                        <div class="radio-input">
+                                                            <input
+                                                                type="radio"
+                                                                id="method"
+                                                                name="method"
+                                                                value="${1}"
+                                                                class="input-radio"
+                                                                checked
+                                                                />
+                                                        </div>
+                                                        <img
+                                                            src="images/cod.svg"
+                                                            alt=""
+                                                            class="main-img"
+                                                            />
+                                                        <span class="radio-label-primary"
+                                                              >Collecting Household (COD)</span
+                                                        >
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="shipping-info-left-payment-content-cod">
+                                                The customer will pay the product invoice and delivery fee
+                                                upon receipt.
+                                            </div>
+                                            <div class="shipping-info-left-payment-field-other">
+                                                <div class="shipping-info-left-payment-field-other-input">
+                                                    <label class="radio-label" id="shipping-info-other-radio">
+                                                        <div class="radio-input">
+                                                            <input
+                                                                type="radio"
+                                                                id="method"
+                                                                name="method"
+                                                                value="${2}"
+                                                                class="input-radio"
+                                                                />
+                                                        </div>
+                                                        <img
+                                                            src="images/other.svg"
+                                                            alt=""
+                                                            class="main-img"
+                                                            />
+                                                        <span class="radio-label-primary">Bank transfer</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="shipping-info-left-payment-content-other">
+                                                Customers transfer via bank's number:<br>
+                                                0781000487810 - VCB - NGUYEN VAN DUNG <br>
+                                                Content: Full name + phone number
+                                            </div>
+                                        </div>
+                                        <c:if test="${not empty errors.paymentIDLengthError}">
+                                            <font color="red">
+                                            ${errors.paymentIDLengthError}
+                                            </font><br/>
+                                        </c:if>
+                                    </div>
+                                    <button class="shipping-info-left-btn" type="submit">
+                                        Complete payment 
+                                    </button>
                                 </div>
-                                <button class="shipping-info-left-btn" type="submit">
-                                    Complete payment 
-                                </button>
-                            </div>
+                            </c:if>
                         </div>
                     </form>
                     <img
@@ -505,6 +646,15 @@
                         <c:set var="cartListDetail" value="${sessionScope.CART.itemDetail}" />
                         <c:set var="total" value="0" />
                         <div class="container">
+                            <div class="shipping-info-left-breadcrumb-res">
+                                <div class="container">
+                                    <ul class="shipping-info-left-breadcrumb-res-menu">
+                                        <li><a href="#">Cart</a></li>
+                                        <li><a href="#">Shipping infomation</a></li>
+                                        <li><a href="#">Payment methods</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                             <c:forEach var="item" items="${cartList}" varStatus="counter">
                                 <c:forEach var="detail" items="${cartListDetail}">
                                     <c:if test="${item.key eq detail.key}">
@@ -550,7 +700,7 @@
                                                                 </p>
                                                             </div>
                                                             <c:set var="total" value="${total + detail.value.price * item.value}" />
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -579,7 +729,7 @@
                                                 class="shipping-info-right-product-fee-price-provisional"
                                                 >
                                                 <fmt:formatNumber var="totalDisplay1" value="${total}" pattern="#,##0"/>
-                                                                    ${totalDisplay1}₫
+                                                ${totalDisplay1}₫
                                             </p>
                                             <p class="shipping-info-right-product-fee-price-ship">
                                                 <fmt:formatNumber var="txtDefaultShip" value="${sessionScope.SHIPPINGMETHOD_LIST.get(0).getTransportFee()}" pattern="#,##0"/>
@@ -589,7 +739,7 @@
                                     </div>
                                 </div>
                             </div>
-                                            
+
                             <input type="hidden" name="txtHiddenTotal" value="${total}" />
                             <div class="shipping-info-right-product-total">
                                 <div class="container">
@@ -605,7 +755,7 @@
                                             <p
                                                 class="shipping-info-right-product-total-price-country"
                                                 >
-                                                
+
                                             </p>
                                             <p id="total-price-all-product" class="shipping-info-right-product-total-price-number"
                                                style="color: red;">

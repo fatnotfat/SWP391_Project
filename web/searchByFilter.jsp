@@ -400,7 +400,7 @@
                                 <button class="menu-responsive-icon-tab-cart" href="#!">
                                     <img
                                         class="menu-responsive-icon-img menu-responsive-icon-img-cart"
-                                        srcset="images/shopping-cart.png 2x"
+                                        srcset="assets/image/shopping-cart.png 2x"
                                         alt=""
                                         />
                                 </button>
@@ -416,7 +416,7 @@
                                                     Cart
                                                 </p>
                                                 <img
-                                                    srcset="images/Footer-line.png 2x"
+                                                    srcset="assets/image/Footer-line.png 2x"
                                                     alt=""
                                                     class="menu-responsive-icon-tab-cart-space"
                                                     />
@@ -427,21 +427,46 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-icon"
                                                 >
                                                 <img
-                                                    srcset="images/shopping-icon-tab.png 2x"
+                                                    srcset="assets/image/shopping-icon-tab.png 2x"
                                                     alt=""
                                                     />
                                             </div>
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="totalQuantity" value="${0}"/>
+                                                </c:if>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-show-txt-desc"
                                                     >
-                                                    There are currently no products
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
+                                                    </c:if>
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
+                                                    </c:if>
                                                 </p>
                                             </div>
                                         </div>
-                                        <img srcset="images/Footer-line.png 2x" alt="" />
+                                        <img srcset="assets/image/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
                                         <div class="menu-responsive-icon-tab-cart-content-function">
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-function-total"
@@ -452,9 +477,11 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
+                                                    id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    0₫
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                    ${price}₫
                                                 </p>
                                             </div>
                                             <div
@@ -468,7 +495,7 @@
                                                     </button>
                                                 </form>
                                                 <button
-                                                    class="menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
                                                     >
                                                     PAY
                                                 </button>
@@ -478,7 +505,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
@@ -489,7 +518,8 @@
                     </div>
                 </div>
                 <!--  -->
-                <img src="images/Nav-line.png" alt="" class="nav-line-bot" />
+                <hr style="opacity: 0.6">
+                <!--<img src="images/Nav-line.png" alt="" class="nav-line-bot" />-->
             </header>
             <div class="grid__full-width">
                 <div class="image__include">
@@ -515,7 +545,7 @@
                         <!-- PC  -->
                         <div class="grid__column-3 col l-3">
                             <div class="category__filter ">
-                                <form class="category__filter-form" action="searchByFilterController" method="POST">
+                                <form class="category__filter-form" action="searchByFilterController" method="POST" id="category__filter-form">
                                     <ul class="category__filter-include">
                                         Category <select name="txtProductCateID" id="categorySelect">
                                             <c:forEach var="cateDTO" items="${sessionScope.CATEGORY_LIST}" >
@@ -534,28 +564,19 @@
                                                 Price To <input type="number" name="txtPriceTo" value="${param.txtPriceTo}" min="0" /><br/>-->
 
                                                 <input class="category__filter-include-input" type="number"
-                                                       name="txtPriceFrom" id=""
+                                                       name="txtPriceFrom" id="category__filter-include-input-price-from"
                                                        placeholder="0đ" value="${param.txtPriceFrom}" min="0">
-                                                <input class="category__filter-include-input" type="text" name="txtPriceTo" id=""
+                                                <input class="category__filter-include-input" type="number" name="txtPriceTo" id="category__filter-include-input-price-to"
                                                        placeholder="9,999,999đ" value="${param.txtPriceTo}" min="0">
                                             </div>
+                                            <span class="form__message"></span>
                                         </li>
 
                                         <!--<hr class="category__filter-line">-->
 
                                         Size <select name="cboSize" id="sizeSelect">
                                             <c:forEach var="cateSizeDTO" items="${sessionScope.SIZE_LIST}" >
-                                                <option value="${cateSizeDTO}" ${param.cboSize == cateSizeDTO ? 'selected' : ''}>${cateSizeDTO}</option>
-                                                <%--<option value="6" ${param.cboSize == '6' ? 'selected' : ''}>6</option>
-                                                <option value="7" ${param.cboSize == '7' ? 'selected' : ''}>7</option>
-                                                <option value="8" ${param.cboSize == '8' ? 'selected' : ''}>8</option>
-                                                <option value="17" ${param.cboSize == '17' ? 'selected' : ''}>17</option>
-                                                <option value="18" ${param.cboSize == '18' ? 'selected' : ''}>18</option>
-                                                <option value="19" ${param.cboSize == '19' ? 'selected' : ''}>19</option>
-                                                <option value="20" ${param.cboSize == '20' ? 'selected' : ''}>20</option>
-                                                <option value="21" ${param.cboSize == '21' ? 'selected' : ''}>21</option>
-                                                <option value="22" ${param.cboSize == '22' ? 'selected' : ''}>22</option>
-                                                --%>
+                                                <option value="${cateSizeDTO}" ${param.cboSize == cateSizeDTO ? 'selected' : ''}>${cateSizeDTO}</option>                                              
                                             </c:forEach>
                                         </select><br/>
 

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,8 +39,8 @@
                 <!--NAV  DESKTOP - TABLET-->
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> 
-                        <img srcset="images/LOGO.png 2x" alt="">
+                        <a href="mainPage" class="menu-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">    
                         </a>
                         <ul class="menu">
                             <li class="menu-item">
@@ -175,12 +176,43 @@
                                                     />
                                             </div>
                                             <div class="menu-icon-tab-cart-content-show-txt">
+                                                <%--
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="cartSize" value="${0}"/>
+                                                </c:if>
+                                                --%>
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="totalQuantity" value="${0}"/>
+                                                </c:if>
                                                 <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    There are currently no products
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
+                                                    </c:if>
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
+                                                    </c:if>
                                                 </p>
                                             </div>
                                         </div>
                                         <img srcset="images/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
                                         <div class="menu-icon-tab-cart-content-function">
                                             <div class="menu-icon-tab-cart-content-function-total">
                                                 <p
@@ -191,7 +223,8 @@
                                                 <p
                                                     class="menu-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    0₫
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                    ${price}₫
                                                 </p>
                                             </div>
                                             <div class="menu-icon-tab-cart-content-function-method">
@@ -200,7 +233,7 @@
                                                         class="menu-icon-tab-cart-content-function-method-btn"
                                                         >
                                                         VIEW CART
-                                                    </button> 
+                                                    </button>
                                                 </form>
                                                 <button
                                                     class="pay-button menu-icon-tab-cart-content-function-method-btn"
@@ -219,16 +252,126 @@
                 <div class="nav-bot-responsive">
                     <div class="container">
                         <div class="menu-responsive-icon">
-                            <img
-                                class="menu-responsive-icon-img"
-                                srcset="images/shopping-cart.png 2x"
-                                alt=""
-                                />
+                            <!-- <img
+                              class="menu-responsive-icon-img"
+                              srcset="./assets/image/shopping-cart.png 2x"
+                              alt=""
+                            /> -->
+                            <div class="menu-responsive-icon-tab">
+                                <button class="menu-responsive-icon-tab-cart" href="#!">
+                                    <img
+                                        class="menu-responsive-icon-img menu-responsive-icon-img-cart"
+                                        srcset="assets/image/shopping-cart.png 2x"
+                                        alt=""
+                                        />
+                                </button>
+                                <div class="menu-responsive-icon-tab-cart-content">
+                                    <div class="container">
+                                        <div class="menu-responsive-icon-tab-cart-content-title">
+                                            <div
+                                                class="menu-responsive-icon-tab-cart-content-title-container"
+                                                >
+                                                <p
+                                                    class="menu-responsive-icon-tab-cart-content-title-desc"
+                                                    >
+                                                    Cart
+                                                </p>
+                                                <img
+                                                    srcset="assets/image/Footer-line.png 2x"
+                                                    alt=""
+                                                    class="menu-responsive-icon-tab-cart-space"
+                                                    />
+                                            </div>
+                                        </div>
+                                        <div class="menu-responsive-icon-tab-cart-content-show">
+                                            <div
+                                                class="menu-responsive-icon-tab-cart-content-show-icon"
+                                                >
+                                                <img
+                                                    srcset="assets/image/shopping-icon-tab.png 2x"
+                                                    alt=""
+                                                    />
+                                            </div>
+                                            <div
+                                                class="menu-responsive-icon-tab-cart-content-show-txt"
+                                                >
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="totalQuantity" value="${0}"/>
+                                                </c:if>
+                                                <p
+                                                    class="menu-responsive-icon-tab-cart-content-show-txt-desc"
+                                                    >
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
+                                                    </c:if>
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
+                                                    </c:if>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <img srcset="assets/image/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
+                                        <div class="menu-responsive-icon-tab-cart-content-function">
+                                            <div
+                                                class="menu-responsive-icon-tab-cart-content-function-total"
+                                                >
+                                                <p
+                                                    class="menu-responsive-icon-tab-cart-content-function-total-txt"
+                                                    >
+                                                    TOTAL AMOUNT
+                                                </p>
+                                                <p
+                                                    id="total-price-nav-mobile"
+                                                    class="menu-responsive-icon-tab-cart-content-function-total-price"
+                                                    >
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                    ${price}₫
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="menu-responsive-icon-tab-cart-content-function-method"
+                                                >
+                                                <form action="addToCartPage" method="POST">
+                                                    <button
+                                                        class="menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                        >
+                                                        VIEW CART
+                                                    </button>
+                                                </form>
+                                                <button
+                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    >
+                                                    PAY
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
-                                class="menu-responsive-icon-img"
+                                class="menu-responsive-icon-img menu-responsive-icon-img-bar"
                                 srcset="images/textalign-justifycenter.png 2x"
                                 alt=""
                                 />
@@ -236,8 +379,9 @@
                     </div>
                 </div>
                 <!--  -->
+                <hr style="opacity: 0.6">
+
             </header>
-            <img src="images/Nav-line.png" alt="" />
             <div class="forgot">
                 <div class="container">
                     <div class="forgot-heading">

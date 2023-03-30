@@ -43,7 +43,9 @@
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
-                        <a href="mainPage" class="menu-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
+                        <a href="mainPage" class="menu-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">    
+                        </a>
                         <ul class="menu">
                             <li class="menu-item">
                                 <a href="#!" class="menu-link menu-link-category">Categories</a>
@@ -186,10 +188,10 @@
                                                     <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    <c:if test="${cartSize eq 0}">
-                                                        There are no currently products.
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
+                                                    <c:if test="${totalQuantity ne 0}">
                                                         There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
@@ -248,15 +250,15 @@
                     <div class="container">
                         <div class="menu-responsive-icon">
                             <!-- <img
-                                     class="menu-responsive-icon-img"
-                                     srcset="./../../images/shopping-cart.png 2x"
-                                     alt=""
-                                   /> -->
+                              class="menu-responsive-icon-img"
+                              srcset="./assets/image/shopping-cart.png 2x"
+                              alt=""
+                            /> -->
                             <div class="menu-responsive-icon-tab">
                                 <button class="menu-responsive-icon-tab-cart" href="#!">
                                     <img
                                         class="menu-responsive-icon-img menu-responsive-icon-img-cart"
-                                        srcset="images/shopping-cart.png 2x"
+                                        srcset="assets/image/shopping-cart.png 2x"
                                         alt=""
                                         />
                                 </button>
@@ -272,7 +274,7 @@
                                                     Cart
                                                 </p>
                                                 <img
-                                                    srcset="images/Footer-line.png 2x"
+                                                    srcset="assets/image/Footer-line.png 2x"
                                                     alt=""
                                                     class="menu-responsive-icon-tab-cart-space"
                                                     />
@@ -283,21 +285,46 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-icon"
                                                 >
                                                 <img
-                                                    srcset="images/shopping-icon-tab.png 2x"
+                                                    srcset="assets/image/shopping-icon-tab.png 2x"
                                                     alt=""
                                                     />
                                             </div>
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
+                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
+                                                <c:if test="${empty sessionScope.CART.items.size()}">
+                                                    <c:set var="totalQuantity" value="${0}"/>
+                                                </c:if>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-show-txt-desc"
                                                     >
-                                                    There are currently no products
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
+                                                    </c:if>
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
+                                                    </c:if>
                                                 </p>
                                             </div>
                                         </div>
-                                        <img srcset="images/Footer-line.png 2x" alt="" />
+                                        <img srcset="assets/image/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
                                         <div class="menu-responsive-icon-tab-cart-content-function">
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-function-total"
@@ -308,9 +335,11 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
+                                                    id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    0₫
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                    ${price}₫
                                                 </p>
                                             </div>
                                             <div
@@ -324,7 +353,7 @@
                                                     </button>
                                                 </form>
                                                 <button
-                                                    class="pay-button menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
                                                     >
                                                     PAY
                                                 </button>
@@ -334,7 +363,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#!" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
@@ -345,7 +376,9 @@
                     </div>
                 </div>
                 <!--  -->
-                <img src="images/Nav-line.png" alt="" class="nav-line-bot" />
+                
+                <hr style="opacity: 0.6;">
+
             </header>
             <section class="shipping-info">
                 <c:set var="customerInfomation" value="${sessionScope.USER}"/>
@@ -601,7 +634,24 @@
                                                     <span class="radio-label-primary">Cash On Delivery (COD)</span>
                                                 </label>
                                             </div>
-                                            
+
+                                            <div class="shipping-info-left-form-delivery-store">
+                                                <label class="radio-label">
+                                                    <div class="radio-input">
+                                                        <input
+                                                            value="${2}"
+                                                            type="radio"
+                                                            id="location"
+                                                            name="location"
+                                                            class="input-radio"
+                                                            />
+                                                    </div>
+                                                    <span class="radio-label-primary"
+                                                          >Pick up at the store</span
+                                                    >
+                                                </label>
+                                            </div>
+
                                         </div>
                                         <c:if test="${not empty errors.shippingIDLengthError}">
                                             <font color="red">
@@ -610,7 +660,7 @@
                                         </c:if>
                                     </div>
                                 </c:if>
-                                <c:set var="uri" value="${pageContext.request.requestURI}" scope="session"/>
+                                <%--<c:set var="uri" value="${pageContext.request.requestURI}" scope="session"/>--%>
                                 <c:if test="${empty sessionScope.USER}">
 
                                     <p style="font-size: 15px; margin: 5px 0">YOU ARE NOT ALREADY LOGGED, PLEASE LOGIN FIRST!! <a href="loginPage">Login here </a></p>
@@ -809,6 +859,21 @@
                                                     </div>
                                                     <input type="hidden" id="txtWardDataName" name="txtWardDataName" value="">
                                                 </div>
+                                                <div class="shipping-info-left-form-delivery-store">
+                                                    <label class="radio-label">
+                                                        <div class="radio-input">
+                                                            <input
+                                                                type="radio"
+                                                                id="location"
+                                                                name="location"
+                                                                class="input-radio"
+                                                                />
+                                                        </div>
+                                                        <span class="radio-label-primary"
+                                                              >Pick up at the store</span
+                                                        >
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -825,8 +890,18 @@
                         alt=""
                         class="shipping-info-space"
                         />
+
                     <!-- RIGHT -->
                     <div class="shipping-info-right">
+                        <div class="shipping-info-left-breadcrumb-res">
+                            <div class="container">
+                                <ul class="shipping-info-left-breadcrumb-res-menu">
+                                    <li><a href="#">Cart</a></li>
+                                    <li><a href="#">Shipping infomation</a></li>
+                                    <li><a href="#">Payment methods</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         <c:set var="cartList" value="${sessionScope.CART.items}" />
                         <c:set var="cartListDetail" value="${sessionScope.CART.itemDetail}" />
                         <c:set var="total" value="0" />

@@ -193,12 +193,6 @@
                                                     />
                                             </div>
                                             <div class="menu-icon-tab-cart-content-show-txt">
-                                                <%--
-                                                <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
-                                                <c:if test="${empty sessionScope.CART.items.size()}">
-                                                    <c:set var="cartSize" value="${0}"/>
-                                                </c:if>
-                                                --%>
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
 
                                                 <c:set var="totalQuantity" value="${0}" />
@@ -210,11 +204,11 @@
                                                     <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    <c:if test="${cartSize eq 0}">
+                                                    <c:if test="${totalQuantity eq 0}">
                                                         There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products.
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
                                             </div>
@@ -314,22 +308,38 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
                                                 <c:if test="${empty sessionScope.CART.items.size()}">
-                                                    <c:set var="cartSize" value="${0}"/>
+                                                    <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-show-txt-desc"
                                                     >
-                                                    <c:if test="${cartSize eq 0}">
-                                                        There are no currently products.
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">${cartSize}</span> products
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
                                             </div>
                                         </div>
                                         <img srcset="assets/image/Footer-line.png 2x" alt="" />
+                                        <c:set var="listCart" value="${sessionScope.CART}"/>
+                                        <c:set var="totalPrice" value="${0}"/>
+
+                                        <c:forEach var="item" items="${sessionScope.CART.items}">
+                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
+                                                <c:if test="${item.key eq detail.key}">
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
                                         <div class="menu-responsive-icon-tab-cart-content-function">
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-function-total"
@@ -340,10 +350,10 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
+                                                    id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
-
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###" />
+                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
                                                     ${price}₫
                                                 </p>
                                             </div>
@@ -358,7 +368,7 @@
                                                     </button>
                                                 </form>
                                                 <button
-                                                    class="menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
                                                     >
                                                     PAY
                                                 </button>
@@ -368,11 +378,13 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> LOGO </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
-                                srcset="assets/image/textalign-justifycenter.png 2x"
+                                srcset="images/textalign-justifycenter.png 2x"
                                 alt=""
                                 />
                         </div>
@@ -541,32 +553,6 @@
                                             <!-- ITEM COMMENT -->
                                         </div>
                                     </div> 
-
-                                    <!--                                    <div class="product__item-info-description">
-                                                                            <span class="product__item-info-description-describe">Mô tả:</span></br>
-                                                                            <p>Thông số đồng hồ</p>
-                                                                            <p>Mặt đồng hồ : <span>size 40mm</span></p>
-                                                                            <p>Size dây: <span>22mm</span></p>
-                                                                            <p>Chất liệu vỏ là thép không gỉ 316L mạ màu vàng hồng và màu bạc đánh xước. ( chất liệu
-                                                                                này là
-                                                                                chất liệu đa số những hãng đồng hồ lớn sử dụng ) Không bị phai màu.</p>
-                                    
-                                                                            <p>Dây cơ bản theo sẵn dùng dây Genuine leather. Là một thuật ngữ nói đây là da thật. Da
-                                                                                của
-                                                                                mình là da bò thật làm giống vân cá sấu.</p>
-                                    
-                                                                            <p> Máy sử dụng : <span> Miyota 2115. Máy sản xuất tại NHẬT BẢN hãng Miyota</span></p>
-                                    
-                                                                            <p> Mặt kính : <span>Kính Minerals, dày 2mm</span></p>
-                                    
-                                                                            <p> Chống nước 3 ATM : <span> 3ATM thì đây là chiếc đồng hồ có khả năng chống nước trung
-                                                                                    bình. Ví dụ
-                                                                                    chống nước đối với các trường hợp đi mưa, rửa tay, rửa chén hay rửa xe… Không
-                                                                                    bơi lội, tắm giặt.</span></p>
-                                    
-                                    
-                                                                        </div>-->
-
                                 </div>
                             </div>
 

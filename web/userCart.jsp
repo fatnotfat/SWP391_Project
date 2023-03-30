@@ -160,6 +160,7 @@
                                         />
                                 </button>
                                 <div class="menu-icon-tab-profile-content">
+                                    <c:set var="uri" value="${pageContext.request.requestURI}" scope="session"/>
                                     <div class="container">
                                         <c:if test="${not empty sessionScope.USER}">
                                             <div class="menu-icon-tab-profile-content-title">

@@ -118,13 +118,25 @@ public class PaymentServlet extends HttpServlet {
                             ordersDetailDAO.addToOrdersDetail(cart, discount, ordersId);
                         }
                     }
-                    CustomerDTO user = (CustomerDTO) session.getAttribute("USER");
+                    CustomerDTO user = (CustomerDTO) session.getAttribute("USER");                  
                     if (user != null) {
                         List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(user.getCustomerID());
                         session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
                         List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(user.getCustomerID());
                         session.setAttribute("USER_SHIPPINGINFO", customerOrders);
                         OrdersDTO shippingInfor = ordersDAO.getShippingInFoByCusID(user.getCustomerID());
+                        request.setAttribute("SHIPPING_INFO_FOR_CHECKOUT", shippingInfor);
+                        List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetail();
+                        request.setAttribute("orders_checkout_detail", list);
+                    }
+                    
+                    CustomerDTO guest = (CustomerDTO) session.getAttribute("GUEST");                  
+                    if (guest != null) {
+                        List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(guest.getCustomerID());
+                        session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
+                        List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(guest.getCustomerID());
+                        session.setAttribute("USER_SHIPPINGINFO", customerOrders);
+                        OrdersDTO shippingInfor = ordersDAO.getShippingInFoByCusID(guest.getCustomerID());
                         request.setAttribute("SHIPPING_INFO_FOR_CHECKOUT", shippingInfor);
                         List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetail();
                         request.setAttribute("orders_checkout_detail", list);

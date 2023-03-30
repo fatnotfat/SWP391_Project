@@ -233,7 +233,7 @@ public class ShippingServlet extends HttpServlet {
                                 email, phone);
 
                         CustomerDTO result = dao.loadInformationForPayment(email);
-                        session.setAttribute("USER", result);
+                        session.setAttribute("GUEST", result);
 
                         ShippingMethodDAO shippingDAO = new ShippingMethodDAO();
                         ArrayList<ShippingMethodDTO> shippingList = shippingDAO.getListShippingMethodGPT();

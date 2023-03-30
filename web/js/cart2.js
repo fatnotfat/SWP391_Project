@@ -208,6 +208,7 @@ function updateCartSize() {
         success: function (response) {
             $("#cart-size").text(response.cartSize);
             $("#cart-size-header").text(response.cartSize);
+            $("#cart-size-header-mobile").text(response.cartSize);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // handle error
@@ -365,9 +366,11 @@ function formatPrice(price) {
 
 function updateTotalPrice(itemPrice) {
     var totalPriceElem = document.getElementById("totalPrice");
+    var totalPriceElemMobile = document.getElementById("total-price-nav-mobile");
     var currentPrice = parseFloat(totalPriceElem.textContent.replace(/\D/g, ''));
     var newPrice = currentPrice + itemPrice;
     totalPriceElem.textContent = formatPrice(newPrice);
+    totalPriceElemMobile.textContent = formatPrice(newPrice);
 }
 
 
@@ -391,7 +394,6 @@ $(document).ready(function () {
                 alert('Add successfully !!');
                 updateTotalPrice(itemPrice);
                 updateCartSize();
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // handle error response from servlet

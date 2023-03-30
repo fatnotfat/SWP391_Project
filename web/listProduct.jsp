@@ -383,7 +383,7 @@
                                 <button class="menu-responsive-icon-tab-cart" href="#!">
                                     <img
                                         class="menu-responsive-icon-img menu-responsive-icon-img-cart"
-                                        srcset="images/shopping-cart.png 2x"
+                                        srcset="assets/image/shopping-cart.png 2x"
                                         alt=""
                                         />
                                 </button>
@@ -399,7 +399,7 @@
                                                     Cart
                                                 </p>
                                                 <img
-                                                    srcset="images/Footer-line.png 2x"
+                                                    srcset="assets/image/Footer-line.png 2x"
                                                     alt=""
                                                     class="menu-responsive-icon-tab-cart-space"
                                                     />
@@ -410,7 +410,7 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-icon"
                                                 >
                                                 <img
-                                                    srcset="images/shopping-icon-tab.png 2x"
+                                                    srcset="assets/image/shopping-icon-tab.png 2x"
                                                     alt=""
                                                     />
                                             </div>
@@ -418,28 +418,35 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
+
+                                                <c:set var="totalQuantity" value="${0}" />
+                                                <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
+                                                    <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
+                                                </c:forEach>
+
                                                 <c:if test="${empty sessionScope.CART.items.size()}">
-                                                    <c:set var="cartSize" value="${0}"/>
-                                                    <%--<c:set var="CART_PRICE" value="${calculateTotalPrice()}" scope="session"/>--%>
+                                                    <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
-                                                <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    <c:if test="${cartSize eq 0}">
-                                                        There are no currently products.
+                                                <p
+                                                    class="menu-responsive-icon-tab-cart-content-show-txt-desc"
+                                                    >
+                                                    <c:if test="${totalQuantity eq 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
                                                     </c:if>
-                                                    <c:if test="${cartSize ne 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">${cartSize}</span> products
+                                                    <c:if test="${totalQuantity ne 0}">
+                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
                                                     </c:if>
                                                 </p>
                                             </div>
                                         </div>
-                                        <img srcset="images/Footer-line.png 2x" alt="" />
+                                        <img srcset="assets/image/Footer-line.png 2x" alt="" />
                                         <c:set var="listCart" value="${sessionScope.CART}"/>
                                         <c:set var="totalPrice" value="${0}"/>
 
                                         <c:forEach var="item" items="${sessionScope.CART.items}">
                                             <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
                                                 <c:if test="${item.key eq detail.key}">
-                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}"/>
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
                                                 </c:if>
                                             </c:forEach>
                                         </c:forEach>
@@ -453,6 +460,7 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
+                                                    id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
                                                     >
                                                     <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
@@ -470,7 +478,7 @@
                                                     </button>
                                                 </form>
                                                 <button
-                                                    class="menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
                                                     >
                                                     PAY
                                                 </button>
@@ -480,7 +488,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
+                        <a href="mainPage" class="menu-responsive-logo">
+                            <img srcset="images/LOGO.png 2x" alt="">
+                        </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
@@ -491,7 +501,8 @@
                     </div>
                 </div>
                 <!--  -->
-                <img src="images/Nav-line.png" alt="" class="nav-line-bot" />
+                <hr style="opacity: 0.6">
+                <!--<img src="images/Nav-line.png" alt="" class="nav-line-bot" />-->
             </header>
             <div class="grid__full-width">
                 <div class="image__include">
@@ -528,163 +539,6 @@
                         <div class="iphone">
                             <div class="grid__full-width iphone__filter">
                                 <div class="category__filter ">
-                                    <!--                                    <form class="category__filter-form" action="#">
-                                                                            <ul class="category__filter-include">
-                                                                                <li>
-                                                                                    <span class="category__filter-include-title">Price</span>
-                                                                                    <div class="category__filter-include-button">
-                                                                                        <input class="category__filter-include-input" type="text" name="" id=""
-                                                                                               placeholder="0đ">
-                                                                                        <input class="category__filter-include-input" type="text" name="" id=""
-                                                                                               placeholder="9999999đ">
-                                                                                    </div>
-                                                                                </li>
-                                    
-                                                                                <hr class="category__filter-line">
-                                    
-                                                                                <li class="category__filter-list-size-ring">
-                                    
-                                    
-                                                                                    <span class="category__filter-include-title">Size</span>
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">10</label>
-                                                                                    </form>
-                                    
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">12</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">7</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">8</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">9</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">5</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">L</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">S</label>
-                                                                                    </form>
-                                    
-                                    
-                                    
-                                                                                </li>
-                                    
-                                                                                <hr class="category__filter-line">
-                                    
-                                    
-                                                                                <li class="category__filter-list-size-clock">
-                                                                                    <span class="category__filter-include-title">Size</span>
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">38</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">40</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">42</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">44</label>
-                                                                                    </form>
-                                    
-                                                                                </li>
-                                    
-                                                                                <hr class="category__filter-line">
-                                    
-                                    
-                                                                                <li class="category__filter-list-size-bracelet">
-                                                                                    <span class="category__filter-include-title">Size</span>
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">17</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">18</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">19</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">20</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">21</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">22</label>
-                                                                                    </form>
-                                    
-                                                                                </li>
-                                    
-                                                                                <hr class="category__filter-line">
-                                    
-                                    
-                                                                                <li class="category__filter-list-size-necklace">
-                                                                                    <span class="category__filter-include-title">Size</span>
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">50</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">55</label>
-                                                                                    </form>
-                                    
-                                                                                    <form class="category__filter-include-type">
-                                                                                        <input class="category__filter-include-checkbox" type="checkbox" name="" id="">
-                                                                                        <label class="category__filter-include-size-label" for="">60</label>
-                                                                                    </form>
-                                    
-                                                                                    <div class="category__filter-search">
-                                                                                        <button>
-                                                                                            Search
-                                                                                        </button>
-                                                                                    </div>
-                                    
-                                                                                </li>
-                                    
-                                                                            </ul>
-                                                                        </form>-->
                                 </div>
                             </div>
                             <div class="show__filter">

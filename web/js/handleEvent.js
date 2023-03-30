@@ -2,25 +2,47 @@
 
 const payButton = document.querySelector('.your-cart-body-right-order-btn');
 const payButtonHeader = document.querySelector('.pay-button');
+const payButtonMobile = document.querySelector('.pay-button-mobile');
 
-
-payButtonHeader.addEventListener('click', (event) => {
-    if (document.getElementById('cart-size-header') !== null) {
-        const cartSizeValue = document.getElementById('cart-size-header').textContent;
-        if (cartSizeValue > 0) {
-            event.preventDefault(); // prevent the default form submission behavior
-            window.location.href = 'shippingPage'; // navigate to the shipping page
+if (payButtonHeader !== null) {
+    payButtonHeader.addEventListener('click', (event) => {
+        if (document.getElementById('cart-size-header') !== null) {
+            const cartSizeValue = document.getElementById('cart-size-header').textContent;
+            if (cartSizeValue > 0) {
+                event.preventDefault(); // prevent the default form submission behavior
+                window.location.href = 'shippingPage'; // navigate to the shipping page
+            } else {
+                // cart is empty, show alert message
+                alert('You must add some product first!!');
+                event.preventDefault(); // prevent the form from submitting
+            }
         } else {
             // cart is empty, show alert message
             alert('You must add some product first!!');
             event.preventDefault(); // prevent the form from submitting
         }
-    } else {
-        // cart is empty, show alert message
-        alert('You must add some product first!!');
-        event.preventDefault(); // prevent the form from submitting
-    }
-});
+    });
+}
+
+if (payButtonMobile !== null) {
+    payButtonMobile.addEventListener('click', (event) => {
+        if (document.getElementById('cart-size-header') !== null) {
+            const cartSizeValue = document.getElementById('cart-size-header').textContent;
+            if (cartSizeValue > 0) {
+                event.preventDefault(); // prevent the default form submission behavior
+                window.location.href = 'shippingPage'; // navigate to the shipping page
+            } else {
+                // cart is empty, show alert message
+                alert('You must add some product first!!');
+                event.preventDefault(); // prevent the form from submitting
+            }
+        } else {
+            // cart is empty, show alert message
+            alert('You must add some product first!!');
+            event.preventDefault(); // prevent the form from submitting
+        }
+    });
+}
 
 if (payButton !== null) {
     payButton.addEventListener('click', (event) => {
