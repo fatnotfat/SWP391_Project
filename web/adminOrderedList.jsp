@@ -224,7 +224,7 @@
 
                                                     <td>
                                                         <input type="hidden" name="ordersID" value="${dto.ordersID}"/>
-                                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#orderDetails${dto.ordersID}">Xem chi tiết</button>
+                                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#orderDetails${dto.ordersID}">View Order Detail</button>
                                                     </td>
                                                 </form>
                                                 </tr>

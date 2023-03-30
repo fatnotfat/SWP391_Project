@@ -283,5 +283,12 @@ public class MyApplicationConstants {
         public static final String ADMINORDERSLIST_PAGE = "adminOrdersListPage";
         public static final String ADMIN_PAGE = "AdminOrderedListServlet";
     }
+    
+    
+    public class CustomerOrdersList {
+
+        public static final String CUSTOMERORDERSLIST_PAGE = "customerOrdersListPage";
+        public static final String CUSTOMER_PAGE = "AdminOrderedListServlet";
+    }
 
 }

@@ -257,7 +257,7 @@
                 </div>
                 <!--  -->
             </header>
-                <img src="images/Nav-line.png" alt="" />
+            <img src="images/Nav-line.png" alt="" />
 
             <div class="overview">
                 <div class="container">
@@ -337,7 +337,7 @@
                                                                         <a href="#!" class="overview-right-account-info-option-item-address">View address</a>
                                                                     </li>-->
                                     <li class="overview-right-account-info-option-item">
-                                        <a href="#!" class="overview-right-account-info-option-item-orders">View list of order</a>
+                                        <a href="customerOrdersListController" class="overview-right-account-info-option-item-orders">View list of order</a>
                                     </li>
                                     <li class="overview-right-account-info-option-item">
                                         <a href="updateInforPage" class="overview-right-account-info-option-item-orders">Update self-information</a>
@@ -358,7 +358,7 @@
                                 <div class="overview-right-latest-order-table">
                                     <div class="overview-right-latest-order-table-title">
                                         <ul class="overview-right-latest-order-table-title-list">
-                                            <li class="overview-right-latest-order-table-title-list-item">No</li>
+                                            <li class="overview-right-latest-order-table-title-list-item">Order Code</li>
                                             <li class="overview-right-latest-order-table-title-list-item">Date Order</li>
                                             <li class="overview-right-latest-order-table-title-list-item">Total</li>
                                             <li class="overview-right-latest-order-table-title-list-item">Status</li>
@@ -368,7 +368,7 @@
 
                                         <c:forEach var="orders" items="${ORDERS_LIST_OF_USER}" varStatus="loop">
                                             <ul class="overview-right-latest-order-table-desc-list">
-                                                <li class="overview-right-latest-order-table-desc-list-item">${loop.count}</li>
+                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.ordersID}</li>
                                                 <li class="overview-right-latest-order-table-desc-list-item"><fmt:formatDate value="${orders.dateOrders}" pattern="dd/MM/yyy"/></li>
                                                 <li class="overview-right-latest-order-table-desc-list-item">${orders.total}</li>
                                                 <li class="overview-right-latest-order-table-desc-list-item">${orders.status == 1 ? "Success" : "Pending"}</li>
