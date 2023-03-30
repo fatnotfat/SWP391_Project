@@ -122,10 +122,13 @@ public class PaymentServlet extends HttpServlet {
                     if (user != null) {
                         List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(user.getCustomerID());
                         session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
+                        
                         List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(user.getCustomerID());
                         session.setAttribute("USER_SHIPPINGINFO", customerOrders);
+                        
                         OrdersDTO shippingInfor = ordersDAO.getShippingInFoByCusID(user.getCustomerID());
                         request.setAttribute("SHIPPING_INFO_FOR_CHECKOUT", shippingInfor);
+                        
                         List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetail();
                         request.setAttribute("orders_checkout_detail", list);
                     }

@@ -842,7 +842,10 @@ header {
     padding-bottom: 20px;
 }
 .overview-right-latest-order-table-title-list-item {
+    word-wrap: break-word;
+    height: auto;
     font-size: 14px;
+    width: calc(16% - 5px);
     font-weight: 600;
 }
 .overview-right-latest-order-table-desc-list {
@@ -856,7 +859,10 @@ header {
     padding-top: 20px;
 }
 .overview-right-latest-order-table-desc-list-item {
+    word-wrap: break-word;
+    height: auto;
     font-size: 14px;
+    width: calc(16% - 5px);
 }
 
 @media screen and (max-width: 1024px) {

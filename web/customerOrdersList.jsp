@@ -1,17 +1,16 @@
 <%-- 
-    Document   : userInfor
-    Created on : Feb 26, 2023, 12:04:13 AM
-    Author     : nguye
+    Document   : customerOrdersList
+    Created on : Mar 30, 2023, 10:50:46 PM
+    Author     : Duy
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,8 +23,8 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
             />
         <link rel="stylesheet" href="style/reset.css" />
-        <link rel="stylesheet" href="style/overview.css" />
-        <title>User Information</title>
+        <link rel="stylesheet" href="style/order-list.css" />
+        <title>Order List</title>
     </head>
     <body>
         <div class="wrapper">
@@ -37,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="images/Nav-line.png" alt="" />
+                <img src="images/Nav-line.png" alt="" class="nav-line" />
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
@@ -375,142 +374,86 @@
                     </div>
                 </div>
                 <!--  -->
-                <hr style="opacity: 0.6">
+                <img src="assets/image/Nav-line.png" alt="" class="nav-line-bot" />
             </header>
-            <img src="images/Nav-line.png" alt="" />
-
             <div class="overview">
                 <div class="container">
-
-                    <c:if test="${not empty sessionScope.USER}">
-                        <div class="overview-left">
-                            <h1 class="overview-left-title">ACCOUNT</h1>
-                            <ul class="overview-left-list">
-                                <li class="overview-left-item--circle">
-                                    <a href="#!" class="overview-left-item-link">Account information</a> 
-                                </li>
-                                <!--                            <li class="overview-left-item--circle">
-                                                                <a href="#!" class="overview-left-item-link">Address List</a> 
-                                                            </li>-->
-                                <li class="overview-left-item--circle">
-                                    <a href="logoutController" class="overview-left-item-link">Log out</a> 
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- ____________________________________________________ -->
-                        <img class="overview-space" srcset="images/Login-line.png 2x" alt="" />
-                        <div class="overview-right">
-                            <div class="overview-right-account-info">
-                                <h1 class="overview-right-account-info-title">ACCOUNT INFORMATION</h1>
-                                <img srcset="images/Overview-line.png 2x" alt="">
-                                <ul class="overview-right-account-info-option">
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-name">Name: ${sessionScope.USER.name}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Email: ${sessionScope.USER.email}</p>
-                                    </li>
-                                    <c:set var="birthDate" value="${sessionScope.USER.birthDate}"/>
-                                    <c:if test="${empty birthDate}">
-                                        <c:set var="birthDate" value="01-01-1999"/>
-                                        <fmt:parseDate var="birthDate" value="${birthDate}" pattern="dd-MM-yyyy" />
-                                    </c:if>
-                                    <li class="overview-right-account-info-option-item">
-                                        <fmt:formatDate var="date" value="${birthDate}" pattern="dd-MM-yyyy" />
-                                        <p class="overview-right-account-info-option-item-mail">Birthday: ${date}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <c:if test="${sessionScope.USER.sex eq true}">
-                                            <p class="overview-right-account-info-option-item-mail">Sex: Male</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.sex eq false}">
-                                            <p class="overview-right-account-info-option-item-mail">Sex: Female</p>
-                                        </c:if>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Phone: ${sessionScope.USER.phone}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Address: ${sessionScope.USER.address}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <c:if test="${sessionScope.USER.rankID eq 1}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: None</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 2}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Bronze</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 3}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Silver</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 4}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Gold</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 5}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Diamond</p>
-                                        </c:if>
-                                    </li>
-                                    <!--                                <li class="overview-right-account-info-option-item">
-                                                                        <p href="#!" class="overview-right-account-info-option-item-country">Country</p>
-                                                                    </li>-->
-                                    <!--                                <li class="overview-right-account-info-option-item">
-                                                                        <a href="#!" class="overview-right-account-info-option-item-address">View address</a>
-                                                                    </li>-->
-                                    <li class="overview-right-account-info-option-item">
-                                        <a href="customerOrdersListController" class="overview-right-account-info-option-item-orders">View list of order</a>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <a href="updateInforPage" class="overview-right-account-info-option-item-orders">Update self-information</a>
-                                    </li>
-                                </ul>
-                                <c:set var="noti" value="${requestScope.SUCCESS_UPDATE_NOTI}"/>
-                                <c:if test="${not empty noti}">
-                                    <p style="color: red; font-size: 18px;">${noti}</p>
-                                </c:if>
+                    <div class="overview-right">
+                        <div class="overview-right-latest-order">
+                            <div class="overview-right-latest-order-title">
+                                LIST OF ORDER
+                                <img srcset="images/Overview-line.png 2x" alt="" />
                             </div>
+                            <div class="overview-right-latest-order-table">
+                                <div class="overview-right-latest-order-table-title">
+                                    <ul class="overview-right-latest-order-table-title-list">
+                                        <li
+                                            class="overview-right-latest-order-table-title-list-item"
+                                            >
+                                            Order Code
+                                        </li>
+                                        <li
+                                            class="overview-right-latest-order-table-title-list-item"
+                                            >
+                                            Booking date
+                                        </li>
+                                        <li
+                                            class="overview-right-latest-order-table-title-list-item"
+                                            >
+                                            Into money
+                                        </li>
+                                        <li
+                                            class="overview-right-latest-order-table-title-list-item"
+                                            >
+                                            Status
+                                        </li>
+                                        <li
+                                            class="overview-right-latest-order-table-title-list-item"
+                                            >
+                                            Transport
+                                        </li>
+                                    </ul>
+                                    <img srcset="images/Overview-line.png 2x" alt="" />
+                                    <div class="order">
+                                        <!-- ORDER -->
+                                        <div class="overview-right-latest-order-table-between">
+                                            <img srcset="images/Overview-line.png 2x" alt="" />
 
-
-
-                            <div class="overview-right-latest-order">
-                                <div class="overview-right-latest-order-title">LATEST ORDER
-                                    <img srcset="images/Overview-line.png 2x" alt="">
-                                </div>
-                                <div class="overview-right-latest-order-table">
-                                    <div class="overview-right-latest-order-table-title">
-                                        <ul class="overview-right-latest-order-table-title-list">
-                                            <li class="overview-right-latest-order-table-title-list-item">Order Code</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Date Order</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Total</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Status</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Transport</li>
-                                        </ul>
-                                        <img srcset="images/Overview-line.png 2x" alt="">
-
-                                        <c:forEach var="orders" items="${ORDERS_LIST_OF_USER}" varStatus="loop">
-                                            <ul class="overview-right-latest-order-table-desc-list">
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.ordersID}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item"><fmt:formatDate value="${orders.dateOrders}" pattern="dd/MM/yyy"/></li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.total}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.status == 1 ? "Success" : "Pending"}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.nameOfMethod}</li>
-                                            </ul>
-                                        </c:forEach>
-
+                                            <c:forEach var="orders" items="${requestScope.ORDERS_LIST_FOR_USER}">
+                                                <ul class="overview-right-latest-order-table-desc-list">
+                                                    <li
+                                                        class="overview-right-latest-order-table-desc-list-item"
+                                                        >
+                                                        ${orders.ordersID}
+                                                    </li>
+                                                    <li
+                                                        class="overview-right-latest-order-table-desc-list-item"
+                                                        >
+                                                        ${orders.dateOrders}
+                                                    </li>
+                                                    <li
+                                                        class="overview-right-latest-order-table-desc-list-item"
+                                                        >
+                                                        ${orders.total}
+                                                    </li>
+                                                    <li
+                                                        class="overview-right-latest-order-table-desc-list-item"
+                                                        >
+                                                        ${orders.status == 1 ? 'delivering' : 'processing'}
+                                                    </li>
+                                                    <li
+                                                        class="overview-right-latest-order-table-desc-list-item"
+                                                        >
+                                                        ${orders.nameOfMethod}
+                                                    </li>
+                                                </ul>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </c:if>
-
-                    <c:if test="${empty sessionScope.USER}">
-                        <div style="text-align: center; margin: 300px 0;">
-                            <h1 style="font-size: 30px; margin: 20px 0;">YOU ARE NOT ALREADY LOGGED, PLEASE LOGIN FIRST!!</h1>
-                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="loginPage">Login here </a><span style="font-size: 20px">or </span><a style="font-size: 20px; text-decoration: none; font-weight: bold" href="signUpPage">Register here!</a><br/>
-                            <span style="font-size: 20px">Or</span><br/>
-                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/SWP391ProjectMVC/LoginGoogleHandler&response_type=code
-                               &client_id=781842961263-gokuov74qslei1a1t44nufilc8u0d8sb.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
-                        </div>
-                    </c:if>
+                    </div>
                 </div>
             </div>
             <img src="images/Footer-line.png" alt="" />
@@ -545,20 +488,14 @@
                         <div class="footer-menu-cus-service">
                             <h3 class="footer-menu-cus-service-title">CUSTOMER SERVICE</h3>
                             <div class="footer-menu-cus-service-desc">
-                                <p class="footer-menu-cus-service-desc-txt">
-                                    TERMS OF SERVICE
-                                </p>
-                                <p class="footer-menu-cus-service-desc-txt">
-                                    REFUND POLICY
-                                </p>
+                                <p class="footer-menu-cus-service-desc-txt">TERMS OF SERVICE</p>
+                                <p class="footer-menu-cus-service-desc-txt">REFUND POLICY</p>
                             </div>
                         </div>
                         <div class="footer-menu-about">
                             <h3 class="footer-menu-about-title">ABOUT US</h3>
                             <div class="footer-menu-about-desc">
-                                <p class="footer-menu-about-desc-txt">
-                                    STORY OF PDTK
-                                </p>
+                                <p class="footer-menu-about-desc-txt">STORY OF PDTK</p>
                             </div>
                         </div>
                         <div class="footer-menu-care">
@@ -567,24 +504,19 @@
                                 <p class="footer-menu-care-desc-txt">
                                     INSTRUCTIONS FOR STORAGE OF US PRODUCTS
                                 </p>
-                                <p class="footer-menu-care-desc-txt">
-                                    FASHION KNOWLEDGE
-                                </p>
+                                <p class="footer-menu-care-desc-txt">FASHION KNOWLEDGE</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="footer-copyright">
                     <div class="container">
-                        <p class="footer-copyright-txt">
-                            © 2023 PTDK All Rights Reserved.
-                        </p>
+                        <p class="footer-copyright-txt">© 2023 PTDK All Rights Reserved.</p>
                     </div>
                 </div>
             </footer>
         </div>
-        <script src="js/header.js"></script>
-        <script src="js/handleEvent.js"></script>
-        <script src="js/handleEvent1.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>
+

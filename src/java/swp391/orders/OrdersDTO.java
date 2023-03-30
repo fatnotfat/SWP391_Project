@@ -54,6 +54,13 @@ public class OrdersDTO implements Serializable {
         this.status = status;
     }
 
+    public OrdersDTO(int ordersID, int shippingID, Date dateOrders, int status) {
+        this.ordersID = ordersID;
+        this.shippingID = shippingID;
+        this.dateOrders = dateOrders;
+        this.status = status;
+    }
+    
     public String getNameOfUser() throws SQLException, NamingException {
         CustomerDAO customerDAO = new CustomerDAO();
         String customerName = customerDAO.getNameOfUserByUserID(this.customerID);
