@@ -27,10 +27,12 @@ body {
 }
 
 header {
+    max-width: 1920px;
     position: fixed;
     z-index: 999;
     background-color: var(--primary-color);
 }
+
 
 .shipping {
     text-align: center;
@@ -42,6 +44,7 @@ header {
     font-weight: 600;
 }
 
+
 .nav-bot .container {
     display: flex;
     align-items: center;
@@ -49,6 +52,7 @@ header {
     padding: 30px 60px;
     flex-wrap: wrap;
 }
+
 
 .menu {
     display: flex;
@@ -434,7 +438,27 @@ header {
     color: var(--font-color);
     font-weight: 700;
     font-size: 27px;
+    overflow: hidden;
 }
+.menu-logo img {
+    display: inline;
+    height: 50px;
+}
+
+
+.menu-responsive-logo {
+    text-decoration: none;
+    color: var(--font-color);
+    font-weight: 700;
+    font-size: 27px;
+    overflow: hidden;
+}
+.menu-responsive-logo img {
+    display: inline;
+    height: 30px;
+    margin-top: 10px;
+}
+
 
 .nav-bot-responsive .container {
     display: flex;
@@ -443,6 +467,7 @@ header {
     padding: 0 20px;
     flex-wrap: wrap;
 }
+
 
 .menu-responsive-icon {
     cursor: pointer;
@@ -612,16 +637,25 @@ header {
     font-size: 27px;
 }
 
+
 .nav-bot-responsive {
     display: none;
 }
+
 
 @media screen and (max-width: 1024px) {
     .menu {
         padding: 0 10rem;
     }
+    .nav-bot .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 30px;
+        flex-wrap: wrap;
+    }
 }
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
     .nav-bot .container {
         padding: 30px;
     }
@@ -637,15 +671,14 @@ header {
         line-height: 1.21875;
         font-weight: 600;
     }
-}
-@media screen and (max-width: 600px) {
+}*/
+@media screen and (max-width: 768px) {
     .nav-bot .container {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30px 60px;
         flex-wrap: nowrap;
-        flex-direction: row;
+        flex-direction: column;
     }
     .nav-bot {
         display: block;
@@ -674,7 +707,22 @@ header {
         display: block;
     }
     .menu-icon {
+        flex-direction: column;
+    }
+    .menu-icon-tab:nth-child(3) {
         display: none;
+    }
+    .menu-icon-tab-search-content .container {
+        left: -191px;
+    }
+    .menu-icon-tab-search-content .container::after {
+        right: 180px;
+    }
+    .menu-icon-tab-profile-content .container {
+        left: -117px;
+    }
+    .menu-icon-tab-profile-content .container::after {
+        right: 110px;
     }
     .menu-link {
         font-size: 18px;
@@ -702,6 +750,11 @@ header {
         width: 370px;
     }
 }
+
+
+
+
+
 .overview .container {
     display: flex;
     align-items: flex-start;
