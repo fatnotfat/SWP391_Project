@@ -15,7 +15,7 @@ public class Constants {
 
 	public static String GOOGLE_CLIENT_SECRET = "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";
 
-	public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/SWP391ProjectMVC/LoginGoogleHandler";
+	public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/SWP391Project/LoginGoogleHandler";
 
 	public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
 

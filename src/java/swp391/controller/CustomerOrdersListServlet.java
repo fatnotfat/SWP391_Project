@@ -49,13 +49,13 @@ public class CustomerOrdersListServlet extends HttpServlet {
         CustomerDTO user = (CustomerDTO) session.getAttribute("USER");
         OrdersDAO ordersDAO = new OrdersDAO();
         String url = siteMaps.getProperty(
-                MyApplicationConstants.CustomerOrdersList.CUSTOMERORDERSLIST_PAGE);
+                MyApplicationConstants.CustomerOrdersList.CUSTOMER_ORDERS_LIST_PAGE);
         try {
             List<OrdersDTO> listOrders = ordersDAO.getListOrdersByCusId(user.getCustomerID());
             if (listOrders != null) {
                 request.setAttribute("ORDERS_LIST_FOR_USER", listOrders);
                 url = siteMaps.getProperty(
-                        MyApplicationConstants.CustomerOrdersList.CUSTOMERORDERSLIST_PAGE);
+                        MyApplicationConstants.CustomerOrdersList.CUSTOMER_ORDERS_LIST_PAGE);
             }
 
         } catch (NamingException ex) {

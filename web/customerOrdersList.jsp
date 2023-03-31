@@ -218,8 +218,8 @@
                                                     id="totalPrice"
                                                     class="menu-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
-                                                    ${price}₫
+                                                <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                ${price}₫
                                                 </p>
                                             </div>
                                             <div class="menu-icon-tab-cart-content-function-method">
@@ -336,8 +336,8 @@
                                                     id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
-                                                    ${price}₫
+                                                <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                ${price}₫
                                                 </p>
                                             </div>
                                             <div
@@ -378,82 +378,93 @@
             </header>
             <div class="overview">
                 <div class="container">
-                    <div class="overview-right">
-                        <div class="overview-right-latest-order">
-                            <div class="overview-right-latest-order-title">
-                                LIST OF ORDER
-                                <img srcset="images/Overview-line.png 2x" alt="" />
-                            </div>
-                            <div class="overview-right-latest-order-table">
-                                <div class="overview-right-latest-order-table-title">
-                                    <ul class="overview-right-latest-order-table-title-list">
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Order Code
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Booking date
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Into money
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Status
-                                        </li>
-                                        <li
-                                            class="overview-right-latest-order-table-title-list-item"
-                                            >
-                                            Transport
-                                        </li>
-                                    </ul>
+                    <c:if test="${not empty sessionScope.USER}">
+                        <div class="overview-right">
+                            <div class="overview-right-latest-order">
+                                <div class="overview-right-latest-order-title">
+                                    LIST OF ORDER
                                     <img srcset="images/Overview-line.png 2x" alt="" />
-                                    <div class="order">
-                                        <!-- ORDER -->
-                                        <div class="overview-right-latest-order-table-between">
-                                            <img srcset="images/Overview-line.png 2x" alt="" />
+                                </div>
+                                <div class="overview-right-latest-order-table">
+                                    <div class="overview-right-latest-order-table-title">
+                                        <ul class="overview-right-latest-order-table-title-list">
+                                            <li
+                                                class="overview-right-latest-order-table-title-list-item"
+                                                >
+                                                Order Code
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-title-list-item"
+                                                >
+                                                Booking date
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-title-list-item"
+                                                >
+                                                Into money
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-title-list-item"
+                                                >
+                                                Status
+                                            </li>
+                                            <li
+                                                class="overview-right-latest-order-table-title-list-item"
+                                                >
+                                                Transport
+                                            </li>
+                                        </ul>
+                                        <img srcset="images/Overview-line.png 2x" alt="" />
+                                        <div class="order">
+                                            <!-- ORDER -->
+                                            <div class="overview-right-latest-order-table-between">
+                                                <img srcset="images/Overview-line.png 2x" alt="" />
 
-                                            <c:forEach var="orders" items="${requestScope.ORDERS_LIST_FOR_USER}">
-                                                <ul class="overview-right-latest-order-table-desc-list">
-                                                    <li
-                                                        class="overview-right-latest-order-table-desc-list-item"
-                                                        >
-                                                        ${orders.ordersID}
-                                                    </li>
-                                                    <li
-                                                        class="overview-right-latest-order-table-desc-list-item"
-                                                        >
-                                                        ${orders.dateOrders}
-                                                    </li>
-                                                    <li
-                                                        class="overview-right-latest-order-table-desc-list-item"
-                                                        >
-                                                        ${orders.total}
-                                                    </li>
-                                                    <li
-                                                        class="overview-right-latest-order-table-desc-list-item"
-                                                        >
-                                                        ${orders.status == 1 ? 'delivering' : 'processing'}
-                                                    </li>
-                                                    <li
-                                                        class="overview-right-latest-order-table-desc-list-item"
-                                                        >
-                                                        ${orders.nameOfMethod}
-                                                    </li>
-                                                </ul>
-                                            </c:forEach>
+                                                <c:forEach var="orders" items="${requestScope.ORDERS_LIST_FOR_USER}">
+                                                    <ul class="overview-right-latest-order-table-desc-list">
+                                                        <li
+                                                            class="overview-right-latest-order-table-desc-list-item"
+                                                            >
+                                                            ${orders.ordersID}
+                                                        </li>
+                                                        <li
+                                                            class="overview-right-latest-order-table-desc-list-item"
+                                                            >
+                                                            ${orders.dateOrders}
+                                                        </li>
+                                                        <li
+                                                            class="overview-right-latest-order-table-desc-list-item"
+                                                            >
+                                                            ${orders.total}
+                                                        </li>
+                                                        <li
+                                                            class="overview-right-latest-order-table-desc-list-item"
+                                                            >
+                                                            ${orders.status == 1 ? 'delivering' : 'processing'}
+                                                        </li>
+                                                        <li
+                                                            class="overview-right-latest-order-table-desc-list-item"
+                                                            >
+                                                            ${orders.nameOfMethod}
+                                                        </li>
+                                                    </ul>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
+                    <c:if test="${empty sessionScope.USER}">
+                        <div style="text-align: center; margin: 300px 0;">
+                            <h1 style="font-size: 30px; margin: 20px 0;">YOU ARE NOT ALREADY LOGGED, PLEASE LOGIN FIRST!!</h1>
+                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="loginPage">Login here </a><span style="font-size: 20px">or </span><a style="font-size: 20px; text-decoration: none; font-weight: bold" href="signUpPage">Register here!</a><br/>
+                            <span style="font-size: 20px">Or</span><br/>
+                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/SWP391ProjectMVC/LoginGoogleHandler&response_type=code
+                               &client_id=781842961263-gokuov74qslei1a1t44nufilc8u0d8sb.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <img src="images/Footer-line.png" alt="" />
