@@ -75,13 +75,13 @@
                                 </ul>
                             </li>
                             <li class="menu-item">
-                                <a href="#!" class="menu-link">About</a>
+                                <a href="aboutUs.jsp" class="menu-link">About</a>
                             </li>
                             <li class="menu-item">
                                 <a href="#!" class="menu-link">Shop</a>
                             </li>
                             <li class="menu-item">
-                                <a href="#!" class="menu-link">Contact</a>
+                                <a href="contactPage.jsp" class="menu-link">Contact</a>
                             </li>
                         </ul>
                         <div class="menu-icon">
