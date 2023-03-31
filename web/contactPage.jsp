@@ -1,9 +1,13 @@
 <%-- 
-    Document   : userInfor
-    Created on : Feb 26, 2023, 12:04:13 AM
-    Author     : nguye
+    Document   : contactPage
+    Created on : Apr 1, 2023, 1:26:40 AM
+    Author     : Duy
 --%>
 
+<%@page import="swp391.cart.CartObject"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="swp391.product.ProductDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -11,8 +15,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -23,9 +29,9 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
             />
+
         <link rel="stylesheet" href="style/reset.css" />
-        <link rel="stylesheet" href="style/overview.css" />
-        <title>User Information</title>
+        <link rel="stylesheet" href="style/contactPage.css" />
     </head>
     <body>
         <div class="wrapper">
@@ -37,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="images/Nav-line.png" alt="" />
+                <img src="assets/image/Nav-line.png" alt="" class="nav-line" />
                 <!-- NAV DESKTOP - TABLET -->
                 <div class="nav-bot">
                     <div class="container">
@@ -73,7 +79,6 @@
                             <div class="menu-icon-tab">
                                 <button class="menu-icon-tab-search" href="#!">
                                     <img
-
                                         class="menu-icon-img"
                                         srcset="assets/image/search-normal.png 2x"
                                         alt=""
@@ -94,8 +99,9 @@
                                                     id="search-button"
                                                     class="menu-icon-tab-search-input"
                                                     placeholder="Search Product..."
-                                                    name="txtSearch" value="${param.txtSearch}"
+                                                    name="txtSearch" value=""
                                                     />
+
                                             </form>
                                         </div>
                                     </div>
@@ -106,13 +112,13 @@
                                 <button class="menu-icon-tab-profile" href="#!">
                                     <img
                                         class="menu-icon-img"
-                                        srcset="images/profile-circle.png 2x"
+                                        srcset="assets/image/profile-circle.png 2x"
                                         alt=""
                                         />
                                 </button>
                                 <div class="menu-icon-tab-profile-content">
-                                    <c:set var="uri" value="${pageContext.request.requestURI}" scope="session"/>
                                     <div class="container">
+
                                         <c:if test="${not empty sessionScope.USER}">
                                             <div class="menu-icon-tab-profile-content-title">
                                                 <p class="menu-icon-tab-profile-content-title-desc">
@@ -139,10 +145,10 @@
                                             <form action="loginPage" method="GET">
                                                 <button class="menu-icon-tab-cart-content-function-method-btn">
                                                     <a style="font-size: 15px; text-decoration: none; font-weight: bold; color: inherit" href="loginPage">LOGIN</a>
-
                                                 </button>
                                             </form>
                                         </c:if>
+
                                     </div>
                                 </div>
                             </div>
@@ -178,22 +184,23 @@
                                             </div>
                                             <div class="menu-icon-tab-cart-content-show-txt">
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
-
                                                 <c:set var="totalQuantity" value="${0}" />
                                                 <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
                                                     <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
                                                 </c:forEach>
-
                                                 <c:if test="${empty sessionScope.CART.items.size()}">
                                                     <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
-                                                <p class="menu-icon-tab-cart-content-show-txt-desc">
-                                                    <c:if test="${totalQuantity eq 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
-                                                    </c:if>
-                                                    <c:if test="${totalQuantity ne 0}">
-                                                        There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
-                                                    </c:if>
+
+                                                <p
+                                                    class="menu-responsive-icon-tab-cart-content-show-txt-desc"
+                                                    >
+                                                <c:if test="${totalQuantity eq 0}">
+                                                    There are <span id="cart-size-header" style="font-weight: bold">no</span> currently products.
+                                                </c:if>
+                                                <c:if test="${totalQuantity ne 0}">
+                                                    There are <span id="cart-size-header" style="font-weight: bold">${totalQuantity}</span> products
+                                                </c:if>
                                                 </p>
                                             </div>
                                         </div>
@@ -204,7 +211,7 @@
                                         <c:forEach var="item" items="${sessionScope.CART.items}">
                                             <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
                                                 <c:if test="${item.key eq detail.key}">
-                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
+                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}"/>
                                                 </c:if>
                                             </c:forEach>
                                         </c:forEach>
@@ -216,11 +223,11 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
-                                                    id="totalPrice"
                                                     class="menu-icon-tab-cart-content-function-total-price"
+                                                    id="totalPrice"
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
-                                                    ${price}₫
+                                                <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
+                                                ${price}₫
                                                 </p>
                                             </div>
                                             <div class="menu-icon-tab-cart-content-function-method">
@@ -292,38 +299,27 @@
                                                 class="menu-responsive-icon-tab-cart-content-show-txt"
                                                 >
                                                 <c:set var="cartSize" value="${sessionScope.CART.items.size()}"/>
-
                                                 <c:set var="totalQuantity" value="${0}" />
                                                 <c:forEach var="quantity" items="${sessionScope.CART.items.values()}">
                                                     <c:set var="totalQuantity" value="${totalQuantity + quantity}" />
                                                 </c:forEach>
-
                                                 <c:if test="${empty sessionScope.CART.items.size()}">
                                                     <c:set var="totalQuantity" value="${0}"/>
                                                 </c:if>
                                                 <p
                                                     class="menu-responsive-icon-tab-cart-content-show-txt-desc"
                                                     >
-                                                    <c:if test="${totalQuantity eq 0}">
-                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
-                                                    </c:if>
-                                                    <c:if test="${totalQuantity ne 0}">
-                                                        There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
-                                                    </c:if>
+                                                <c:if test="${totalQuantity eq 0}">
+                                                    There are <span id="cart-size-header-mobile" style="font-weight: bold">no</span> currently products.
+                                                </c:if>
+                                                <c:if test="${totalQuantity ne 0}">
+                                                    There are <span id="cart-size-header-mobile" style="font-weight: bold">${totalQuantity}</span> products
+                                                </c:if>
                                                 </p>
+
                                             </div>
                                         </div>
                                         <img srcset="assets/image/Footer-line.png 2x" alt="" />
-                                        <c:set var="listCart" value="${sessionScope.CART}"/>
-                                        <c:set var="totalPrice" value="${0}"/>
-
-                                        <c:forEach var="item" items="${sessionScope.CART.items}">
-                                            <c:forEach var="detail" items="${sessionScope.CART.itemDetail}">
-                                                <c:if test="${item.key eq detail.key}">
-                                                    <c:set var="totalPrice" value="${totalPrice + (item.value * detail.value.price)}" />
-                                                </c:if>
-                                            </c:forEach>
-                                        </c:forEach>
                                         <div class="menu-responsive-icon-tab-cart-content-function">
                                             <div
                                                 class="menu-responsive-icon-tab-cart-content-function-total"
@@ -334,11 +330,11 @@
                                                     TOTAL AMOUNT
                                                 </p>
                                                 <p
-                                                    id="total-price-nav-mobile"
                                                     class="menu-responsive-icon-tab-cart-content-function-total-price"
+                                                    id="total-price-nav-mobile"
                                                     >
-                                                    <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###"/>
-                                                    ${price}₫
+                                                <fmt:formatNumber var="price" value="${totalPrice}" pattern="#,###" />
+                                                ${price}₫
                                                 </p>
                                             </div>
                                             <div
@@ -352,7 +348,7 @@
                                                     </button>
                                                 </form>
                                                 <button
-                                                    class="pay-button-mobile menu-responsive-icon-tab-cart-content-function-method-btn"
+                                                    class="menu-responsive-icon-tab-cart-content-function-method-btn"
                                                     >
                                                     PAY
                                                 </button>
@@ -362,13 +358,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="mainPage" class="menu-responsive-logo">
-                            <img srcset="images/LOGO.png 2x" alt="">
-                        </a>
+                        <a href="mainPage" class="menu-responsive-logo"> <img srcset="images/LOGO.png 2x" alt=""> </a>
                         <div class="menu-responsive-icon">
                             <img
                                 class="menu-responsive-icon-img menu-responsive-icon-img-bar"
-                                srcset="images/textalign-justifycenter.png 2x"
+                                srcset="assets/image/textalign-justifycenter.png 2x"
                                 alt=""
                                 />
                         </div>
@@ -376,145 +370,38 @@
                 </div>
                 <!--  -->
                 <hr style="opacity: 0.6">
+                <!--<img src="assets/image/Nav-line.png" alt="" class="nav-line-bot" />-->
             </header>
-            <img src="images/Nav-line.png" alt="" />
-
-            <div class="overview">
+            <section class="contact">
                 <div class="container">
-
-                    <c:if test="${not empty sessionScope.USER}">
-                        <div class="overview-left">
-                            <h1 class="overview-left-title">ACCOUNT</h1>
-                            <ul class="overview-left-list">
-                                <li class="overview-left-item--circle">
-                                    <a href="#!" class="overview-left-item-link">Account information</a> 
-                                </li>
-                                <!--                            <li class="overview-left-item--circle">
-                                                                <a href="#!" class="overview-left-item-link">Address List</a> 
-                                                            </li>-->
-                                <li class="overview-left-item--circle">
-                                    <a href="logoutController" class="overview-left-item-link">Log out</a> 
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- ____________________________________________________ -->
-                        <img class="overview-space" srcset="images/Login-line.png 2x" alt="" />
-                        <div class="overview-right">
-                            <div class="overview-right-account-info">
-                                <h1 class="overview-right-account-info-title">ACCOUNT INFORMATION</h1>
-                                <img srcset="images/Overview-line.png 2x" alt="">
-                                <ul class="overview-right-account-info-option">
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-name">Name: ${sessionScope.USER.name}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Email: ${sessionScope.USER.email}</p>
-                                    </li>
-                                    <c:set var="birthDate" value="${sessionScope.USER.birthDate}"/>
-                                    <c:if test="${empty birthDate}">
-                                        <c:set var="birthDate" value="01-01-1999"/>
-                                        <fmt:parseDate var="birthDate" value="${birthDate}" pattern="dd-MM-yyyy" />
-                                    </c:if>
-                                    <li class="overview-right-account-info-option-item">
-                                        <fmt:formatDate var="date" value="${birthDate}" pattern="dd-MM-yyyy" />
-                                        <p class="overview-right-account-info-option-item-mail">Birthday: ${date}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <c:if test="${sessionScope.USER.sex eq true}">
-                                            <p class="overview-right-account-info-option-item-mail">Sex: Male</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.sex eq false}">
-                                            <p class="overview-right-account-info-option-item-mail">Sex: Female</p>
-                                        </c:if>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Phone: ${sessionScope.USER.phone}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <p class="overview-right-account-info-option-item-mail">Address: ${sessionScope.USER.address}</p>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <c:if test="${sessionScope.USER.rankID eq 1}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: None</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 2}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Bronze</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 3}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Silver</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 4}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Gold</p>
-                                        </c:if>
-                                        <c:if test="${sessionScope.USER.rankID eq 5}">
-                                            <p class="overview-right-account-info-option-item-mail">Rank: Diamond</p>
-                                        </c:if>
-                                    </li>
-                                    <!--                                <li class="overview-right-account-info-option-item">
-                                                                        <p href="#!" class="overview-right-account-info-option-item-country">Country</p>
-                                                                    </li>-->
-                                    <!--                                <li class="overview-right-account-info-option-item">
-                                                                        <a href="#!" class="overview-right-account-info-option-item-address">View address</a>
-                                                                    </li>-->
-                                    <li class="overview-right-account-info-option-item">
-                                        <a href="customerOrdersListController" class="overview-right-account-info-option-item-orders">View list of order</a>
-                                    </li>
-                                    <li class="overview-right-account-info-option-item">
-                                        <a href="updateInforPage" class="overview-right-account-info-option-item-orders">Update self-information</a>
-                                    </li>
-                                </ul>
-                                <c:set var="noti" value="${requestScope.SUCCESS_UPDATE_NOTI}"/>
-                                <c:if test="${not empty noti}">
-                                    <p style="color: red; font-size: 18px;">${noti}</p>
-                                </c:if>
-                            </div>
-
-
-
-                            <div class="overview-right-latest-order">
-                                <div class="overview-right-latest-order-title">LATEST ORDER
-                                    <img srcset="images/Overview-line.png 2x" alt="">
-                                </div>
-                                <div class="overview-right-latest-order-table">
-                                    <div class="overview-right-latest-order-table-title">
-                                        <ul class="overview-right-latest-order-table-title-list">
-                                            <li class="overview-right-latest-order-table-title-list-item">Order Code</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Date Order</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Total</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Status</li>
-                                            <li class="overview-right-latest-order-table-title-list-item">Transport</li>
-                                        </ul>
-                                        <img srcset="images/Overview-line.png 2x" alt="">
-
-                                        <c:forEach var="orders" items="${ORDERS_LIST_OF_USER}" varStatus="loop">
-                                            <ul class="overview-right-latest-order-table-desc-list">
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.ordersID}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item"><fmt:formatDate value="${orders.dateOrders}" pattern="dd/MM/yyy"/></li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.total}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.status == 1 ? "Success" : "Pending"}</li>
-                                                <li class="overview-right-latest-order-table-desc-list-item">${orders.nameOfMethod}</li>
-                                            </ul>
-                                        </c:forEach>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${empty sessionScope.USER}">
-                        <div style="text-align: center; margin: 300px 0;">
-                            <h1 style="font-size: 30px; margin: 20px 0;">YOU ARE NOT ALREADY LOGGED, PLEASE LOGIN FIRST!!</h1>
-                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="loginPage">Login here </a><span style="font-size: 20px">or </span><a style="font-size: 20px; text-decoration: none; font-weight: bold" href="signUpPage">Register here!</a><br/>
-                            <span style="font-size: 20px">Or</span><br/>
-                            <a style="font-size: 20px; text-decoration: none; font-weight: bold" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/SWP391ProjectMVC/LoginGoogleHandler&response_type=code
-                               &client_id=781842961263-gokuov74qslei1a1t44nufilc8u0d8sb.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
-                        </div>
-                    </c:if>
+                    <h1 class="contact-title">
+                        CONTACT
+                        <p class="contact-line"></p>
+                    </h1>
+                    <div class="contact-list">
+                        You can contact PTDK with following information:
+                        <ul class="contact-list-menu">
+                            PTDK HO CHI MINH CITY:
+                            <li class="contact-list-menu-item">
+                                Block E2a-7, Road D1, D1 Street, Long Thanh My Ward, Thu Duc
+                                City, Ho Chi Minh City 700000.
+                            </li>
+                            <li class="contact-list-menu-item">Contact: 0905302002</li>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.610010498175!2d106.8076943152967!3d10.841127592277624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1680286377326!5m2!1svi!2s"
+                                width="600"
+                                height="450"
+                                style="border: 0"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <img src="images/Footer-line.png" alt="" />
+            </section>
             <footer class="footer">
+                <img src="images/Footer-line.png" alt="" />
                 <div class="container">
                     <div class="footer-menu">
                         <div class="footer-menu-connect">
@@ -545,20 +432,14 @@
                         <div class="footer-menu-cus-service">
                             <h3 class="footer-menu-cus-service-title">CUSTOMER SERVICE</h3>
                             <div class="footer-menu-cus-service-desc">
-                                <p class="footer-menu-cus-service-desc-txt">
-                                    TERMS OF SERVICE
-                                </p>
-                                <p class="footer-menu-cus-service-desc-txt">
-                                    REFUND POLICY
-                                </p>
+                                <p class="footer-menu-cus-service-desc-txt">TERMS OF SERVICE</p>
+                                <p class="footer-menu-cus-service-desc-txt">REFUND POLICY</p>
                             </div>
                         </div>
                         <div class="footer-menu-about">
                             <h3 class="footer-menu-about-title">ABOUT US</h3>
                             <div class="footer-menu-about-desc">
-                                <p class="footer-menu-about-desc-txt">
-                                    STORY OF PDTK
-                                </p>
+                                <p class="footer-menu-about-desc-txt">STORY OF PDTK</p>
                             </div>
                         </div>
                         <div class="footer-menu-care">
@@ -567,24 +448,18 @@
                                 <p class="footer-menu-care-desc-txt">
                                     INSTRUCTIONS FOR STORAGE OF US PRODUCTS
                                 </p>
-                                <p class="footer-menu-care-desc-txt">
-                                    FASHION KNOWLEDGE
-                                </p>
+                                <p class="footer-menu-care-desc-txt">FASHION KNOWLEDGE</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="footer-copyright">
                     <div class="container">
-                        <p class="footer-copyright-txt">
-                            © 2023 PTDK All Rights Reserved.
-                        </p>
+                        <p class="footer-copyright-txt">© 2023 PTDK All Rights Reserved.</p>
                     </div>
                 </div>
             </footer>
         </div>
-        <script src="js/header.js"></script>
-        <script src="js/handleEvent.js"></script>
-        <script src="js/handleEvent1.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>
