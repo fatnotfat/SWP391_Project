@@ -8,6 +8,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="swp391.cart.CartObject"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="swp391.product.ProductDTO"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
