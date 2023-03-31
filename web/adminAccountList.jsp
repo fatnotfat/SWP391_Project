@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : adminAccountList
     Created on : Mar 4, 2023, 9:00:48 AM
     Author     : Chau Nhat Truong
@@ -118,7 +118,11 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>List Ordered</span></a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="adminFeedBackListController">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>List FeedBack</span></a>
+                </li>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
@@ -200,8 +204,7 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">List Account</h1>
-                        <p class="mb-4">Danh sách các account được tạo trên Store PDDTK <a target="_blank"
-                                                                                           href="https://datatables.net">Link edit danh sách</a>.</p>
+                        <p class="mb-4">Danh sách các account được tạo trên Store PDDTK.</p>
                         <button class="button__form-create-account" onclick="showCreateAccount()">Add a new Account</button>
                         <c:set var="error" value="${requestScope.EMAIL_EXISTED}"/>
                         <c:if test="${not empty error.emailIsExisted}">

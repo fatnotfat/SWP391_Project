@@ -1,11 +1,13 @@
 <%-- 
-    Document   : adminCategoryList
-    Created on : Feb 17, 2023, 10:35:30 PM
+    Document   : adminBrandList
+    Created on : Feb 17, 2023, 10:35:16 PM
     Author     : Chau Nhat Truong
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,13 +37,12 @@
               integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
         <!-- lIST ACCOUNT CSS -->
-        <link rel="stylesheet" href="style/listCategory.css">
+        <link rel="stylesheet" href="style/listFeedBack.css">
 
     </head>
 
     <body id="page-top">
         <c:set var="adminName" value="${sessionScope.USER}"/>
-
         <!-- Page Wrapper -->
         <div id="wrapper">
 
@@ -70,15 +71,10 @@
                 <hr class="sidebar-divider">
 
 
-
-
-
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Addons
                 </div>
-
-
 
 
                 <!-- Nav Item - Tables -->
@@ -114,11 +110,12 @@
                         <span>List Ordered</span></a>
                 </li>
                 
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="adminFeedBackListController">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>List FeedBack</span></a>
+                        <span>List Feedback</span></a>
                 </li>
+
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -145,6 +142,8 @@
                                 <i class="fa fa-bars"></i>
                             </button>
                         </form>
+
+
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Nav Item - User Information -->
@@ -172,55 +171,51 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">List Category</h1>
-                        <p class="mb-4">Danh sách các Category được tạo trên Store PDDTKs.</p>
+                        <h1 class="h3 mb-2 text-gray-800">List Feedback</h1>
+                        <p class="mb-4">Danh sách các FeedBack được tạo trên Store PDDTK </p>
 
-                        <button class="button__form-create-category" onclick="showCreateCategory()">Add a new Category</button>
+                       
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">DataTables Category</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">DataTables FeedBack</h6>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form action="adminCategoryListController" method="POST">
-                                        <c:set var="result" value="${requestScope.CATEGORY_RESULT}"/>
+                                    <form action="adminFeedBackListController" method="POST">
+                                        <c:set var="result" value="${requestScope.FEEDBACKLIST_RESULT}"/>
                                         <c:if test="${not empty result}">
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Description</th>
+                                                        <th>CustomerID</th>
+                                                        <th>Product</th>
+                                                        <th>Voting</th>
+                                                        <th>FeedBackTime</th>
+                                                        <th>TextComments</th>
                                                         <th>Status</th>
-                                                        <th>Update</th>
-                                                        <th>Delete</th>
-
+                                                        <th>Censorship</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach var="dto" items="${result}">
                                                         <tr>
-                                                            <td>${dto.cateID}</td>
-                                                            <td>${dto.name}</td>
-                                                            <td>${dto.description}</td>
-                                                            <td>${dto.status == true ? 'Hiện hành' : 'Không hiện hành'}</td>
-                                                            <td class="icon-edit" onclick="showEdit(${dto.cateID}, '${dto.name}', '${dto.description}', ${dto.status})">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                                <path
-                                                                    d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
-                                                                </svg>
-                                                            </td>
+                                                            <td>${dto.customerID}</td>
+                                                            <td>${dto.nameProduct}</td>
+                                                            <td>${dto.voting}</td>
+                                                            <td>${dto.feedBackTime}</td>
+                                                            <td>${dto.textComment}</td>
+                                                            <td>${dto.status == true ? 'Đã duyệt' : 'Chưa duyệt'}</td>
+                                                             <input type="hidden" value="${dto.productID}" />
+                                                    
+                                                    <td class="icon-delete" onclick="showDelete(${dto.customerID}, ${dto.productID})">
+                                                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                       <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
 
-                                                            <td class="icon-delete" onclick="showDelete(${dto.cateID})">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                                                <path
-                                                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                                                                </svg>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
+                                                    </td>
+                                                    </tr>
+                                                </c:forEach>
                                                 </tbody>
                                             </table>
                                         </c:if>
@@ -283,7 +278,7 @@
         <!-- Chỗ này hiện ra khi mà click Delete (Update) -->
 
         <div class="form__include-delete">
-            <form action="adminDeleteCategoryController" class="form-delete" method="POST">
+            <form action="adminDeleteFeedBackController" class="form-delete" method="POST">
                 <div class="close-tab" onclick="showDelete()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path
@@ -292,91 +287,17 @@
                 </div>
                 <div class="delete__content">
                     <div class="delete-title">
-                        <p>Are you sure? This Category will be deleted</p>
+                        <p>Are you sure? This Brand will be deleted</p>
                     </div>
 
                     <div class="button__delete-include">
-                        <button class="button__delete-yes" type="submit" id="categoryIdDelete" name="categoryIdDelete" >Yes</button>
+                        <input type="hidden" name="customerId" id="customerId" />
+                        <input type="hidden" name="productId"  id="productId" />
+                        <button class="button__delete-yes" type="submit" >Yes</button>
                         <button class="button__delete-no" type="reset" onclick="showDelete()">No</button>
                     </div>
                 </div>
 
-            </form>
-        </div>
-
-
-        <!-- Chỗ này hiện ra khi mà click Edit (Update) -->
-        <div class="form__include-update">
-            <form action="adminUpdateCategoryController" class="form-update" id="form-update" method="POST" >
-                <div class="close-tab" onclick="showEdit()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path
-                        d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-                    </svg>
-                </div>
-
-                <div class="update-content">
-                    <h3>Update Category</h3>
-                    <div class="form__group">
-                        CategoryID: <input type="text" id="categoryIdUpdate" name="categoryIdUpdate"  value="${dto.cateID}" readonly>
-                    </div>
-                    <div class="form__group">
-                        Name: <input id="name" name="name" type="text" value="${dto.name}" class="name-update" >
-                        <span class="form__message"></span>
-                    </div>
-
-                    <div class="form__group">
-                        Description: <input id="description" name="description" type="text" value="${dto.description}" class="description-update" >
-                        <span class="form__message"></span>
-                    </div>
-
-                    <div class="form__group">
-
-                        <!-- BrandID: <input id="brand" name="brand" type="text" class="brand-create">
-                        <span class="form__message"></span> -->
-                        Status <select name="status" id="status" class="selection__roll">
-                            <option  value="${dto.status == true ? 'selected' : true}">Hiện hành</option>
-                            <option   value="${dto.status == false ? 'selected' : false}">Không hiện hành</option>
-
-                        </select>
-
-                    </div>
-                    <div class="button__group">
-                        <button type="submit" class="button-update"  >Update</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-
-
-        <!-- Chỗ này hiện ra khi mà add a new Category -->
-        <div class="form__create">
-            <form action="adminNewCategoryController" class="form-create" id="form-create" method="POST">
-                <div class="close-tab" onclick="showCreateCategory()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path
-                        d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-                    </svg>
-                </div>
-
-                <div class="create-content">
-                    <h3>Add a new Category to the Store </h3>
-
-                    <div class="form__group">
-                        Name: <input id="name" name="txtName" type="text" class="name-create" >
-                        <span class="form__message"></span>
-                    </div>
-
-                    <div class="form__group">
-                        Description: <input id="description" name="txtDescription" type="text" class="description-create" >
-                        <span class="form__message"></span>
-                    </div>
-
-                    <div class="button__group">
-                        <button type="submit" class="button-create">Add</button>
-                    </div>
-                </div>
             </form>
         </div>
 
@@ -398,32 +319,9 @@
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
         <!-- list Product -->
-        <script src="js/demo/listCategory.js"></script>
-        <script>
-                    Validator({
-                        form: '#form-update',
-                        errorSelector: '.form__message',
-                        rules: [
-                            Validator.isRequired('#name'),
-                        ],
-                        onsubmit: function (data) {
-                            console.log(data)
-                        }
-                    });
-
-                    Validator2({
-                        form: '#form-create',
-                        errorSelector: '.form__message',
-                        rules: [
-                            Validator.isRequired('#name'),
-                        ],
-                        onsubmit: function (data) {
-                            console.log(data)
-                        }
-                    });
-        </script>
+        <script src="js/demo/listFeedBack.js"></script>
+       
     </body>
-
 </html>
 
 

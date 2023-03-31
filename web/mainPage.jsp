@@ -77,7 +77,7 @@
                                 </ul>
                             </li>
                             <li class="menu-item">
-                                <a href="#!" class="menu-link">About</a>
+                                <a href="aboutUs.jsp" class="menu-link">About</a>
                             </li>
                             <li class="menu-item">
                                 <a href="#!" class="menu-link">Shop</a>

@@ -13,12 +13,14 @@ import java.util.Date;
  * @author nguye
  */
 public class FeedBackDTO implements Serializable{
-    private int productID;
+  private int productID;
     private int customerID;
     private String textComment;
     private int voting;
     private boolean status;
     private Date feedBackTime;
+    private String nameProduct;
+    private Date dateFeedBack;
 
     public FeedBackDTO() {
     }
@@ -38,6 +40,16 @@ public class FeedBackDTO implements Serializable{
         this.voting = voting;
         this.status = status;
         this.feedBackTime = feedBackTime;
+    }
+    
+     public FeedBackDTO( String nameProduct, int productID, int customerID , int voting, Date feedBackTime, String textComment, boolean status){
+        this.nameProduct = nameProduct;
+        this.customerID = customerID;
+        this.voting = voting;
+        this.feedBackTime = feedBackTime;
+        this.textComment = textComment;
+        this.status = status;
+        this.productID = productID;
     }
 
     /**
@@ -122,6 +134,34 @@ public class FeedBackDTO implements Serializable{
      */
     public void setFeedBackTime(Date feedBackTime) {
         this.feedBackTime = feedBackTime;
+    }
+
+    /**
+     * @return the nameProduct
+     */
+    public String getNameProduct() {
+        return nameProduct;
+    }
+
+    /**
+     * @param nameProduct the nameProduct to set
+     */
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
+    }
+
+    /**
+     * @return the dateFeedBack
+     */
+    public Date getDateFeedBack() {
+        return dateFeedBack;
+    }
+
+    /**
+     * @param dateFeedBack the dateFeedBack to set
+     */
+    public void setDateFeedBack(Date dateFeedBack) {
+        this.dateFeedBack = dateFeedBack;
     }
     
     

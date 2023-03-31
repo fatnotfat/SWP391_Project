@@ -118,7 +118,11 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>List Ordered</span></a>
                 </li>
-
+                 <li class="nav-item">
+                    <a class="nav-link" href="adminFeedBackListController">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>List FeedBack</span></a>
+                </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -175,8 +179,7 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">List Brand</h1>
-                        <p class="mb-4">Danh sách các Brand được tạo trên Store PDDTK <a target="_blank"
-                                                                                         href="https://datatables.net">Link edit danh sách</a>.</p>
+                        <p class="mb-4">Danh sách các Brand được tạo trên Store PDDTK.</p>
 
                         <button class="button__form-create-brand" onclick="showCreateBrand()">Add a new Brand</button>
 

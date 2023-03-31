@@ -118,7 +118,11 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>List Ordered</span></a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="adminFeedBackListController">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>List FeedBack</span></a>
+                </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 

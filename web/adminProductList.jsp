@@ -112,7 +112,11 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>List Ordered</span></a>
                 </li>
-
+                 <li class="nav-item">
+                    <a class="nav-link" href="adminFeedBackListController">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>List FeedBack</span></a>
+                </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -167,8 +171,7 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">List Product</h1>
-                        <p class="mb-4">Danh sách các Product được tạo trên Store PDDTK <a target="_blank"
-                                                                                           href="https://datatables.net">Link edit danh sách</a>.</p>
+                        <p class="mb-4">Danh sách các Product được tạo trên Store PDDTK.</p>
 
                         <button class="button__form-create-product" onclick="showCreateProduct()">Add a new Product</button>
 
@@ -385,12 +388,12 @@
                         Name: <input id="name" name="txtName"  type="text" class="name-create"/>
                         <span class="form__message"></span>
                     </div>
-                    <div class="form__group">
-                        Description: <input id="description" name="txtDescription" type="text" class="description-create" />
+                    <div class="form__group" style="display: flex; flex-direction: column">
+                        Description: <textarea id="description" name="txtDescription" type="text" class="description-create" style="width: 100%;"></textarea>
                         <span class="form__message"></span>
                     </div>
                     <div class="form__group">
-                        Quantity: <input id="quantity" name="txtQuantity" type="number" class="quantity-create"/ >
+                        Quantity: <input id="quantity" name="txtQuantity" type="number" class="quantity-create"/>
                                          <span class="form__message"></span>
                     </div>
                     <div class="form__group">
@@ -426,9 +429,9 @@
                     </div>
                     <div class="form__group">
                         <input type="file" name="image1" onchange="previewImage(this, 'uploaded-image1')"><br><br>
-                        <img id="uploaded-image1" src="#" alt="Uploaded Image 1" style="width: 100px; height: 200px;"><br>
+                        <img id="uploaded-image1" src="#" alt="Uploaded Image 1" style="width: 150px; height: 200px;"><br>
                         <input type="file" name="image2" onchange="previewImage(this, 'uploaded-image2')" ><br><br>
-                        <img id="uploaded-image2" src="#" alt="Uploaded Image 2" style="width: 100px; height: 200px;">
+                        <img id="uploaded-image2" src="#" alt="Uploaded Image 2" style="width: 150px; height: 200px;">
                     </div>
                     <div class="button__group">
                         <button type="submit" class="button-create" >Add</button>

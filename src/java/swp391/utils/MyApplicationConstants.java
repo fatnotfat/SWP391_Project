@@ -283,12 +283,21 @@ public class MyApplicationConstants {
         public static final String ADMINORDERSLIST_PAGE = "adminOrdersListPage";
         public static final String ADMIN_PAGE = "AdminOrderedListServlet";
     }
-    
-    
+
     public class CustomerOrdersList {
 
         public static final String CUSTOMERORDERSLIST_PAGE = "customerOrdersListPage";
         public static final String CUSTOMER_PAGE = "AdminOrderedListServlet";
     }
 
+    public class AdminFeedBackListServlet {
+
+        public static final String ADMINFEEDBACKLIST_PAGE = "adminFeedBackListPage";
+        public static final String ADMIN_PAGE = "adminOrdersRevenueController";
+    }
+    
+     public class AdminDeleteFeedBackServlet {
+        public static final String ADMINDELETEFEEDBACKLIST_PAGE = "adminFeedBackListController";
+        public static final String ADMIN_PAGE = "adminOrdersRevenueController";
+    }
 }

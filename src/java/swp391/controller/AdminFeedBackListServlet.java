@@ -7,12 +7,9 @@ package swp391.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -21,16 +18,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import swp391.feedback.FeedBackDAO;
-import swp391.feedback.FeedBackErrorDTO;
+import swp391.feedback.FeedBackDTO;
 import swp391.utils.MyApplicationConstants;
 
 /**
  *
- * @author nguye
+ * @author Admin
  */
-@WebServlet(name = "AddCommentOfProductServlet", urlPatterns = {"/AddCommentOfProductServlet"})
-public class AddCommentOfProductServlet extends HttpServlet {
+@WebServlet(name = "AdminFeedBackListServlet", urlPatterns = {"/AdminFeedBackListServlet"})
+public class AdminFeedBackListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,52 +45,33 @@ public class AddCommentOfProductServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String url = siteMaps.getProperty(
-                MyApplicationConstants.CommentFeature.PRODUCT_PAGE);
-        String customerId = request.getParameter("txtCustomerID");
-        String productID = request.getParameter("txtProductID");
-        String voting = request.getParameter("txtVoting");
-        String comment = request.getParameter("txtComment");
-         byte[] bytes1 = comment.getBytes(StandardCharsets.ISO_8859_1);
-        comment = new String(bytes1, StandardCharsets.UTF_8);
-        boolean error = false;
-        FeedBackErrorDTO fbError = new FeedBackErrorDTO();
-
+                MyApplicationConstants.AdminFeedBackListServlet.ADMINFEEDBACKLIST_PAGE);
+          // Check if user is logged in
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("USER") == null) {
+            response.sendRedirect(siteMaps.getProperty(
+                MyApplicationConstants.LoginServlet.LOGIN_PAGE));
+            return;
+        }
+        
         try {
-            if (voting.trim().length() < 1) {
-                fbError.setVotingError("You must rating star!!");
-                request.setAttribute("FEEDBACK_ERROR_RESULT", "An error occurred while adding your comment!");
-                error = true;
-            }
-
-            if (comment.trim().length() < 1) {
-                fbError.setCommentError("You must input something!!");
-                request.setAttribute("FEEDBACK_ERROR_RESULT", "An error occurred while adding your comment!");
-                error = true;
-            }
-            if (error) {
-                request.setAttribute("FEEDBACK_ERROR", fbError);
-            } else {
-                FeedBackDAO dao = new FeedBackDAO();
-                boolean result = dao.addComment(Integer.parseInt(productID), Integer.parseInt(customerId), comment, Integer.parseInt(voting));
-                if (result) {
-                    request.setAttribute("FEEDBACK_SUCCESS", "Your comment was sent successfully!");
-                } else {
-                    request.setAttribute("FEEDBACK_ERROR_RESULT", "An error occurred while adding your comment!");
-                }
-            }
+            FeedBackDAO dao = new FeedBackDAO();
+            dao.showFeedbackInAdmin();
+            List<FeedBackDTO> result = dao.getFeedBackList();
+            request.setAttribute("FEEDBACKLIST_RESULT", result);
+            url = siteMaps.getProperty(
+                    MyApplicationConstants.AdminFeedBackListServlet.ADMINFEEDBACKLIST_PAGE);
         } catch (NamingException ex) {
-            log("Add_Comment_Naming" + ex.getMessage());
+            log("AdminFeedBackListServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
-            log("Add_Comment_SQL" + ex.getMessage());
-        } catch (ParseException ex) {
-            log("Parse_Comment_SQL" + ex.getMessage());
+            log("AdminFeedBackListServlet _ SQL _ " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

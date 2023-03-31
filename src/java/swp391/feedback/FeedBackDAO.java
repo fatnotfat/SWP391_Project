@@ -105,4 +105,89 @@ public class FeedBackDAO implements Serializable {
         }
         return list;
     }
+    
+      private List<FeedBackDTO> feedBackList;
+
+    public List<FeedBackDTO> getFeedBackList() {
+        return feedBackList;
+    }
+    
+    
+   public void showFeedbackInAdmin()
+            throws SQLException, NamingException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "	SELECT \n" +
+                            "    p.Name , p.ProductID ,\n" +
+                            "    f.CustomerID, \n" +
+                            "    f.Voting, \n" +
+                            "    f.FeedBackTime, \n" +
+                            "    f.TextComments,\n" +
+                            "	f.Status\n" +
+                            "FROM \n" +
+                            "    Product p \n" +
+                            "    INNER JOIN FeedBack f ON p.ProductID = f.ProductID";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    
+                    String nameProduct = rs.getString("Name");
+                    int productID = rs.getInt("ProductID");
+                    int customerID = rs.getInt("CustomerID");
+                    int voting = rs.getInt("Voting");
+                    Date feedBackTime = rs.getDate("FeedBackTime");
+                    String textComment = rs.getString("TextComments");
+                    boolean status = rs.getBoolean("Status");
+                    FeedBackDTO dto = new FeedBackDTO(nameProduct, productID , customerID, voting, feedBackTime, textComment, status);
+                    if (this.feedBackList == null) {
+                        this.feedBackList = new ArrayList<>();
+                    }
+                    this.feedBackList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+   
+   
+       public boolean adminDeleteFeedback(int customerID, int productID)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "UPDATE FeedBack \n" +
+                            "SET Status = 1 \n" +
+                            "WHERE CustomerID = ? AND ProductID = ? ";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, customerID);
+             stm.setInt(2, productID);
+            int effectedRows = stm.executeUpdate();
+            if (effectedRows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 }
