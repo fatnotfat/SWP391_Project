@@ -539,7 +539,7 @@
                                     </c:forEach>
                                     <ul class="overview-right-latest-order-table-desc-list" style="color: red; font-size: 20px;">
                                         <fmt:formatNumber var="intoMoneyFm" value="${intoMoney}" pattern="#,###"/>
-                                        Into money: 
+                                        Into products money: 
                                         <span class="overview-right-latest-order-table-desc-list-item">
                                             ${intoMoneyFm}đ
                                         </span>
