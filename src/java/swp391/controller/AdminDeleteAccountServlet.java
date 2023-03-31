@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import swp391.customer.CustomerDAO;
+import swp391.customer.CustomerDTO;
 import swp391.utils.MyApplicationConstants;
 
 /**
@@ -54,11 +55,17 @@ public class AdminDeleteAccountServlet extends HttpServlet {
         String email = request.getParameter("email");
       
         try {
-            CustomerDAO dao = new CustomerDAO();
-            boolean result = dao.adminDeleteAccount(email);
-            if (result) {
+            CustomerDTO dto = (CustomerDTO) session.getAttribute("USER");
+            if (email.equals(dto.getEmail())) {
                 url = siteMaps.getProperty(
                         MyApplicationConstants.AdminDeleteAccountServlet.ADMINACCOUNTLIST_PAGE);
+            } else {
+                CustomerDAO dao = new CustomerDAO();
+                boolean result = dao.adminDeleteAccount(email);
+                if (result) {
+                    url = siteMaps.getProperty(
+                            MyApplicationConstants.AdminDeleteAccountServlet.ADMINACCOUNTLIST_PAGE);
+                }
             }
         } catch (SQLException ex) {
             log("AdminDeleteAccountServlet _ SQL _ " + ex.getMessage());

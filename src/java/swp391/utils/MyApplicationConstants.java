@@ -280,7 +280,13 @@ public class MyApplicationConstants {
 
     public class AdminOrdersListServlet {
 
-        public static final String ADMINORDERSLIST_PAGE = "adminOrdersListPage";
+        public static final String ADMIN_ORDERS_LIST_PAGE = "adminOrdersListPage";
+        public static final String ADMIN_PAGE = "AdminOrderedListServlet";
+    }
+    
+      public class AdminViewDetailOrderServlet {
+
+        public static final String ADMIN_VIEW_DETAIL_ORDERS_LIST_PAGE = "adminViewOrderDetailListPage";
         public static final String ADMIN_PAGE = "AdminOrderedListServlet";
     }
 

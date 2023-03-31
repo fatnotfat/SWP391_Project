@@ -186,6 +186,8 @@ body {
 .title-founder{
   font-size: 45px;
   font-weight: bold;
+  width: 100%;
+  text-align: center;
 }
 
 

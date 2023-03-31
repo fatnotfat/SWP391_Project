@@ -405,7 +405,7 @@
                                                         Gold
                                                     </h2>
                                                     <p>
-                                                        Her previson acuteness had two why intention
+                                                        "Incomparable beauty, unparalleled luxury - Jewel gold, honoring the value of material."
                                                     </p>
                                                 </li>
                                                 <li>
@@ -413,7 +413,7 @@
                                                         Sliver
                                                     </h2>
                                                     <p>
-                                                        Her previson acuteness had two why intention
+                                                        "Trendy and sophisticated - Jewel silver, the ultimate material for your style."
                                                     </p>
                                                 </li>
                                             </ul>
@@ -530,15 +530,17 @@
                                     <img class="frame__first-img" src="assets/image/5 50.png" alt="">
                                     <div class="content">
                                         <h3 class="content__first-title ">
-                                            Luxury-Shop’s Best
+                                            PTDK-Shop’s Best
                                             Collections
                                         </h3>
                                         <div class="content-comfort">
                                             <h4 class="content-comfort-title">Comfort</h4>
-                                            <p class="content-comfort-info">Lorem ipsum dolor sit amet
-                                                consectetur.Sollicitudin morbi molestie at amet praesent tortor.Maecenas non
-                                                tempus at consequat ac est varius. Tortor aliquet nulla consequat
-                                                risus.consequatconsequat
+                                            <p class="content-comfort-info">A beautiful piece of jewelry can boost confidence and 
+                                                add a finishing touch to an outfit, but if it's not comfortable, you won't feel at 
+                                                ease wearing it and may not want to use it frequently. Therefore, choosing jewelry made
+                                                from lightweight materials that still ensure durability and beauty is a smart choice. 
+                                                When you feel comfortable wearing your jewelry, you can be confident and enjoy its beauty more easily.
+                                                
                                             </p>
                                         </div>
                                     </div>
@@ -548,9 +550,9 @@
                                     <div class="content">
                                         <div class="content-gold">
                                             <h3 class="content__second-title">100% Gold</h3>
-                                            <p class="content-gold-info">Lorem ipsum dolor sit amet consectetur.Sollicitudin
-                                                morbi molestie at amet praesent tortor.Maecenas non tempus at consequat ac
-                                                est varius. Tortor aliquet nulla consequat risus.consequatconsequat
+                                            <p class="content-gold-info">Gold 100% is the purest and most valuable form of gold.
+                                                It doesn't change color over time and is safe for the skin.
+                                                Gold 100% is the perfect choice for those who love luxurious and durable jewelry.
                                             </p>
                                         </div>
                                     </div>
@@ -562,10 +564,7 @@
                                     <div class="content">
                                         <div class="content-trend">
                                             <h3 class="content__third-title">Trendy</h3>
-                                            <p class="content-trend-info">Lorem ipsum dolor sit amet
-                                                consectetur.Sollicitudin morbi molestie at amet praesent tortor.Maecenas non
-                                                tempus at consequat ac est varius. Tortor aliquet nulla consequat
-                                                risus.consequatconsequat
+                                            <p class="content-trend-info">"Express your unique style with our trendy jewelry collection, designed to make you shine."
                                             </p>
                                         </div>
                                     </div>
@@ -596,24 +595,25 @@
                                     <div class="info">
                                         <img src="assets/image/8.png" alt="">
                                         <h2>For Beauty</h2>
-                                        <p>Lorem ipsum dolor sit amet consectetur.Sollicitudin morbi molestie at amet
-                                            praesent tortor.Maecenas non tempus at consequat ac
+                                        <p>Jewelry can bring great beauty and special emotions to the user,
+                                            not only by the unique design and precious materials but also by
+                                            the meaningful value and the story it brings.
                                         </p>
                                     </div>
 
                                     <div class="info">
                                         <img src="assets/image/9.png" alt="">
                                         <h2>Product Quality</h2>
-                                        <p>Lorem ipsum dolor sit amet consectetur.Sollicitudin morbi molestie at amet
-                                            praesent tortor.Maecenas non tempus at consequat ac
+                                        <p>We use the best ingredients and have to go through high quality production processes
+                                            to ensure that each product meets the highest quality standards.
                                         </p>
                                     </div>
 
                                     <div class="info">
                                         <img src="assets/image/10.png" alt="">
                                         <h2>For Comfort</h2>
-                                        <p>Lorem ipsum dolor sit amet consectetur.Sollicitudin morbi molestie at amet
-                                            praesent tortor.Maecenas non tempus at consequat ac
+                                        <p>Our comfort is our top priority when producing jewelry. 
+                                            We use lightweight and soft materials to ensure that our products will bring a sense of comfort and comfort to users.
                                         </p>
                                     </div>
                                 </div>

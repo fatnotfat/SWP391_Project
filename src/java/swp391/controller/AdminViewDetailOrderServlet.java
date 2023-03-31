@@ -1,11 +1,12 @@
+package swp391.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swp391.controller;
-
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -27,10 +28,10 @@ import swp391.utils.MyApplicationConstants;
 
 /**
  *
- * @author Duy
+ * @author Admin
  */
-@WebServlet(name = "AdminOrderedListServlet", urlPatterns = {"/AdminOrderedListServlet"})
-public class AdminOrderedListServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/AdminViewDetailOrderServlet"})
+public class AdminViewDetailOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,46 +43,32 @@ public class AdminOrderedListServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String url = siteMaps.getProperty(
                 MyApplicationConstants.AdminOrdersListServlet.ADMIN_ORDERS_LIST_PAGE);
-        String txtOrderId = request.getParameter("txtOrderId");
-        String txtStatus = request.getParameter("txtStatus");
-        System.out.println("TXT " + txtStatus);
+        String txtOrderId = request.getParameter("ordersID");
 
         try {
-            OrdersDAO ordersDAO = new OrdersDAO();
-            OrdersDetailDAO ordersDetailDAO = new OrdersDetailDAO();
-
-            List<OrdersDTO> ordersList = ordersDAO.getListOfOrders();
-            request.setAttribute("ORDERS_LIST", ordersList);
-
-            url = siteMaps.getProperty(
-                    MyApplicationConstants.AdminOrdersListServlet.ADMIN_ORDERS_LIST_PAGE);
-
             if (txtOrderId != null) {
-                int orderID = Integer.parseInt(txtOrderId);
-                boolean status = Boolean.parseBoolean(txtStatus);
-                System.out.println("ID:" + orderID);
-                System.out.println("Status:" + status);
-                boolean updateStatus = ordersDAO.updateOrderStatus(orderID, status);
-
-                List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetailByOrderID(orderID);
-                request.setAttribute("orders_detail", list);
-
-                if (updateStatus == true) {
-                    ordersList = ordersDAO.getListOfOrders();
-                    request.setAttribute("ORDERS_LIST", ordersList);
-                    url = siteMaps.getProperty(
-                            MyApplicationConstants.AdminOrdersListServlet.ADMIN_ORDERS_LIST_PAGE);
+                OrdersDetailDAO ordersDetailDAO = new OrdersDetailDAO();
+                OrdersDAO ordersDAO = new OrdersDAO();
+                OrdersDTO orders = ordersDAO.getOrderByID(Integer.parseInt(txtOrderId));
+                if (orders != null) {
+                    request.setAttribute("ORDERS_OBJECT", orders);
+                    List<OrdersDetailDTO> list = ordersDetailDAO.getlListOrdersDetailByOrderID(Integer.parseInt(txtOrderId));
+                    if (list.size() > 0) {
+                        request.setAttribute("orders_detail", list);
+                    }
                 }
+                url = "adminOrderVỉewDetail.jsp";
             }
-
         } catch (NamingException ex) {
-            log("AdminCategoryListServlet _ Naming _ " + ex.getMessage());
+            log("AdminViewDetailOrderServlet _ Naming _ " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("AdminViewDetailOrderServlet _ SQL _ " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
@@ -100,11 +87,7 @@ public class AdminOrderedListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminOrderedListServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -118,11 +101,7 @@ public class AdminOrderedListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminOrderedListServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

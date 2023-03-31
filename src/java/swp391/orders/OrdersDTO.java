@@ -45,6 +45,16 @@ public class OrdersDTO implements Serializable {
         this.cusPhone = cusPhone;
         this.cusAddress = cusAddress;
     }
+    
+    public OrdersDTO(int ordersID, int paymentID, int shippingID, Date dateOrders, String cusName, String cusPhone, String cusAddress) {
+        this.ordersID = ordersID;
+        this.paymentID = paymentID;
+        this.shippingID = shippingID;
+        this.dateOrders = dateOrders;
+        this.cusName = cusName;
+        this.cusPhone = cusPhone;
+        this.cusAddress = cusAddress;
+    }
 
     public OrdersDTO(int ordersID, int customerID, int shippingID, Date dateOrders, int status) {
         this.ordersID = ordersID;

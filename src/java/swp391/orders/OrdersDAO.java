@@ -227,7 +227,7 @@ public class OrdersDAO implements Serializable {
         }
         return list;
     }
-    
+
     public List<OrdersDTO> getListOrdersByCusId(int cusId) throws NamingException, SQLException {
         List<OrdersDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -787,6 +787,45 @@ public class OrdersDAO implements Serializable {
                 con.close();
             }
         }
+    }
+
+    public OrdersDTO getOrderByID(int ordersID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        OrdersDTO dto = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select OrdersID, CusName, CusPhone, CusAddress, DateOrders, PaymentID, ShippingID "
+                        + "from Orders "
+                        + "where OrdersID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, ordersID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("OrdersID");
+                    Date dateCreate = rs.getDate("DateOrders");
+                    String cusName = rs.getString("CusName");
+                    String cusAddress = rs.getString("CusAddress");
+                    String cusPhone = rs.getString("CusPhone");
+                    int paymentID = rs.getInt("PaymentID");
+                    int shippingID = rs.getInt("ShippingID");
+                    dto = new OrdersDTO(ordersID, paymentID, shippingID, dateCreate, cusName, cusPhone, cusAddress);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return dto;
     }
 
 //    public void showOrdersID()

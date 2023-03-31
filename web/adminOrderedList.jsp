@@ -51,7 +51,9 @@
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminOrdersRevenueController">
-                    
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
                     <div class="sidebar-brand-text mx-3">PDTK <sup>Store</sup></div>
                 </a>
 
@@ -112,7 +114,7 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>List Ordered</span></a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="adminFeedBackListController">
                         <i class="fas fa-fw fa-table"></i>
                         <span>List FeedBack</span></a>
@@ -171,7 +173,8 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">List Order</h1>
-                        <p class="mb-4">Danh sách các Order được tạo trên Store PDDTK.</p>
+                        <p class="mb-4">Danh sách các Order được tạo trên Store PDDTK <a target="_blank"
+                                                                                         href="https://datatables.net">Link edit danh sách</a>.</p>
 
 
                         <!-- DataTales Example -->
@@ -222,20 +225,21 @@
                                                     </td>
                                                     <td>
                                                         <button type="submit" class="status btn btn-primary">Update Status</button>
-                                                    </td>
-
+                                                    </td>                                                   
+                                                </form>
+                                                
                                                     <td>
                                                         <input type="hidden" name="ordersID" value="${dto.ordersID}"/>
-                                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#orderDetails${dto.ordersID}">View Order Detail</button>
+                                                        <%--<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#orderDetails${dto.ordersID}">View Order Detail</button>--%>
+                                                        <a href="adminViewDetailOrderController?ordersID=${dto.ordersID}" class="btn btn-info">View Order Detail</a>
                                                     </td>
-                                                </form>
                                                 </tr>
 
                                                 <tr id="orderDetails${dto.ordersID}" class="collapse">
                                                     <td colspan="10"> <!-- Use colspan="10" to span the entire row -->
                                                         <table> <!-- Add a new table for the order details information -->
                                                             <tr>
-                                                                <td>Order ID</td>
+                                                                <td>OrderDetailsID</td>
                                                                 <td>Product Name</td>
                                                                 <td>Product Price</td>
                                                                 <td>Quantity</td>
