@@ -467,8 +467,8 @@
                                                         <div class="container" id="product-${item.key}">
                                                             <div class="your-cart-body-left-product-detail-left">
                                                                 <img
-                                                                    srcset="images/product-demo.png 2x"
-                                                                    alt=""
+                                                                     src="${pageContext.request.contextPath}/images/${dto.avatar}"
+                                                                     
                                                                     class="your-cart-body-left-product-img"
                                                                     />
                                                                 <div class="container">

@@ -117,7 +117,19 @@ public class LoginServlet extends HttpServlet {
                     List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(result.getCustomerID());
                     session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
 
-                    if (url2 == null) {
+                    
+
+                    if (result.isStatus() == false) {
+                        errorFound = true;
+                        errors.setLoginFail("Sorry, this account is banned. Please contact the store manager");
+                    }
+
+                    if (errorFound) {
+                        request.setAttribute("LOGIN_ERROR", errors);
+                    }
+                    
+                    
+                    if (url2 == null && result.isStatus()) {
                         url = siteMaps.getProperty(
                                 MyApplicationConstants.LoginServlet.MAIN_PAGE);
                         session.setAttribute("USER", result);

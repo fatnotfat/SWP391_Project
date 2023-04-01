@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import swp391.orders.OrdersDAO;
 import swp391.orders.OrdersDTO;
 import swp391.ordersdetail.OrdersDetailDAO;
@@ -48,6 +49,13 @@ public class AdminOrderedListServlet extends HttpServlet {
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String url = siteMaps.getProperty(
                 MyApplicationConstants.AdminOrdersListServlet.ADMIN_ORDERS_LIST_PAGE);
+          // Check if user is logged in
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("USER") == null) {
+            response.sendRedirect(siteMaps.getProperty(
+                MyApplicationConstants.LoginServlet.LOGIN_PAGE));
+            return;
+        }
         String txtOrderId = request.getParameter("txtOrderId");
         String txtStatus = request.getParameter("txtStatus");
         System.out.println("TXT " + txtStatus);

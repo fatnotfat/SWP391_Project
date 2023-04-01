@@ -15,7 +15,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>PDTK Admin 2 - Danh sách Account</title>
+        <title>PTDK Admin 2 - Danh sách Account</title>
 
         <!-- Custom fonts for this template -->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -58,7 +58,7 @@
                     <div class="sidebar-brand-icon rotate-n-15">
 <!--                        <i class="fas fa-laugh-wink"></i>-->
                     </div>
-                    <div class="sidebar-brand-text mx-3">PDTK <sup>Store</sup></div>
+                    <div class="sidebar-brand-text mx-3">PTDK <sup>Store</sup></div>
                 </a>
 
                 <!-- Divider -->
@@ -204,7 +204,7 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">List Account</h1>
-                        <p class="mb-4">Danh sách các account được tạo trên Store PDDTK.</p>
+                        <p class="mb-4">Danh sách các account được tạo trên Store PTDK.</p>
                         <button class="button__form-create-account" onclick="showCreateAccount()">Add a new Account</button>
                         <c:set var="error" value="${requestScope.EMAIL_EXISTED}"/>
                         <c:if test="${not empty error.emailIsExisted}">
@@ -277,7 +277,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; PDTK 2023</span>
+                            <span>Copyright &copy; PTDK 2023</span>
                         </div>
                     </div>
                 </footer>

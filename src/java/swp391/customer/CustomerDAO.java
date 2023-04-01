@@ -37,9 +37,9 @@ public class CustomerDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 //Create SQL String
-                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role "
+                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role, Status "
                         + "From Customer "
-                        + "Where email = ? And Password = ?";
+                        + "Where email = ? And Password = ? ";
 
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
@@ -57,7 +57,9 @@ public class CustomerDAO implements Serializable {
                     Date dob = rs.getDate("DateOfBirth");
                     int typeOfLogin = rs.getInt("TypeOfLogin");
                     boolean role = rs.getBoolean("Role");
-                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role);
+                    boolean status = rs.getBoolean("Status");
+                    
+                    result = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role, status);
                 }
             }//end con is available
         } finally {
@@ -184,7 +186,7 @@ public class CustomerDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 //2. Create SQL String
-                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role "
+                String sql = "Select CustomerID, Name, Email, Phone, Address, RankID, Sex, DateOfBirth, TypeOfLogin, Role, Status"
                         + "From Customer "
                         + "Where Email = ? AND TypeOfLogin = 1";
                 //3. Create statement
@@ -203,7 +205,8 @@ public class CustomerDAO implements Serializable {
                     Date dob = rs.getDate("DateOfBirth");
                     int typeOfLogin = rs.getInt("TypeOfLogin");
                     boolean role = rs.getBoolean("Role");
-                    dto = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role);
+                    boolean status = rs.getBoolean("Status");
+                    dto = new CustomerDTO(id, name, dob, email, phone, address, rankID, sex, typeOfLogin, role, status);
                 }
             }//end con is available
         } finally {

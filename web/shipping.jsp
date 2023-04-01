@@ -920,8 +920,8 @@
                                                     <div class="container">
                                                         <div class="shipping-info-right-product-logo-img">
                                                             <img
-                                                                src="images/product-demo.png"
-                                                                alt=""
+                                                                src="${pageContext.request.contextPath}/images/${dto.avatar}"
+                                                                
                                                                 class="shipping-info-right-product-logo-img-pic"
                                                                 />
                                                         </div>

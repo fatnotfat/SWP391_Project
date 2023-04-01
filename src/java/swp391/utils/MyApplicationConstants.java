@@ -306,4 +306,9 @@ public class MyApplicationConstants {
         public static final String ADMINDELETEFEEDBACKLIST_PAGE = "adminFeedBackListController";
         public static final String ADMIN_PAGE = "adminOrdersRevenueController";
     }
+     public class ChartServlet{
+         public static final String ADMIN_CHART_PAGE = "adminChartController";
+         public static final String ADMIN_PAGE = "adminOrdersRevenueController";
+
+     }
 }

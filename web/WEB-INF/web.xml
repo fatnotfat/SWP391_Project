@@ -24,6 +24,14 @@
         <servlet-name>SearchTextServlet</servlet-name>
         <servlet-class>swp391.controller.SearchTextServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>chartServelt</servlet-name>
+        <servlet-class>swp391.dashboard.ChartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>chartServelt</servlet-name>
+        <url-pattern>/chartServelt</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>

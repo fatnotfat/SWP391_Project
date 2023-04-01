@@ -12,22 +12,12 @@
         <title>Monthly Sales Chart</title>
     </head>
     <body>
-
-
-        <form method="post" action="ChartDetail">
-            <label for="month">Month:</label>
-            <input type="text" name="month" id="month" />
-            <br />
-            <label for="year">Year:</label>
-            <input type="text" name="year" id="year" />
-            <br />
-            <input type="submit" value="Submit" />
-        </form>
         
         <h1>Monthly Sales Chart</h1>
-        <img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart" style="width: 100%">
+        <div style="display: flex;">
+              <img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart" style="width: 50%; margin-left: auto; margin-right: auto;">
+        </div>
 
-        <h1>Monthly Sales Chart</h1>
-        <img src="data:image/png;base64,${base64EncodedChart1}" alt="Monthly Sales Chart" style="width: 100%">
+       
     </body>
 </html>

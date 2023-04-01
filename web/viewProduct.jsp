@@ -578,8 +578,8 @@
                                                 <a class="more__item">
                                                     <div class="more__item-img">
                                                         <div class="card">
-                                                            <img class="img-back" src="assets/image/4.Vòng tay bạc nam, nữ HeliSilver Chain Helios Gle x Lotus Helios Original S925 (5).jpg" alt="Card Back">
-                                                            <img src="assets/image/6.Vòng tay bạc nam, nữ HeliSilver Cuban Twinkle 2 hàng đá S950 (2).jpg" class="img-top" alt="Card Front">
+                                                            <img class="img-back"  src="${pageContext.request.contextPath}/images/${dto.avatar}">
+                                                            <img  src="${pageContext.request.contextPath}/images/${dto.avatar2}" class="img-top" alt="Card Front">
                                                         </div>
                                                     </div>
                                                     <div class="more__item-content">
