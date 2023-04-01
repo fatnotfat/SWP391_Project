@@ -464,7 +464,7 @@
                                 <c:set var="resetPasswordNoti" value="${requestScope.RESET-NOTI}" />
                                 <c:if test="${not empty signUpNoti}">
                                     <p style="color: red;">${resetPasswordNoti}</p>
-                                </c:if>
+                                </c:if> 
                                 --%>
                                 <button class="login-function-btn" type="submit">Login</button>
                                 <p class="login-function-register">
@@ -477,7 +477,7 @@
 
                                 <p class="login-function-register-question">Or</p>
                                 <a class="login-link" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/SWP391Project/LoginGoogleHandler&response_type=code
-                                   &client_id=781842961263-gokuov74qslei1a1t44nufilc8u0d8sb.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
+                                   &client_id=781842961263-9caq9ib990otcpprkos84bjkb34o619m.apps.googleusercontent.com">Login with Google</a>
                                 </p>
 
                             </div>                              

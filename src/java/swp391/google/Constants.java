@@ -11,9 +11,9 @@ package swp391.google;
  */
 public class Constants {
 
-	public static String GOOGLE_CLIENT_ID = "781842961263-gokuov74qslei1a1t44nufilc8u0d8sb.apps.googleusercontent.com";
+	public static String GOOGLE_CLIENT_ID = "781842961263-9caq9ib990otcpprkos84bjkb34o619m.apps.googleusercontent.com";
 
-	public static String GOOGLE_CLIENT_SECRET = "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";
+	public static String GOOGLE_CLIENT_SECRET = "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";
 
 	public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/SWP391Project/LoginGoogleHandler";
 

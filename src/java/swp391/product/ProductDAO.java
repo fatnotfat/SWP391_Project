@@ -33,25 +33,26 @@ public class ProductDAO implements Serializable {
     public List<ProductDTO> getListProductByFilter() {
         return listProductByFilter;
     }
-    
-    public String getProductNameByProductId(int productId){
+
+    public String getProductNameByProductId(int productId) {
         String productName = null;
         String sql = "Select name from Product where productid = ?";
-        try{
+        try {
             Connection con = DBHelper.makeConnection();
-            
+
             PreparedStatement ps = con.prepareCall(sql);
-            ps.setInt(1,productId );
+            ps.setInt(1, productId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 productName = rs.getString("name");
             }
             con.close();
-        }catch(SQLException | NamingException e){
+        } catch (SQLException | NamingException e) {
             e.getMessage();
         }
         return productName;
     }
+
     public int searchProduct(String searchValue)
             throws NamingException, SQLException {
         Connection con = null;
@@ -160,7 +161,7 @@ public class ProductDAO implements Serializable {
                     size = rs.getInt("Size");
                     String avatar = rs.getString("Avatar");
                     String avatar2 = rs.getString("Avatar2");
-                   ProductDTO dto = new ProductDTO(
+                    ProductDTO dto = new ProductDTO(
                             id, name, description, quantity, price, size, avatar, avatar2);
                     if (this.listProductByFilter == null) {
                         this.listProductByFilter = new ArrayList<>();
@@ -199,7 +200,7 @@ public class ProductDAO implements Serializable {
                 while (rs.next()) {
                     int id = rs.getInt("ProductID");
                     String name = rs.getString("Name");
-                    String description  = rs.getString("Description");
+                    String description = rs.getString("Description");
                     int quantity = rs.getInt("Quantity");
                     double price = rs.getDouble("Price");
                     boolean status = rs.getBoolean("Status");
@@ -207,8 +208,8 @@ public class ProductDAO implements Serializable {
                     int cateID = rs.getInt("CateID");
                     Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
-                     String avatar2 = rs.getString("Avatar2");
-                   dto = new ProductDTO(id, name, description, quantity, price, cateID, status, size, date, avatar, avatar2);
+                    String avatar2 = rs.getString("Avatar2");
+                    dto = new ProductDTO(id, name, description, quantity, price, cateID, status, size, date, avatar, avatar2);
                 }
             }
         } finally {
@@ -252,9 +253,9 @@ public class ProductDAO implements Serializable {
 //                    Date date = rs.getDate("CreateTime");
                     String avatar = rs.getString("Avatar");
                     String avatar2 = rs.getString("Avatar2");
-                    
+
                     dto = new ProductDTO(id, name, price, descr, size, avatar, avatar2);
-                    
+
                     if (list == null) {
                         list = new ArrayList<>();
                     }
@@ -328,8 +329,7 @@ public class ProductDAO implements Serializable {
         }
         return list;
     }
-    
-    
+
     public List<ProductDTO> searchRelatedProduct(int cateID)
             throws NamingException, SQLException {
         Connection con = null;
@@ -381,11 +381,8 @@ public class ProductDAO implements Serializable {
         }
         return list;
     }
-    
-    
-    
-    
-     private List<ProductDTO> itemsList;
+
+    private List<ProductDTO> itemsList;
 
     public List<ProductDTO> getItemsList() {
         return itemsList;
@@ -423,7 +420,7 @@ public class ProductDAO implements Serializable {
                     int quantity = rs.getInt("Quantity");
                     float price = rs.getFloat("Price");
                     size = rs.getInt("Size");
-                   
+
                     ProductDTO dto = new ProductDTO(
                             name, description, price, quantity, size);
                     if (this.itemsList == null) {
@@ -454,7 +451,7 @@ public class ProductDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 String sql = "SELECT p.ProductID, p.Name, p.Description, p.Quantity, p.Price, p.Status, p.Avatar , p.Avatar2 , ps.Size "
-                        + "FROM Product p " 
+                        + "FROM Product p "
                         + "INNER JOIN ProductSize ps ON p.SizeID = ps.SizeID ";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -466,7 +463,7 @@ public class ProductDAO implements Serializable {
                     float price = rs.getInt("Price");
                     int size = rs.getInt("Size");
                     boolean status = rs.getBoolean("Status");
-                     String avatar = rs.getString("Avatar");
+                    String avatar = rs.getString("Avatar");
                     String avatar2 = rs.getString("Avatar2");
                     ProductDTO dto = new ProductDTO(productID, name, description, quantity, price, status, size, avatar, avatar2);
                     if (this.itemsList == null) {
@@ -487,8 +484,6 @@ public class ProductDAO implements Serializable {
             }
         }
     }
-
-  
 
     public boolean createProduct(ProductDTO dto)
             throws SQLException, NamingException {;
@@ -516,7 +511,7 @@ public class ProductDAO implements Serializable {
                 stm.setDate(7, date);
                 stm.setInt(8, dto.getCateID());
                 stm.setInt(9, dto.getBrandID());
-                  stm.setString(10, dto.getAvatar());
+                stm.setString(10, dto.getAvatar());
                 stm.setString(11, dto.getAvatar2());
 
                 int effectedRows = stm.executeUpdate();
@@ -596,9 +591,5 @@ public class ProductDAO implements Serializable {
         }
         return result;
     }
-    
-    
-    
-    
-    
+
 }

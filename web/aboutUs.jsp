@@ -419,15 +419,15 @@
                                         <!-- <img src="assets/image/5obvza.png" alt=""> -->
                                     </div>
                                     <div class="card__img">
-                                        <img src="assets/image/phát.jpg" alt="Phát"
+                                        <img src="images/phát.jpg" alt="Phát"
                                              style="width:100%">
 
                                     </div>
                                     <div class="container__info">
                                         <h2>Nguyễn Tiến Phát</h2>
-                                        <p class="title">CEO & Founder</p>
+                                        <p class="title">CEO & Founder & Backend</p>
                                         <p>Leader.</p>
-                                        <p>phat123@gmail.com</p>
+                                        <p>phat@gmail.com</p>
                                         <p><button class="button">Contact</button></p>
                                     </div>
                                 </div>
@@ -440,12 +440,12 @@
 
                                         <!-- <img src="assets/image/5obvza.png" alt=""> -->
                                     </div>
-                                    <img src="assets/image/dũng.jpg" alt="Dũng" style="width:100%">
+                                    <img src="images/dũng.jpg" alt="Dũng" style="width:100%">
                                     <div class="container__info">
                                         <h2>Nguyễn Văn Dũng</h2>
                                         <p class="title">Front End</p>
                                         <p>Front end</p>
-                                        <p>mike@example.com</p>
+                                        <p>dung@gmail.com</p>
                                         <p><button class="button">Contact</button></p>
                                     </div>
                                 </div>
@@ -458,12 +458,12 @@
 
                                         <!-- <img src="assets/image/5obvza.png" alt=""> -->
                                     </div>
-                                    <img src="assets/image/Thầy Trường.jpg" alt="Trường" style="width:100%">
+                                    <img src="images/Thầy Trường.jpg" alt="Trường" style="width:100%">
                                     <div class="container__info">
                                         <h2>Châu Nhật Trường</h2>
                                         <p class="title">Document writter, backend</p>
                                         <p>Document.</p>
-                                        <p>truong@example.com</p>
+                                        <p>truong@gmail.com</p>
                                         <p><button class="button">Contact</button></p>
                                     </div>
                                 </div>
@@ -477,12 +477,12 @@
 
                                         <!-- <img src="assets/image/5obvza.png" alt=""> -->
                                     </div>
-                                    <img src="assets/image/ảnh cv.jpg" alt="Khoa" style="width:100%">
+                                    <img src="images/ảnh cv.jpg" alt="Khoa" style="width:100%">
                                     <div class="container__info">
                                         <h2>Trương Đinh Đăng Khoa</h2>
                                         <p class="title">Front end</p>
                                         <p>Front end.</p>
-                                        <p>john@example.com</p>
+                                        <p>khoa@gmail.com</p>
                                         <p><button class="button">Contact</button></p>
                                     </div>
                                 </div>
@@ -497,12 +497,12 @@
 
                                         <!-- <img src="assets/image/5obvza.png" alt=""> -->
                                     </div>
-                                    <img src="assets/image/Thầy Duy.jpg" alt="Duy" style="width:100%">
+                                    <img src="images/Duy.jpg" alt="Duy" style="width:100%">
                                     <div class="container__info">
                                         <h2>Nguyễn Thanh Duy</h2>
                                         <p class="title">Back end</p>
                                         <p>Back end</p>
-                                        <p>john@example.com</p>
+                                        <p>duy@gmail.com</p>
                                         <p><button class="button">Contact</button></p>
                                     </div>
                                 </div>

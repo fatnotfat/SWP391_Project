@@ -434,7 +434,7 @@
                                     <c:set var="newestProduct" value="${sessionScope.NEWEST_PRODUCT.get(0)}"/>
 
                                     <div class="product_contain-img">
-                                             <img class="product_secondline-img" src="${pageContext.request.contextPath}/images/${newestProduct.avatar}" alt="">
+                                             <img class="product_secondline-img" src="${pageContext.request.contextPath}/images/Store/${newestProduct.avatar}" alt="">
                                     </div>
 
                                     <div class="product-info">
@@ -518,7 +518,7 @@
                                     </div>
                                     
                                         <div class="product_contain-img">
-                                             <img class="product_thirdline-img" src="${pageContext.request.contextPath}/images/${newestProduct2.avatar}" alt="">
+                                             <img class="product_thirdline-img" src="${pageContext.request.contextPath}/images/Store/${newestProduct2.avatar}" alt="">
                                         </div>
 
                                 </div>

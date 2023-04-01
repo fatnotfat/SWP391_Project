@@ -403,10 +403,10 @@
                         <div class="product__item">
                             <div class="grid__column-8">
                                 <div class="product__item-img">
-                                    <img src="${pageContext.request.contextPath}/images/${itemDetail.avatar}" alt="">
+                                    <img src="${pageContext.request.contextPath}/images/Store/${itemDetail.avatar}" alt="">
                                     <div class="product__item-img-group-2">
                                        
-                                       <img src="${pageContext.request.contextPath}/images/${itemDetail.avatar2}" alt="">
+                                       <img src="${pageContext.request.contextPath}/images/Store/${itemDetail.avatar2}" alt="">
 
                                     </div>
 
@@ -578,8 +578,8 @@
                                                 <a class="more__item">
                                                     <div class="more__item-img">
                                                         <div class="card">
-                                                            <img class="img-back"  src="${pageContext.request.contextPath}/images/${dto.avatar}">
-                                                            <img  src="${pageContext.request.contextPath}/images/${dto.avatar2}" class="img-top" alt="Card Front">
+                                                            <img class="img-back"  src="${pageContext.request.contextPath}/images/Store/${dto.avatar}">
+                                                            <img  src="${pageContext.request.contextPath}/images/Store/${dto.avatar2}" class="img-top" alt="Card Front">
                                                         </div>
                                                     </div>
                                                     <div class="more__item-content">

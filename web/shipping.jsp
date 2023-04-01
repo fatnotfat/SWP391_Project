@@ -635,7 +635,7 @@
                                                 </label>
                                             </div>
 
-                                            <div class="shipping-info-left-form-delivery-store">
+<!--                                            <div class="shipping-info-left-form-delivery-store">
                                                 <label class="radio-label">
                                                     <div class="radio-input">
                                                         <input
@@ -650,7 +650,7 @@
                                                           >Pick up at the store</span
                                                     >
                                                 </label>
-                                            </div>
+                                            </div>-->
 
                                         </div>
                                         <c:if test="${not empty errors.shippingIDLengthError}">
@@ -859,7 +859,7 @@
                                                     </div>
                                                     <input type="hidden" id="txtWardDataName" name="txtWardDataName" value="">
                                                 </div>
-                                                <div class="shipping-info-left-form-delivery-store">
+<!--                                                <div class="shipping-info-left-form-delivery-store">
                                                     <label class="radio-label">
                                                         <div class="radio-input">
                                                             <input
@@ -873,7 +873,7 @@
                                                               >Pick up at the store</span
                                                         >
                                                     </label>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -920,7 +920,7 @@
                                                     <div class="container">
                                                         <div class="shipping-info-right-product-logo-img">
                                                             <img
-                                                                src="${pageContext.request.contextPath}/images/${dto.avatar}"
+                                                                src="${pageContext.request.contextPath}/images/Store/${detail.value.avatar}"
                                                                 
                                                                 class="shipping-info-right-product-logo-img-pic"
                                                                 />
