@@ -45,7 +45,7 @@ public class AdminFeedBackListServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String url = siteMaps.getProperty(
-                MyApplicationConstants.AdminFeedBackListServlet.ADMINFEEDBACKLIST_PAGE);
+                MyApplicationConstants.AdminFeedBackListServlet.ADMIN_FEEDBACK_LIST_PAGE);
           // Check if user is logged in
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("USER") == null) {
@@ -60,7 +60,7 @@ public class AdminFeedBackListServlet extends HttpServlet {
             List<FeedBackDTO> result = dao.getFeedBackList();
             request.setAttribute("FEEDBACKLIST_RESULT", result);
             url = siteMaps.getProperty(
-                    MyApplicationConstants.AdminFeedBackListServlet.ADMINFEEDBACKLIST_PAGE);
+                    MyApplicationConstants.AdminFeedBackListServlet.ADMIN_FEEDBACK_LIST_PAGE);
         } catch (NamingException ex) {
             log("AdminFeedBackListServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

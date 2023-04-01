@@ -12,6 +12,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%@page import="swp391.cart.CartObject"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="swp391.product.ProductDTO"%>
+
 <!DOCTYPE html>
 <html>
     <head>

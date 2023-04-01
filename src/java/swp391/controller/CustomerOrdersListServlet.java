@@ -1,12 +1,7 @@
-    /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package swp391.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -49,13 +44,13 @@ public class CustomerOrdersListServlet extends HttpServlet {
         CustomerDTO user = (CustomerDTO) session.getAttribute("USER");
         OrdersDAO ordersDAO = new OrdersDAO();
         String url = siteMaps.getProperty(
-                MyApplicationConstants.CustomerOrdersList.CUSTOMERORDERSLIST_PAGE);
+                MyApplicationConstants.CustomerOrdersList.CUSTOMER_ORDERS_LIST_PAGE);
         try {
             List<OrdersDTO> listOrders = ordersDAO.getListOrdersByCusId(user.getCustomerID());
             if (listOrders != null) {
                 request.setAttribute("ORDERS_LIST_FOR_USER", listOrders);
                 url = siteMaps.getProperty(
-                        MyApplicationConstants.CustomerOrdersList.CUSTOMERORDERSLIST_PAGE);
+                        MyApplicationConstants.CustomerOrdersList.CUSTOMER_ORDERS_LIST_PAGE);
             }
 
         } catch (NamingException ex) {

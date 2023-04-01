@@ -27,8 +27,14 @@ import org.apache.http.client.fluent.Form;
 import swp391.cart.CartDAO;
 import swp391.cart.CartDTO;
 import swp391.cart.CartObject;
+import swp391.category.CategoryDAO;
+import swp391.category.CategoryDTO;
 import swp391.customer.CustomerDAO;
 import swp391.customer.CustomerDTO;
+import swp391.orders.OrdersDAO;
+import swp391.orders.OrdersDTO;
+import swp391.product.ProductDAO;
+import swp391.product.ProductDTO;
 import swp391.utils.MyApplicationConstants;
 
 /**
@@ -64,6 +70,8 @@ public class LoginGoogleHandler extends HttpServlet {
                 String email = user.getEmail();
                 //1.Call dao
                 CustomerDAO dao = new CustomerDAO();
+                ProductDAO productDao = new ProductDAO();
+                CategoryDAO categoryDao = new CategoryDAO();
                 if (!dao.checkEmail(email)) {
                     //TH1: Check trc neu chua ton tai email thi tu dang ky tai khoan
 
@@ -90,10 +98,24 @@ public class LoginGoogleHandler extends HttpServlet {
                         CartObject cartObject = new CartObject();
                         CustomerDTO result = dao.checkEmailAlreadyRegister(email);
                         List<CartDTO> list = cartDao.getCart(result.getCustomerID());
+                        OrdersDAO ordersDAO = new OrdersDAO();
+                        List<OrdersDTO> customerOrders = ordersDAO.getCustomerShippingInFoByCusID(result.getCustomerID());
+                        session.setAttribute("USER_SHIPPINGINFO", customerOrders);
+
+                        List<OrdersDTO> listOrders = ordersDAO.getTopOneOrdersByCusId(result.getCustomerID());
+                        session.setAttribute("ORDERS_LIST_OF_USER", listOrders);
+                        
                         if (list != null) {
                             cartObject.insertToCartUser(list);
                         }
                         session.setAttribute("CART", cartObject);
+                        //get newest product
+                        List<ProductDTO> productList = productDao.getNewestProduct();
+                        session.setAttribute("NEWEST_PRODUCT", productList);
+                        List<ProductDTO> productList2 = productDao.getSecondNewestProduct();
+                        session.setAttribute("SECOND_NEWEST_PRODUCT", productList2);
+                        List<CategoryDTO> categoryList = categoryDao.getListCategory();
+                        session.setAttribute("CATEGORY", categoryList);
                     } else {
                         //neu nhu dang nhap binh thuong thi khong cho dang nhap
                         url = siteMaps.getProperty(
